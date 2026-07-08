@@ -1,0 +1,12 @@
+{
+  "name": "fractal",
+  "version": "0.1.0",
+  "description": "Fractal tasks for your agent — create, read, update and complete tasks on tasks.bos.pro via MCP",
+  "author": { "name": "BOS" },
+  "mcpServers": {
+    "fractal": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/fractal-mcp.mjs"]
+    }
+  }
+}
