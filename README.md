@@ -1,13 +1,13 @@
-# Fractal MCP plugin (Claude Code)
+# Fractal MCP (Claude Code + Claude Desktop)
 
-Плагин даёт агенту доступ к задачам Fractal (`tasks.bos.pro`): создание, чтение,
-обновление и закрытие задач через MCP, плюс браузер-логин одним тулом. MCP-сервер
-**забандлен внутрь** плагина (один файл `dist/fractal-mcp.mjs`) — ни npm, ни сборки не нужно.
+Даёт агенту доступ к задачам Fractal (`tasks.bos.pro`): навигация по дереву, чтение,
+создание/обновление, зависимости, перемещение, поиск — плюс браузер-логин одним тулом.
+MCP-сервер **забандлен в один файл** — ни npm, ни сборки на стороне пользователя не нужно.
 
 ## Установка (Claude Code)
 
 ```
-/plugin marketplace add agiens/fractal-mcp-plugin
+/plugin marketplace add k34090705-create/fractal-mcp-plugin
 /plugin install fractal@fractal
 ```
 
@@ -17,23 +17,44 @@
 ```
 И дальше: «создай задачу X и переведи её в done» — увидишь на доске `tasks.bos.pro`.
 
-> Плагины поддерживает только **Claude Code**. Для Cursor / Claude Desktop подключайте
-> MCP-сервер напрямую (см. основной репозиторий, вариант `npx`).
+## Установка (Claude Desktop)
+
+Плагины-маркетплейс — это только Claude Code. Для Desktop есть готовый `.mcpb`-бандл:
+
+1. Скачай [`desktop/fractal-mcp-0.1.0.mcpb`](desktop/fractal-mcp-0.1.0.mcpb).
+2. Открой Claude Desktop → **Settings → Extensions** и перетащи туда файл (или дважды кликни по нему) → **Install**.
+3. Вызови тул `fractal_login` — откроется браузер, токен сохранится в `~/.fractal`.
+
+Node ставить не нужно — рантайм внутри Desktop. Токен общий с Claude Code (`~/.fractal/config.json`),
+так что если уже логинился в Code — Desktop подхватит его сам.
 
 ## Тулы
 
 | Tool | Что делает |
 |---|---|
 | `fractal_login` | Браузер-логин, сохраняет scoped-токен в `~/.fractal` |
-| `fractal_list_tasks` | Загрузить поддерево задач |
+| `fractal_get_subtree` | Компактный digest поддерева — рекомендуемая навигация (дёшево по контексту) |
+| `fractal_get_task` | Одна задача целиком (content) + комментарии |
+| `fractal_search` | Поиск задач по заголовку внутри scope токена |
+| `fractal_list_tasks` | Полный дамп поддерева (тяжёлый — крайняя мера) |
 | `fractal_create_task` | Создать задачу |
 | `fractal_update_task` | Обновить задачу (в т.ч. `column_id: "done"`) |
+| `fractal_add_comment` | Добавить комментарий к задаче |
+| `fractal_add_dependency` | Зависимость blocker → blocked (или снять её) |
+| `fractal_move_task` | Переместить задачу (родитель / lane) |
 | `fractal_delete_task` | Удалить задачу |
 
 ## Обновление сервера
 
-`dist/fractal-mcp.mjs` — собранный бандл из `mcp-server/` основного репозитория:
+Оба бандла (`dist/fractal-mcp.mjs` для Code и `desktop/server/index.mjs` для Desktop) —
+собранный esbuild-бандл из `mcp-server/` основного репозитория. Пересборка:
+
 ```bash
+# из origin/main основного репо (локальный main бывает отстаёт)
 npx esbuild mcp-server/src/index.ts --bundle --platform=node --format=esm \
   --target=node18 --outfile=dist/fractal-mcp.mjs
+cp dist/fractal-mcp.mjs desktop/server/index.mjs
+
+# пересобрать .mcpb для Desktop
+cd desktop && npx @anthropic-ai/mcpb pack . fractal-mcp-0.1.0.mcpb
 ```
