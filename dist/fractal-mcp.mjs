@@ -15542,10 +15542,10 @@ var FractalClient = class {
       ...opts.newLane !== void 0 ? { newLane: opts.newLane } : {}
     });
   }
-  // DELETE /widget-api-delete/{token}/tasks/{taskId} — токен в пути
+  // POST /widget-api-board (action: delete) — scope + permission enforce на сервере.
+  // (заменил легаси widget-api-delete, который удалял по UUID мимо scope токена)
   deleteTask(taskId) {
-    const url = `${this.baseUrl}/widget-api-delete/${encodeURIComponent(this.token)}/tasks/${encodeURIComponent(taskId)}`;
-    return this.send(url, { method: "DELETE" });
+    return this.board({ action: "delete", taskId });
   }
   async send(url, init) {
     const res = await this.fetchImpl(url, init);
