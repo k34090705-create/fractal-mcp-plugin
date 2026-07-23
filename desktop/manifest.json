@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "fractal-mcp",
   "display_name": "Fractal",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Доступ к задачам Fractal (tasks.bos.pro) из Claude: навигация по дереву, чтение, создание/обновление, зависимости, перемещение, поиск. Вход — через браузер (fractal_login), токен scoped на твоё поддерево.",
   "author": {
     "name": "Fractal"
