@@ -29,9 +29,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/ajv/dist/compile/codegen/code.js
+// mcp-server/node_modules/ajv/dist/compile/codegen/code.js
 var require_code = __commonJS({
-  "node_modules/ajv/dist/compile/codegen/code.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/codegen/code.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.regexpCode = exports.getEsmExportName = exports.getProperty = exports.safeStringify = exports.stringify = exports.strConcat = exports.addCodeArg = exports.str = exports._ = exports.nil = exports._Code = exports.Name = exports.IDENTIFIER = exports._CodeOrName = void 0;
@@ -183,9 +183,9 @@ var require_code = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/codegen/scope.js
+// mcp-server/node_modules/ajv/dist/compile/codegen/scope.js
 var require_scope = __commonJS({
-  "node_modules/ajv/dist/compile/codegen/scope.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/codegen/scope.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ValueScope = exports.ValueScopeName = exports.Scope = exports.varKinds = exports.UsedValueState = void 0;
@@ -328,9 +328,9 @@ var require_scope = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/codegen/index.js
+// mcp-server/node_modules/ajv/dist/compile/codegen/index.js
 var require_codegen = __commonJS({
-  "node_modules/ajv/dist/compile/codegen/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/codegen/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.or = exports.and = exports.not = exports.CodeGen = exports.operators = exports.varKinds = exports.ValueScopeName = exports.ValueScope = exports.Scope = exports.Name = exports.regexpCode = exports.stringify = exports.getProperty = exports.nil = exports.strConcat = exports.str = exports._ = void 0;
@@ -1048,9 +1048,9 @@ var require_codegen = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/util.js
+// mcp-server/node_modules/ajv/dist/compile/util.js
 var require_util = __commonJS({
-  "node_modules/ajv/dist/compile/util.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/util.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.checkStrictMode = exports.getErrorPath = exports.Type = exports.useFunc = exports.setEvaluated = exports.evaluatedPropsToName = exports.mergeEvaluated = exports.eachItem = exports.unescapeJsonPointer = exports.escapeJsonPointer = exports.escapeFragment = exports.unescapeFragment = exports.schemaRefOrVal = exports.schemaHasRulesButRef = exports.schemaHasRules = exports.checkUnknownRules = exports.alwaysValidSchema = exports.toHash = void 0;
@@ -1215,9 +1215,9 @@ var require_util = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/names.js
+// mcp-server/node_modules/ajv/dist/compile/names.js
 var require_names = __commonJS({
-  "node_modules/ajv/dist/compile/names.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/names.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -1254,9 +1254,9 @@ var require_names = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/errors.js
+// mcp-server/node_modules/ajv/dist/compile/errors.js
 var require_errors = __commonJS({
-  "node_modules/ajv/dist/compile/errors.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.extendErrors = exports.resetErrorsCount = exports.reportExtraError = exports.reportError = exports.keyword$DataError = exports.keywordError = void 0;
@@ -1376,9 +1376,9 @@ var require_errors = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/validate/boolSchema.js
+// mcp-server/node_modules/ajv/dist/compile/validate/boolSchema.js
 var require_boolSchema = __commonJS({
-  "node_modules/ajv/dist/compile/validate/boolSchema.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/validate/boolSchema.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.boolOrEmptySchema = exports.topBoolOrEmptySchema = void 0;
@@ -1427,9 +1427,9 @@ var require_boolSchema = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/rules.js
+// mcp-server/node_modules/ajv/dist/compile/rules.js
 var require_rules = __commonJS({
-  "node_modules/ajv/dist/compile/rules.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/rules.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getRules = exports.isJSONType = void 0;
@@ -1458,9 +1458,9 @@ var require_rules = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/validate/applicability.js
+// mcp-server/node_modules/ajv/dist/compile/validate/applicability.js
 var require_applicability = __commonJS({
-  "node_modules/ajv/dist/compile/validate/applicability.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/validate/applicability.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.shouldUseRule = exports.shouldUseGroup = exports.schemaHasRulesForType = void 0;
@@ -1481,9 +1481,9 @@ var require_applicability = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/validate/dataType.js
+// mcp-server/node_modules/ajv/dist/compile/validate/dataType.js
 var require_dataType = __commonJS({
-  "node_modules/ajv/dist/compile/validate/dataType.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/validate/dataType.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.reportTypeError = exports.checkDataTypes = exports.checkDataType = exports.coerceAndCheckDataType = exports.getJSONTypes = exports.getSchemaTypes = exports.DataType = void 0;
@@ -1665,9 +1665,9 @@ var require_dataType = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/validate/defaults.js
+// mcp-server/node_modules/ajv/dist/compile/validate/defaults.js
 var require_defaults = __commonJS({
-  "node_modules/ajv/dist/compile/validate/defaults.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/validate/defaults.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.assignDefaults = void 0;
@@ -1702,9 +1702,9 @@ var require_defaults = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/code.js
+// mcp-server/node_modules/ajv/dist/vocabularies/code.js
 var require_code2 = __commonJS({
-  "node_modules/ajv/dist/vocabularies/code.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/code.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateUnion = exports.validateArray = exports.usePattern = exports.callValidateCode = exports.schemaProperties = exports.allSchemaProperties = exports.noPropertyInData = exports.propertyInData = exports.isOwnProperty = exports.hasPropFunc = exports.reportMissingProp = exports.checkMissingProp = exports.checkReportMissingProp = void 0;
@@ -1835,9 +1835,9 @@ var require_code2 = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/validate/keyword.js
+// mcp-server/node_modules/ajv/dist/compile/validate/keyword.js
 var require_keyword = __commonJS({
-  "node_modules/ajv/dist/compile/validate/keyword.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/validate/keyword.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateKeywordUsage = exports.validSchemaType = exports.funcKeywordCode = exports.macroKeywordCode = void 0;
@@ -1953,9 +1953,9 @@ var require_keyword = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/validate/subschema.js
+// mcp-server/node_modules/ajv/dist/compile/validate/subschema.js
 var require_subschema = __commonJS({
-  "node_modules/ajv/dist/compile/validate/subschema.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/validate/subschema.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.extendSubschemaMode = exports.extendSubschemaData = exports.getSubschema = void 0;
@@ -2036,9 +2036,9 @@ var require_subschema = __commonJS({
   }
 });
 
-// node_modules/fast-deep-equal/index.js
+// mcp-server/node_modules/fast-deep-equal/index.js
 var require_fast_deep_equal = __commonJS({
-  "node_modules/fast-deep-equal/index.js"(exports, module) {
+  "mcp-server/node_modules/fast-deep-equal/index.js"(exports, module) {
     "use strict";
     module.exports = function equal(a, b) {
       if (a === b) return true;
@@ -2071,9 +2071,9 @@ var require_fast_deep_equal = __commonJS({
   }
 });
 
-// node_modules/json-schema-traverse/index.js
+// mcp-server/node_modules/json-schema-traverse/index.js
 var require_json_schema_traverse = __commonJS({
-  "node_modules/json-schema-traverse/index.js"(exports, module) {
+  "mcp-server/node_modules/json-schema-traverse/index.js"(exports, module) {
     "use strict";
     var traverse = module.exports = function(schema, opts, cb) {
       if (typeof opts == "function") {
@@ -2159,9 +2159,9 @@ var require_json_schema_traverse = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/resolve.js
+// mcp-server/node_modules/ajv/dist/compile/resolve.js
 var require_resolve = __commonJS({
-  "node_modules/ajv/dist/compile/resolve.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/resolve.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getSchemaRefs = exports.resolveUrl = exports.normalizeId = exports._getFullPath = exports.getFullPath = exports.inlineRef = void 0;
@@ -2315,9 +2315,9 @@ var require_resolve = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/validate/index.js
+// mcp-server/node_modules/ajv/dist/compile/validate/index.js
 var require_validate = __commonJS({
-  "node_modules/ajv/dist/compile/validate/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/validate/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getData = exports.KeywordCxt = exports.validateFunctionCode = void 0;
@@ -2823,9 +2823,9 @@ var require_validate = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/runtime/validation_error.js
+// mcp-server/node_modules/ajv/dist/runtime/validation_error.js
 var require_validation_error = __commonJS({
-  "node_modules/ajv/dist/runtime/validation_error.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/runtime/validation_error.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var ValidationError = class extends Error {
@@ -2839,9 +2839,9 @@ var require_validation_error = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/ref_error.js
+// mcp-server/node_modules/ajv/dist/compile/ref_error.js
 var require_ref_error = __commonJS({
-  "node_modules/ajv/dist/compile/ref_error.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/ref_error.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var resolve_1 = require_resolve();
@@ -2856,9 +2856,9 @@ var require_ref_error = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/compile/index.js
+// mcp-server/node_modules/ajv/dist/compile/index.js
 var require_compile = __commonJS({
-  "node_modules/ajv/dist/compile/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/compile/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.resolveSchema = exports.getCompilingSchema = exports.resolveRef = exports.compileSchema = exports.SchemaEnv = void 0;
@@ -3080,9 +3080,9 @@ var require_compile = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/refs/data.json
+// mcp-server/node_modules/ajv/dist/refs/data.json
 var require_data = __commonJS({
-  "node_modules/ajv/dist/refs/data.json"(exports, module) {
+  "mcp-server/node_modules/ajv/dist/refs/data.json"(exports, module) {
     module.exports = {
       $id: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#",
       description: "Meta-schema for $data reference (JSON AnySchema extension proposal)",
@@ -3099,9 +3099,9 @@ var require_data = __commonJS({
   }
 });
 
-// node_modules/fast-uri/lib/utils.js
+// mcp-server/node_modules/fast-uri/lib/utils.js
 var require_utils = __commonJS({
-  "node_modules/fast-uri/lib/utils.js"(exports, module) {
+  "mcp-server/node_modules/fast-uri/lib/utils.js"(exports, module) {
     "use strict";
     var isUUID = RegExp.prototype.test.bind(/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/iu);
     var isIPv4 = RegExp.prototype.test.bind(/^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)$/u);
@@ -3412,9 +3412,9 @@ var require_utils = __commonJS({
   }
 });
 
-// node_modules/fast-uri/lib/schemes.js
+// mcp-server/node_modules/fast-uri/lib/schemes.js
 var require_schemes = __commonJS({
-  "node_modules/fast-uri/lib/schemes.js"(exports, module) {
+  "mcp-server/node_modules/fast-uri/lib/schemes.js"(exports, module) {
     "use strict";
     var { isUUID } = require_utils();
     var URN_REG = /([\da-z][\d\-a-z]{0,31}):((?:[\w!$'()*+,\-.:;=@]|%[\da-f]{2})+)/iu;
@@ -3622,9 +3622,9 @@ var require_schemes = __commonJS({
   }
 });
 
-// node_modules/fast-uri/index.js
+// mcp-server/node_modules/fast-uri/index.js
 var require_fast_uri = __commonJS({
-  "node_modules/fast-uri/index.js"(exports, module) {
+  "mcp-server/node_modules/fast-uri/index.js"(exports, module) {
     "use strict";
     var { normalizeIPv6, removeDotSegments, recomposeAuthority, normalizePercentEncoding, normalizePathEncoding, escapePreservingEscapes, reescapeHostDelimiters, isIPv4, nonSimpleDomain } = require_utils();
     var { SCHEMES, getSchemeHandler } = require_schemes();
@@ -3908,9 +3908,9 @@ var require_fast_uri = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/runtime/uri.js
+// mcp-server/node_modules/ajv/dist/runtime/uri.js
 var require_uri = __commonJS({
-  "node_modules/ajv/dist/runtime/uri.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/runtime/uri.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var uri = require_fast_uri();
@@ -3919,9 +3919,9 @@ var require_uri = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/core.js
+// mcp-server/node_modules/ajv/dist/core.js
 var require_core = __commonJS({
-  "node_modules/ajv/dist/core.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/core.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
@@ -4530,9 +4530,9 @@ var require_core = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/core/id.js
+// mcp-server/node_modules/ajv/dist/vocabularies/core/id.js
 var require_id = __commonJS({
-  "node_modules/ajv/dist/vocabularies/core/id.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/core/id.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var def = {
@@ -4545,9 +4545,9 @@ var require_id = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/core/ref.js
+// mcp-server/node_modules/ajv/dist/vocabularies/core/ref.js
 var require_ref = __commonJS({
-  "node_modules/ajv/dist/vocabularies/core/ref.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/core/ref.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.callRef = exports.getValidate = void 0;
@@ -4667,9 +4667,9 @@ var require_ref = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/core/index.js
+// mcp-server/node_modules/ajv/dist/vocabularies/core/index.js
 var require_core2 = __commonJS({
-  "node_modules/ajv/dist/vocabularies/core/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/core/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var id_1 = require_id();
@@ -4688,9 +4688,9 @@ var require_core2 = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/limitNumber.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitNumber.js
 var require_limitNumber = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/limitNumber.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitNumber.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4720,9 +4720,9 @@ var require_limitNumber = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/multipleOf.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/multipleOf.js
 var require_multipleOf = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/multipleOf.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/multipleOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4748,9 +4748,9 @@ var require_multipleOf = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/runtime/ucs2length.js
+// mcp-server/node_modules/ajv/dist/runtime/ucs2length.js
 var require_ucs2length = __commonJS({
-  "node_modules/ajv/dist/runtime/ucs2length.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/runtime/ucs2length.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function ucs2length(str) {
@@ -4774,9 +4774,9 @@ var require_ucs2length = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/limitLength.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitLength.js
 var require_limitLength = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/limitLength.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitLength.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4806,9 +4806,9 @@ var require_limitLength = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/pattern.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/pattern.js
 var require_pattern = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/pattern.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/pattern.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -4843,9 +4843,9 @@ var require_pattern = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/limitProperties.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitProperties.js
 var require_limitProperties = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/limitProperties.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitProperties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4872,9 +4872,9 @@ var require_limitProperties = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/required.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/required.js
 var require_required = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/required.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/required.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -4954,9 +4954,9 @@ var require_required = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/limitItems.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitItems.js
 var require_limitItems = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/limitItems.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4983,9 +4983,9 @@ var require_limitItems = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/runtime/equal.js
+// mcp-server/node_modules/ajv/dist/runtime/equal.js
 var require_equal = __commonJS({
-  "node_modules/ajv/dist/runtime/equal.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/runtime/equal.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var equal = require_fast_deep_equal();
@@ -4994,9 +4994,9 @@ var require_equal = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/uniqueItems.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js
 var require_uniqueItems = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/uniqueItems.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var dataType_1 = require_dataType();
@@ -5061,9 +5061,9 @@ var require_uniqueItems = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/const.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/const.js
 var require_const = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/const.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/const.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5090,9 +5090,9 @@ var require_const = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/enum.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/enum.js
 var require_enum = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/enum.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/enum.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5139,9 +5139,9 @@ var require_enum = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/validation/index.js
+// mcp-server/node_modules/ajv/dist/vocabularies/validation/index.js
 var require_validation = __commonJS({
-  "node_modules/ajv/dist/vocabularies/validation/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/validation/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var limitNumber_1 = require_limitNumber();
@@ -5177,9 +5177,9 @@ var require_validation = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/additionalItems.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js
 var require_additionalItems = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/additionalItems.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateAdditionalItems = void 0;
@@ -5230,9 +5230,9 @@ var require_additionalItems = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/items.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/items.js
 var require_items = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/items.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/items.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateTuple = void 0;
@@ -5287,9 +5287,9 @@ var require_items = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/prefixItems.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js
 var require_prefixItems = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/prefixItems.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var items_1 = require_items();
@@ -5304,9 +5304,9 @@ var require_prefixItems = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/items2020.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/items2020.js
 var require_items2020 = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/items2020.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/items2020.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5339,9 +5339,9 @@ var require_items2020 = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/contains.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/contains.js
 var require_contains = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/contains.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/contains.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5433,9 +5433,9 @@ var require_contains = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/dependencies.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/dependencies.js
 var require_dependencies = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/dependencies.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/dependencies.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateSchemaDeps = exports.validatePropertyDeps = exports.error = void 0;
@@ -5527,9 +5527,9 @@ var require_dependencies = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/propertyNames.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js
 var require_propertyNames = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/propertyNames.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5570,9 +5570,9 @@ var require_propertyNames = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js
 var require_additionalProperties = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -5676,9 +5676,9 @@ var require_additionalProperties = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/properties.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/properties.js
 var require_properties = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/properties.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/properties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var validate_1 = require_validate();
@@ -5734,9 +5734,9 @@ var require_properties = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/patternProperties.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js
 var require_patternProperties = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/patternProperties.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -5808,9 +5808,9 @@ var require_patternProperties = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/not.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/not.js
 var require_not = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/not.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/not.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util();
@@ -5839,9 +5839,9 @@ var require_not = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/anyOf.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/anyOf.js
 var require_anyOf = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/anyOf.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/anyOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -5856,9 +5856,9 @@ var require_anyOf = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/oneOf.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/oneOf.js
 var require_oneOf = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/oneOf.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/oneOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5914,9 +5914,9 @@ var require_oneOf = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/allOf.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/allOf.js
 var require_allOf = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/allOf.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/allOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util();
@@ -5941,9 +5941,9 @@ var require_allOf = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/if.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/if.js
 var require_if = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/if.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/if.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -6010,9 +6010,9 @@ var require_if = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/thenElse.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/thenElse.js
 var require_thenElse = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/thenElse.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/thenElse.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util();
@@ -6028,9 +6028,9 @@ var require_thenElse = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/applicator/index.js
+// mcp-server/node_modules/ajv/dist/vocabularies/applicator/index.js
 var require_applicator = __commonJS({
-  "node_modules/ajv/dist/vocabularies/applicator/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var additionalItems_1 = require_additionalItems();
@@ -6076,9 +6076,9 @@ var require_applicator = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/format/format.js
+// mcp-server/node_modules/ajv/dist/vocabularies/format/format.js
 var require_format = __commonJS({
-  "node_modules/ajv/dist/vocabularies/format/format.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/format/format.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -6166,9 +6166,9 @@ var require_format = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/format/index.js
+// mcp-server/node_modules/ajv/dist/vocabularies/format/index.js
 var require_format2 = __commonJS({
-  "node_modules/ajv/dist/vocabularies/format/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/format/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var format_1 = require_format();
@@ -6177,9 +6177,9 @@ var require_format2 = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/metadata.js
+// mcp-server/node_modules/ajv/dist/vocabularies/metadata.js
 var require_metadata = __commonJS({
-  "node_modules/ajv/dist/vocabularies/metadata.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/metadata.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.contentVocabulary = exports.metadataVocabulary = void 0;
@@ -6200,9 +6200,9 @@ var require_metadata = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/draft7.js
+// mcp-server/node_modules/ajv/dist/vocabularies/draft7.js
 var require_draft7 = __commonJS({
-  "node_modules/ajv/dist/vocabularies/draft7.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/draft7.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require_core2();
@@ -6222,9 +6222,9 @@ var require_draft7 = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/discriminator/types.js
+// mcp-server/node_modules/ajv/dist/vocabularies/discriminator/types.js
 var require_types = __commonJS({
-  "node_modules/ajv/dist/vocabularies/discriminator/types.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/discriminator/types.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DiscrError = void 0;
@@ -6236,9 +6236,9 @@ var require_types = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/vocabularies/discriminator/index.js
+// mcp-server/node_modules/ajv/dist/vocabularies/discriminator/index.js
 var require_discriminator = __commonJS({
-  "node_modules/ajv/dist/vocabularies/discriminator/index.js"(exports) {
+  "mcp-server/node_modules/ajv/dist/vocabularies/discriminator/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -6341,9 +6341,9 @@ var require_discriminator = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/refs/json-schema-draft-07.json
+// mcp-server/node_modules/ajv/dist/refs/json-schema-draft-07.json
 var require_json_schema_draft_07 = __commonJS({
-  "node_modules/ajv/dist/refs/json-schema-draft-07.json"(exports, module) {
+  "mcp-server/node_modules/ajv/dist/refs/json-schema-draft-07.json"(exports, module) {
     module.exports = {
       $schema: "http://json-schema.org/draft-07/schema#",
       $id: "http://json-schema.org/draft-07/schema#",
@@ -6498,9 +6498,9 @@ var require_json_schema_draft_07 = __commonJS({
   }
 });
 
-// node_modules/ajv/dist/ajv.js
+// mcp-server/node_modules/ajv/dist/ajv.js
 var require_ajv = __commonJS({
-  "node_modules/ajv/dist/ajv.js"(exports, module) {
+  "mcp-server/node_modules/ajv/dist/ajv.js"(exports, module) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MissingRefError = exports.ValidationError = exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = exports.Ajv = void 0;
@@ -6568,9 +6568,9 @@ var require_ajv = __commonJS({
   }
 });
 
-// node_modules/ajv-formats/dist/formats.js
+// mcp-server/node_modules/ajv-formats/dist/formats.js
 var require_formats = __commonJS({
-  "node_modules/ajv-formats/dist/formats.js"(exports) {
+  "mcp-server/node_modules/ajv-formats/dist/formats.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.formatNames = exports.fastFormats = exports.fullFormats = void 0;
@@ -6771,9 +6771,9 @@ var require_formats = __commonJS({
   }
 });
 
-// node_modules/ajv-formats/dist/limit.js
+// mcp-server/node_modules/ajv-formats/dist/limit.js
 var require_limit = __commonJS({
-  "node_modules/ajv-formats/dist/limit.js"(exports) {
+  "mcp-server/node_modules/ajv-formats/dist/limit.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.formatLimitDefinition = void 0;
@@ -6843,9 +6843,9 @@ var require_limit = __commonJS({
   }
 });
 
-// node_modules/ajv-formats/dist/index.js
+// mcp-server/node_modules/ajv-formats/dist/index.js
 var require_dist = __commonJS({
-  "node_modules/ajv-formats/dist/index.js"(exports, module) {
+  "mcp-server/node_modules/ajv-formats/dist/index.js"(exports, module) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var formats_1 = require_formats();
@@ -6885,7 +6885,7 @@ var require_dist = __commonJS({
   }
 });
 
-// node_modules/zod/v4/core/core.js
+// mcp-server/node_modules/zod/v4/core/core.js
 var _a;
 // @__NO_SIDE_EFFECTS__
 function $constructor(name, initializer3, params) {
@@ -6959,7 +6959,7 @@ function config(newConfig) {
   return globalConfig;
 }
 
-// node_modules/zod/v4/core/util.js
+// mcp-server/node_modules/zod/v4/core/util.js
 var util_exports = {};
 __export(util_exports, {
   BIGINT_FORMAT_RANGES: () => BIGINT_FORMAT_RANGES,
@@ -7655,7 +7655,7 @@ var Class = class {
   }
 };
 
-// node_modules/zod/v4/core/errors.js
+// mcp-server/node_modules/zod/v4/core/errors.js
 var initializer = (inst, def) => {
   inst.name = "$ZodError";
   Object.defineProperty(inst, "_zod", {
@@ -7724,7 +7724,7 @@ function formatError(error2, mapper = (issue2) => issue2.message) {
   return fieldErrors;
 }
 
-// node_modules/zod/v4/core/parse.js
+// mcp-server/node_modules/zod/v4/core/parse.js
 var _parse = (_Err) => (schema, value, _ctx, _params) => {
   const ctx = _ctx ? { ..._ctx, async: false } : { async: false };
   const result = schema._zod.run({ value, issues: [] }, ctx);
@@ -7802,7 +7802,7 @@ var _safeDecodeAsync = (_Err) => async (schema, value, _ctx) => {
   return _safeParseAsync(_Err)(schema, value, _ctx);
 };
 
-// node_modules/zod/v4/core/regexes.js
+// mcp-server/node_modules/zod/v4/core/regexes.js
 var cuid = /^[cC][0-9a-z]{6,}$/;
 var cuid2 = /^[0-9a-z]+$/;
 var ulid = /^[0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{26}$/;
@@ -7860,7 +7860,7 @@ var _null = /^null$/i;
 var lowercase = /^[^A-Z]*$/;
 var uppercase = /^[^a-z]*$/;
 
-// node_modules/zod/v4/core/checks.js
+// mcp-server/node_modules/zod/v4/core/checks.js
 var $ZodCheck = /* @__PURE__ */ $constructor("$ZodCheck", (inst, def) => {
   var _a3;
   inst._zod ?? (inst._zod = {});
@@ -8250,7 +8250,7 @@ var $ZodCheckOverwrite = /* @__PURE__ */ $constructor("$ZodCheckOverwrite", (ins
   };
 });
 
-// node_modules/zod/v4/core/doc.js
+// mcp-server/node_modules/zod/v4/core/doc.js
 var Doc = class {
   constructor(args = []) {
     this.content = [];
@@ -8286,14 +8286,14 @@ var Doc = class {
   }
 };
 
-// node_modules/zod/v4/core/versions.js
+// mcp-server/node_modules/zod/v4/core/versions.js
 var version = {
   major: 4,
   minor: 4,
   patch: 3
 };
 
-// node_modules/zod/v4/core/schemas.js
+// mcp-server/node_modules/zod/v4/core/schemas.js
 var $ZodType = /* @__PURE__ */ $constructor("$ZodType", (inst, def) => {
   var _a3;
   inst ?? (inst = {});
@@ -9773,7 +9773,7 @@ function handleRefineResult(result, payload, input, inst) {
   }
 }
 
-// node_modules/zod/v4/locales/en.js
+// mcp-server/node_modules/zod/v4/locales/en.js
 var error = () => {
   const Sizable = {
     string: { unit: "characters", verb: "to have" },
@@ -9886,7 +9886,7 @@ function en_default() {
   };
 }
 
-// node_modules/zod/v4/core/registries.js
+// mcp-server/node_modules/zod/v4/core/registries.js
 var _a2;
 var $output = Symbol("ZodOutput");
 var $input = Symbol("ZodInput");
@@ -9936,7 +9936,7 @@ function registry() {
 (_a2 = globalThis).__zod_globalRegistry ?? (_a2.__zod_globalRegistry = registry());
 var globalRegistry = globalThis.__zod_globalRegistry;
 
-// node_modules/zod/v4/core/api.js
+// mcp-server/node_modules/zod/v4/core/api.js
 // @__NO_SIDE_EFFECTS__
 function _string(Class2, params) {
   return new Class2({
@@ -10464,7 +10464,7 @@ function _check(fn, params) {
   return ch;
 }
 
-// node_modules/zod/v4/core/to-json-schema.js
+// mcp-server/node_modules/zod/v4/core/to-json-schema.js
 function initializeContext(params) {
   let target = params?.target ?? "draft-2020-12";
   if (target === "draft-4")
@@ -10823,7 +10823,7 @@ var createStandardJSONSchemaMethod = (schema, io, processors = {}) => (params) =
   return finalize(ctx, schema);
 };
 
-// node_modules/zod/v4/core/json-schema-processors.js
+// mcp-server/node_modules/zod/v4/core/json-schema-processors.js
 var formatMap = {
   guid: "uuid",
   url: "uri",
@@ -11156,7 +11156,7 @@ var optionalProcessor = (schema, ctx, _json, params) => {
   seen.ref = def.innerType;
 };
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-compat.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-compat.js
 function isZ4Schema(s) {
   const schema = s;
   return !!schema._zod;
@@ -11219,7 +11219,7 @@ function getLiteralValue(schema) {
   return void 0;
 }
 
-// node_modules/zod/v4/classic/iso.js
+// mcp-server/node_modules/zod/v4/classic/iso.js
 var iso_exports = {};
 __export(iso_exports, {
   ZodISODate: () => ZodISODate,
@@ -11260,7 +11260,7 @@ function duration2(params) {
   return _isoDuration(ZodISODuration, params);
 }
 
-// node_modules/zod/v4/classic/errors.js
+// mcp-server/node_modules/zod/v4/classic/errors.js
 var initializer2 = (inst, issues) => {
   $ZodError.init(inst, issues);
   inst.name = "ZodError";
@@ -11299,7 +11299,7 @@ var ZodRealError = /* @__PURE__ */ $constructor("ZodError", initializer2, {
   Parent: Error
 });
 
-// node_modules/zod/v4/classic/parse.js
+// mcp-server/node_modules/zod/v4/classic/parse.js
 var parse2 = /* @__PURE__ */ _parse(ZodRealError);
 var parseAsync2 = /* @__PURE__ */ _parseAsync(ZodRealError);
 var safeParse3 = /* @__PURE__ */ _safeParse(ZodRealError);
@@ -11313,7 +11313,7 @@ var safeDecode2 = /* @__PURE__ */ _safeDecode(ZodRealError);
 var safeEncodeAsync2 = /* @__PURE__ */ _safeEncodeAsync(ZodRealError);
 var safeDecodeAsync2 = /* @__PURE__ */ _safeDecodeAsync(ZodRealError);
 
-// node_modules/zod/v4/classic/schemas.js
+// mcp-server/node_modules/zod/v4/classic/schemas.js
 var _installedGroups = /* @__PURE__ */ new WeakMap();
 function _installLazyMethods(inst, group, methods) {
   const proto = Object.getPrototypeOf(inst);
@@ -12155,10 +12155,10 @@ function preprocess(fn, schema) {
   });
 }
 
-// node_modules/zod/v4/classic/external.js
+// mcp-server/node_modules/zod/v4/classic/external.js
 config(en_default());
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/types.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/types.js
 var LATEST_PROTOCOL_VERSION = "2025-11-25";
 var SUPPORTED_PROTOCOL_VERSIONS = [LATEST_PROTOCOL_VERSION, "2025-06-18", "2025-03-26", "2024-11-05", "2024-10-07"];
 var RELATED_TASK_META_KEY = "io.modelcontextprotocol/related-task";
@@ -13677,18 +13677,18 @@ var UrlElicitationRequiredError = class extends McpError {
   }
 };
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/interfaces.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/interfaces.js
 function isTerminal(status) {
   return status === "completed" || status === "failed" || status === "cancelled";
 }
 
-// node_modules/zod-to-json-schema/dist/esm/Options.js
+// mcp-server/node_modules/zod-to-json-schema/dist/esm/Options.js
 var ignoreOverride = Symbol("Let zodToJsonSchema decide on which parser to use");
 
-// node_modules/zod-to-json-schema/dist/esm/parsers/string.js
+// mcp-server/node_modules/zod-to-json-schema/dist/esm/parsers/string.js
 var ALPHA_NUMERIC = new Set("ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789");
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-json-schema-compat.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-json-schema-compat.js
 function getMethodLiteral(schema) {
   const shape = getObjectShape(schema);
   const methodSchema = shape?.method;
@@ -13709,7 +13709,7 @@ function parseWithCompat(schema, data) {
   return result.data;
 }
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js
 var DEFAULT_REQUEST_TIMEOUT_MSEC = 6e4;
 var Protocol = class {
   constructor(_options) {
@@ -14663,7 +14663,7 @@ function mergeCapabilities(base, additional) {
   return result;
 }
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/validation/ajv-provider.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/validation/ajv-provider.js
 var import_ajv = __toESM(require_ajv(), 1);
 var import_ajv_formats = __toESM(require_dist(), 1);
 function createDefaultAjvInstance() {
@@ -14731,7 +14731,7 @@ var AjvJsonSchemaValidator = class {
   }
 };
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/server.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/server.js
 var ExperimentalServerTasks = class {
   constructor(_server) {
     this._server = _server;
@@ -14944,7 +14944,7 @@ var ExperimentalServerTasks = class {
   }
 };
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/helpers.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/helpers.js
 function assertToolsCallTaskCapability(requests, method, entityName) {
   if (!requests) {
     throw new Error(`${entityName} does not support task creation (required for ${method})`);
@@ -14979,7 +14979,7 @@ function assertClientRequestTaskCapability(requests, method, entityName) {
   }
 }
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js
 var Server = class extends Protocol {
   /**
    * Initializes this server with the given name and version information.
@@ -15359,10 +15359,10 @@ var Server = class extends Protocol {
   }
 };
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
 import process3 from "node:process";
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/shared/stdio.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/stdio.js
 var ReadBuffer = class {
   append(chunk) {
     this._buffer = this._buffer ? Buffer.concat([this._buffer, chunk]) : chunk;
@@ -15390,7 +15390,7 @@ function serializeMessage(message) {
   return JSON.stringify(message) + "\n";
 }
 
-// node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
+// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
 var StdioServerTransport = class {
   constructor(_stdin = process3.stdin, _stdout = process3.stdout) {
     this._stdin = _stdin;
@@ -15451,10 +15451,10 @@ var StdioServerTransport = class {
   }
 };
 
-// src/client.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/client.ts
 import { createHash, randomUUID } from "node:crypto";
 
-// src/errors.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/errors.ts
 var McpErrorCode = {
   TELEMETRY_REJECTED: "TELEMETRY_REJECTED",
   TELEMETRY_DEGRADED: "TELEMETRY_DEGRADED",
@@ -15621,7 +15621,7 @@ var HonestFailureError = class extends Error {
   }
 };
 
-// src/client.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/client.ts
 var DEFAULT_FUNCTIONS_URL = "https://bzqzsvbjpqdjmtkvwsmh.supabase.co/functions/v1";
 var DEFAULT_REQUEST_BUDGET_MS = 45e3;
 var DESKTOP_CLAIM_TTL_MINUTES = 5;
@@ -16526,15 +16526,15 @@ var FractalClient = class _FractalClient {
   }
 };
 
-// src/tools.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/tools.ts
 import { createHash as createHash9 } from "node:crypto";
 
-// src/gates.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/gates.ts
 import { randomUUID as randomUUID5 } from "node:crypto";
 import { existsSync as existsSync3, statSync as statSync3 } from "node:fs";
 import { dirname as dirname2, isAbsolute as isAbsolute2, join as join3, resolve as resolve2, sep as sep2 } from "node:path";
 
-// src/session-telemetry.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-telemetry.ts
 import { execFileSync } from "node:child_process";
 import { createHash as createHash2, randomUUID as randomUUID2 } from "node:crypto";
 import {
@@ -16551,15 +16551,15 @@ import {
 import { homedir } from "node:os";
 import { basename, join } from "node:path";
 
-// src/entry-instructions.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/entry-instructions.ts
 var CANONICAL_FACTORY_ID = "e535d682-1ad7-439c-8cd6-480318570e97";
 var CANONICAL_ENTRY_TASK_ID = CANONICAL_FACTORY_ID;
 var UC_ROUTER_TASK_ID = "7291dc63-cacf-40c1-9048-9b2d76605eb5";
 function buildServerInstructions() {
-  return `Entry: call fractal_load_context with taskIds=[<your token's scope root task id>] (get it via fractal_get_task or fractal_context_hud after login) to load that workspace's entry skill, then follow it. Do not load the whole tree. Example (Factory v1.2 workspace only \u2014 do not use these ids for other workspaces' scope roots): factoryId ${CANONICAL_FACTORY_ID}, taskIds [${CANONICAL_ENTRY_TASK_ID}] (the kernel root is itself the entry), then follow the \u2699\uFE0F Factory v1.2 kernel. Selective context gate (enforced): route task \u2192 use case \u2192 minimal Rules/Skills; fractal_list_tasks, get_subtree(mode:full) and load_context(>8 ids) are rejected without an explicit justification receipt. Session telemetry starts automatically; after choosing a working task call fractal_session_event(event=attach_task, taskId), publish staged checkpoints (stage=PLAN/MILESTONE/DELIVERY/REVIEW/DONE/BLOCKED/HANDOFF) with verifiable receipts, and close the session before a clean handoff. Lifecycle gates (enforced): REVIEW/DONE require attached task + branch/HEAD + prUrl + tests:/evidence: receipts; BLOCKED and any blocker require the SK-10 reality check (blockerMissing/Owner/Cta/ResumeGate + >=2 checked routes + >=1 blockerEvidenceRefs locator) \u2014 also before moving a task to the blocked column; close with an attached task requires a done/next final summary (FR-15). Delegation policy: one primary agent owns the task end-to-end; spawn scout/worker/reviewer subagents only with a concrete reason (large read, parallelizable work, independent review after a stable result) \u2014 a permanent dispatcher subagent is an anti-pattern. Reasoning caps (FR-02 / PRB-22): never apply money, token, or wall-time stop-conditions to reasoning; caps may apply only to output length/tokens. Cutting reasoning for budget is a protocol violation. Never send prompts, reasoning, tool bodies, tokens, or secrets to telemetry.`;
+  return `Entry: call fractal_load_context with taskIds=[<your token's scope root task id>] (get it via fractal_get_task or fractal_context_hud after login) to load that workspace's entry skill, then follow it. Do not load the whole tree. Example (Factory v1.2 workspace only \u2014 do not use these ids for other workspaces' scope roots): factoryId ${CANONICAL_FACTORY_ID}, taskIds [${CANONICAL_ENTRY_TASK_ID}] (the kernel root is itself the entry), then follow the \u2699\uFE0F Factory v1.2 kernel. Selective context gate (enforced): route task \u2192 use case \u2192 minimal Rules/Skills; fractal_list_tasks, get_subtree(mode:full) and load_context(>8 ids) are rejected without an explicit justification receipt. Session telemetry starts automatically; after choosing a working task call fractal_session_event(event=attach_task, taskId), publish staged checkpoints (stage=PLAN/MILESTONE/DELIVERY/REVIEW/DONE/BLOCKED/HANDOFF) with verifiable receipts, and close the session before a clean handoff. Lifecycle gates (enforced): REVIEW/DONE require attached task + branch/HEAD + prUrl + tests:/evidence: receipts; BLOCKED and any blocker require the SK-10 reality check (blockerMissing/Owner/Cta/ResumeGate + >=2 checked routes + >=1 blockerEvidenceRefs locator) \u2014 also before moving a task to the blocked column; close with an attached task requires a done/next final summary (FR-15). Delegation policy: one primary agent owns the task end-to-end; spawn scout/worker/reviewer subagents only with a concrete reason (large read, parallelizable work, independent review after a stable result) \u2014 a permanent dispatcher subagent is an anti-pattern. Capability fallback: when no Fractal MCP tool can perform a necessary, narrowly scoped operation, first record the missing capability and then use the already authenticated Supabase CLI for that exact operation. Do not bypass the task token scope, RLS/authentication, mutation gates, or required human authorization; use read-only inspection first, keep credentials out of output, and record the command outcome/evidence in the owning Fractal task. Reasoning caps (FR-02 / PRB-22): never apply money, token, or wall-time stop-conditions to reasoning; caps may apply only to output length/tokens. Cutting reasoning for budget is a protocol violation. Never send prompts, reasoning, tool bodies, tokens, or secrets to telemetry.`;
 }
 
-// src/archive.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/archive.ts
 function isArchivedColumn(columnId) {
   if (typeof columnId !== "string" || !columnId) return false;
   const c = columnId.toLowerCase();
@@ -16569,7 +16569,7 @@ function isArchivedTask(task) {
   return Boolean(task.archived_at) || isArchivedColumn(task.column_id);
 }
 
-// src/context-receipt.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/context-receipt.ts
 var receipts = /* @__PURE__ */ new Map();
 function cleanTitle(value) {
   return String(value ?? "").replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
@@ -16748,7 +16748,7 @@ function getContextReceipt() {
   };
 }
 
-// src/session-telemetry.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-telemetry.ts
 var UNCONFIRMED_CLOSE_RESULT = "MCP process exited without an explicit session_close receipt";
 var ROTATION_CLOSE_RESULT = "session closed on token rotation before a replacement session started";
 function redactOperationalText(value) {
@@ -17286,7 +17286,7 @@ var SessionTelemetryRuntime = class {
   }
 };
 
-// src/entry-receipt.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/entry-receipt.ts
 import {
   createHash as createHash3,
   createPrivateKey,
@@ -17475,7 +17475,80 @@ function assertInlineKeyProvenance(material, env = process.env) {
     }
   }
 }
-function resolveSigningKey(env = process.env) {
+var WINDOWS_LOCAL_SYSTEM_SID = "S-1-5-18";
+var WINDOWS_BUILTIN_ADMINISTRATORS_SID = "S-1-5-32-544";
+var WINDOWS_KEY_READ_OR_WRITE_MASK = 2032127;
+function normalizeWindowsSid(sid) {
+  return sid.trim().toUpperCase();
+}
+function readWindowsKeyAcl(keyPath) {
+  const script = [
+    "$ErrorActionPreference = 'Stop'",
+    "$acl = Get-Acl -LiteralPath $env:FRACTAL_ENTRY_RECEIPT_ACL_PATH",
+    "$owner = $acl.GetOwner([System.Security.Principal.SecurityIdentifier]).Value",
+    "$currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value",
+    "$access = @($acl.Access | ForEach-Object {",
+    "  $sid = $_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value",
+    "  [pscustomobject]@{ sid = $sid; accessControlType = [string]$_.AccessControlType; rights = [int64]$_.FileSystemRights }",
+    "})",
+    "[pscustomobject]@{ ownerSid = $owner; currentUserSid = $currentUser; access = $access } | ConvertTo-Json -Compress -Depth 3"
+  ].join("; ");
+  const encoded = Buffer.from(script, "utf16le").toString("base64");
+  try {
+    const output = execFileSync2(
+      "powershell.exe",
+      ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-EncodedCommand", encoded],
+      {
+        encoding: "utf8",
+        windowsHide: true,
+        env: { ...process.env, FRACTAL_ENTRY_RECEIPT_ACL_PATH: keyPath }
+      }
+    );
+    const parsed = JSON.parse(output);
+    if (typeof parsed.ownerSid !== "string" || typeof parsed.currentUserSid !== "string" || !Array.isArray(parsed.access) || !parsed.access.every(
+      (entry) => entry && typeof entry.sid === "string" && typeof entry.accessControlType === "string" && typeof entry.rights === "number"
+    )) {
+      throw new Error("ACL output had an unexpected shape");
+    }
+    return parsed;
+  } catch (err) {
+    throw new EntryReceiptKeyError(
+      `entry-receipt signing key ${keyPath} could not be verified through its Windows ACL. Refusing to use a key whose access control cannot be inspected.`
+    );
+  }
+}
+function assertWindowsKeyAclPrivate(keyPath, acl) {
+  const ownerSid = normalizeWindowsSid(acl.ownerSid);
+  const currentUserSid = normalizeWindowsSid(acl.currentUserSid);
+  if (!ownerSid || !currentUserSid || ownerSid !== currentUserSid) {
+    throw new EntryReceiptKeyError(
+      `entry-receipt signing key ${keyPath} is not owned by the current Windows user. Set the owner to the user running Fractal before retrying.`
+    );
+  }
+  const allowed = /* @__PURE__ */ new Set([ownerSid, WINDOWS_LOCAL_SYSTEM_SID, WINDOWS_BUILTIN_ADMINISTRATORS_SID]);
+  for (const entry of acl.access) {
+    const isAllow = entry.accessControlType.trim().toLowerCase() === "allow";
+    const grantsKeyAccess = (entry.rights & WINDOWS_KEY_READ_OR_WRITE_MASK) !== 0;
+    if (isAllow && grantsKeyAccess && !allowed.has(normalizeWindowsSid(entry.sid))) {
+      throw new EntryReceiptKeyError(
+        `entry-receipt signing key ${keyPath} grants read/write access to ${entry.sid}. Only the owner, NT AUTHORITY\\SYSTEM, and BUILTIN\\Administrators may access it.`
+      );
+    }
+  }
+}
+function assertSigningKeyFilePrivate(keyPath, deps = {}) {
+  if ((deps.platform ?? process.platform) === "win32") {
+    assertWindowsKeyAclPrivate(keyPath, (deps.readWindowsAcl ?? readWindowsKeyAcl)(keyPath));
+    return;
+  }
+  const mode = statSync2(keyPath).mode & 511;
+  if (mode & 63) {
+    throw new EntryReceiptKeyError(
+      `entry-receipt signing key ${keyPath} is group/world accessible (mode ${mode.toString(8)}). Run: chmod 600 ${keyPath}`
+    );
+  }
+}
+function resolveSigningKey(env = process.env, securityDeps = {}) {
   const inline = env.FRACTAL_ENTRY_RECEIPT_SIGNING_KEY;
   if (inline && inline.trim()) {
     assertInlineKeyProvenance(inline.trim(), env);
@@ -17497,12 +17570,7 @@ function resolveSigningKey(env = process.env) {
       `entry-receipt signing key not found at ${keyPath} and FRACTAL_ENTRY_RECEIPT_SIGNING_KEY is unset. Entry receipts are never issued unsigned. Generate a keypair with: node .claude/hooks/entry-receipt-keygen.mjs`
     );
   }
-  const mode = statSync2(keyPath).mode & 511;
-  if (mode & 63) {
-    throw new EntryReceiptKeyError(
-      `entry-receipt signing key ${keyPath} is group/world accessible (mode ${mode.toString(8)}). Run: chmod 600 ${keyPath}`
-    );
-  }
+  assertSigningKeyFilePrivate(keyPath, securityDeps);
   const privateKey = privateKeyFromMaterial(readFileSync2(keyPath));
   const publicKey = createPublicKey(privateKey);
   return { privateKey, publicKey, kid: kidForPublicKey(publicKey), source: "file", path: keyPath };
@@ -17581,7 +17649,7 @@ function mintEntryReceipt(input, deps = {}) {
   if (typeof input.ucId !== "string" || !/^[0-9a-fA-F-]{8,64}$/.test(input.ucId)) {
     throw new Error("E_RECEIPT_UC_ID: ucId must be a task uuid");
   }
-  const signingKey = deps.signingKey ?? resolveSigningKey(env);
+  const signingKey = deps.signingKey ?? resolveSigningKey(env, deps.signingKeySecurity);
   const iat = Math.floor(nowMs / 1e3);
   const sessionId = input.sessionId ?? resolveHostSessionId(env);
   const payload = {
@@ -17845,9 +17913,9 @@ var lastStatus = { minted: false, stage: "none" };
 function getEntryReceiptStatus() {
   return { ...lastStatus };
 }
-function recordUcSelected(input, env = process.env) {
+function recordUcSelected(input, env = process.env, mintDeps = {}) {
   try {
-    const minted = mintEntryReceipt(input, { env });
+    const minted = mintEntryReceipt(input, { env, ...mintDeps });
     const preflight = verifyEntryReceipt(minted.jws, {
       sessionId: minted.payload.bind.sid,
       ancestorPids: minted.payload.bind.sid ? [] : [minted.payload.bind.host],
@@ -17911,7 +17979,7 @@ function describeReceiptLocation(env = process.env) {
   return isAbsolute(dir2) ? dir2 : resolve(dir2);
 }
 
-// src/closure-grammar.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/closure-grammar.ts
 var STATUS_RE = /\b(PLAN|MILESTONE|DELIVERY|REVIEW|DONE|BLOCKED|HANDOFF)\b/g;
 var FIELD_LABELS = ["M[", "T[", "P[", "B[", "\u0394[", "RISK[", "J[", "USE[", "SKIP[", "NEXT["];
 function checkSk13Grammar(result) {
@@ -17988,7 +18056,7 @@ function checkFalseDoneCorridor(args) {
   return { ok: true };
 }
 
-// src/plan-check-disclose.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/plan-check-disclose.ts
 var DISCLOSE_VERDICTS = /* @__PURE__ */ new Set(["NO_RULES", "UNAVAILABLE"]);
 function planCheckDiscloseRequired(verdict) {
   return typeof verdict === "string" && DISCLOSE_VERDICTS.has(verdict);
@@ -18012,7 +18080,7 @@ function checkPlanCheckDisclose(result, lastVerdict2) {
   return { ok: false, missing: [`plan_check: ${verdict}`] };
 }
 
-// src/last-plan-verdict.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/last-plan-verdict.ts
 var lastVerdict;
 function setLastPlanVerdict(verdict) {
   lastVerdict = typeof verdict === "string" && verdict.trim() ? verdict.trim() : void 0;
@@ -18023,7 +18091,7 @@ function getLastPlanVerdict() {
   return fromEnv || void 0;
 }
 
-// src/os1-receipt.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/os1-receipt.ts
 import {
   createHash as createHash4,
   createPrivateKey as createPrivateKey2,
@@ -18413,7 +18481,7 @@ function redeemAndAllow(opts) {
   return { allow: true, payload };
 }
 
-// src/gates.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/gates.ts
 var SAFE_PLAN_CHECK_TIMEOUT_MS = DEFAULT_REQUEST_BUDGET_MS - 5e3;
 if (!process.env.PLAN_GATE_TIMEOUT_MS) {
   process.env.PLAN_GATE_TIMEOUT_MS = String(SAFE_PLAN_CHECK_TIMEOUT_MS);
@@ -18970,16 +19038,6 @@ function assertBlockedStatusAllowed(tool) {
     `SK-10 gate: ${tool} \u2192 column "blocked" \u0437\u0430\u043F\u0440\u0435\u0449\u0451\u043D \u0431\u0435\u0437 blocker reality check. \u0421\u043D\u0430\u0447\u0430\u043B\u0430 fractal_session_event(event=checkpoint, stage=BLOCKED, blockerMissing/blockerOwner/blockerCta/blockerResumeGate/blockerCheckedRoutes/blockerEvidenceRefs) \u2014 \u043F\u043E\u0442\u043E\u043C \u0441\u0442\u0430\u0442\u0443\u0441.`
   );
 }
-function isDoneColumn(value) {
-  if (typeof value !== "string") return false;
-  const c = value.toLowerCase();
-  return c.includes("done") || c.includes("\u0433\u043E\u0442\u043E\u0432");
-}
-function assertHumanOnlyStatus(tool) {
-  throw new Error(
-    `Human-only gate: ${tool} \u2192 column "done" \u0437\u0430\u043F\u0440\u0435\u0449\u0451\u043D \u0430\u0433\u0435\u043D\u0442\u0443 (agent self-Done). \u041F\u0435\u0440\u0435\u0432\u043E\u0434 \u0437\u0430\u0434\u0430\u0447\u0438 \u0432 Done \u2014 \u0440\u0435\u0448\u0435\u043D\u0438\u0435 \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430 \u043D\u0430 \u0434\u043E\u0441\u043A\u0435. \u0410\u0433\u0435\u043D\u0442 \u0437\u0430\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0440\u0430\u0431\u043E\u0442\u0443 \u0447\u0435\u0440\u0435\u0437 fractal_session_event(stage=DONE) \u0441 PR/tests/evidence, \u0430 \u043D\u0435 \u0441\u043C\u0435\u043D\u043E\u0439 kanban-\u0441\u0442\u0430\u0442\u0443\u0441\u0430.`
-  );
-}
 var BROAD_LOAD_CONTEXT_IDS = 8;
 var MIN_JUSTIFICATION = 20;
 var HARD_MAX_LOAD_CONTEXT_IDS = 24;
@@ -19100,10 +19158,10 @@ function extractOs1ReceiptJws(args, meta2) {
   return null;
 }
 
-// src/session-allowlist-tools.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-allowlist-tools.ts
 import { createHash as createHash6 } from "node:crypto";
 
-// scripts/session-allowlist.mjs
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/scripts/session-allowlist.mjs
 import {
   existsSync as existsSync4,
   mkdirSync as mkdirSync3,
@@ -19400,7 +19458,7 @@ function decide(cwd, cfg, { workspaceRoots: workspaceRoots2 = [] } = {}) {
   return { decision: "IN", reason: "allowlisted_git", root, git: info };
 }
 
-// src/session-allowlist-tools.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-allowlist-tools.ts
 var LOCAL_ALLOWLIST_TOOL_NAMES = /* @__PURE__ */ new Set([
   "fractal_session_allowlist_preview",
   "fractal_session_allowlist_list",
@@ -19497,7 +19555,7 @@ function mutateAllowlist(name, args, identity, baseUrl) {
   throw new Error(`Unknown local allowlist mutation tool: ${name}`);
 }
 
-// src/issue-card.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/issue-card.ts
 var ISSUE_CARD_RESOURCE_URI = "ui://fractal/issue-card-v1.html";
 var ISSUE_CARD_MIME_TYPE = "text/html;profile=mcp-app";
 var MAX_RELATIONS = 8;
@@ -19780,7 +19838,7 @@ var ISSUE_CARD_HTML = String.raw`<!doctype html>
 </body>
 </html>`;
 
-// src/discovery-projection.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/discovery-projection.ts
 function taskIdOf(task) {
   if (!task || typeof task !== "object") return null;
   const id = task.id;
@@ -19892,7 +19950,7 @@ function projectStructuralRelations(relations) {
   return out;
 }
 
-// src/subtree-truncation.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/subtree-truncation.ts
 var SUBTREE_RESULT_MAX_CHARS = 48e3;
 function serializedSize(value) {
   return JSON.stringify(value, null, 2).length;
@@ -19972,7 +20030,7 @@ function applySubtreeTruncation(payload, maxChars = SUBTREE_RESULT_MAX_CHARS) {
   return buildPayload(base, tasks.slice(0, best), true);
 }
 
-// src/task-truncation.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/task-truncation.ts
 var TASK_RESULT_MAX_CHARS = 15e3;
 var TASK_CONTENT_MIN_CHARS = 1e3;
 var TASK_HEADER_SUFFIX_HEADROOM = 200;
@@ -20353,7 +20411,7 @@ function markContentRead(task, contentMeta, window) {
   for (const key of keys) contentReads.set(key, state2);
 }
 
-// src/body-delivery.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/body-delivery.ts
 import { createHash as createHash7, createHmac, randomUUID as randomUUID6, timingSafeEqual } from "node:crypto";
 var BODY_FRAGMENT_MAX_SCALARS = 5e3;
 var BODY_RESPONSE_MAX_SERIALIZED_BYTES = 24e3;
@@ -20546,8 +20604,17 @@ var BodyDeliveryStore = class {
 };
 var processSessionId;
 var processStore;
+var ephemeralDeliverySecret;
 function deliverySecret() {
-  return process.env.FRACTAL_BODY_DELIVERY_SECRET?.trim() || process.env.FRACTAL_SESSION_KEY?.trim() || "fractal-body-delivery-dev-secret";
+  const secret = process.env.FRACTAL_BODY_DELIVERY_SECRET?.trim() || process.env.FRACTAL_SESSION_KEY?.trim();
+  if (secret) return secret;
+  if (process.env.FRACTAL_BODY_DELIVERY_REQUIRE_SECRET?.trim() === "1") {
+    throw new Error(
+      "FRACTAL_BODY_DELIVERY_SECRET or FRACTAL_SESSION_KEY must be configured for body delivery"
+    );
+  }
+  ephemeralDeliverySecret ??= randomUUID6();
+  return ephemeralDeliverySecret;
 }
 function getBodyDeliverySessionId() {
   const fromEnv = process.env.FRACTAL_SESSION_ID?.trim();
@@ -20649,7 +20716,7 @@ function enforceBodyDeliveryResponseBudget(payload) {
   }
 }
 
-// src/field-preflight.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/field-preflight.ts
 import { randomUUID as randomUUID7 } from "node:crypto";
 var ORDER_TTL_MS = 10 * 60 * 1e3;
 var orders = /* @__PURE__ */ new Map();
@@ -20780,7 +20847,7 @@ function validateMoveOrder(orderId, destinationStatus) {
   return validateOrder(orderId, "move", destinationStatus, "destination status");
 }
 
-// src/plan-gate.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/plan-gate.ts
 import { spawnSync } from "node:child_process";
 import { createHash as createHash8 } from "node:crypto";
 var lastReceipt;
@@ -21052,7 +21119,7 @@ function planGateRejectionMessage(context) {
   return `Plan-gate: ${verdictReason ?? "\u043C\u0443\u0442\u0430\u0446\u0438\u044F \u043D\u0435 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u0430"} (${tag})`;
 }
 
-// src/tools.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/tools.ts
 var HUD_RESOURCE_URI = "ui://fractal/context-hud-v1.html";
 var PLAN_HASH_PROP = {
   type: "string",
@@ -22156,7 +22223,6 @@ function runTool(client, name, args, sessionRuntime) {
         throw new Error(validation.reason);
       }
       if (isBlockedColumn(task.column_id)) assertBlockedStatusAllowed(name);
-      if (isDoneColumn(task.column_id)) assertHumanOnlyStatus(name);
       if (
         // Mirror fractal_update_task: the schema declares integer/minimum:1, so
         // 2.5, 0 and -5 must not slip through to a wasted round-trip.
@@ -22188,7 +22254,6 @@ function runTool(client, name, args, sessionRuntime) {
         throw new Error(validation.reason);
       }
       if (isBlockedColumn(updates.column_id)) assertBlockedStatusAllowed(name);
-      if (isDoneColumn(updates.column_id)) assertHumanOnlyStatus(name);
       if (typeof args.expectedRevision !== "number" || !Number.isSafeInteger(args.expectedRevision) || args.expectedRevision < 1) {
         throw new Error(
           "fractal_update_task requires expectedRevision \u2014 read it from fractal_get_task first"
@@ -22280,7 +22345,6 @@ function runTool(client, name, args, sessionRuntime) {
         throw new Error(moveValidation.reason);
       }
       if (isBlockedColumn(args.newLane)) assertBlockedStatusAllowed(name);
-      if (isDoneColumn(args.newLane)) assertHumanOnlyStatus(name);
       return planGateTail(
         {
           tool: name,
@@ -22406,7 +22470,7 @@ function runTool(client, name, args, sessionRuntime) {
   }
 }
 
-// src/context-contract.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/context-contract.ts
 var CONTEXT_READ_CAPABILITY = "fractal.mcp.context_read";
 var CONTEXT_READ_ACTIVE_VERSION = "3-layer/v1";
 var CONTEXT_READ_LEGACY_SAFE_VERSION = "legacy-safe/v0";
@@ -22435,7 +22499,7 @@ function attachContextContract(payload, contract) {
   return { ...payload, _contract: contract };
 }
 
-// src/config.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/config.ts
 import { homedir as homedir4 } from "node:os";
 import { join as join5 } from "node:path";
 import { mkdirSync as mkdirSync4, readFileSync as readFileSync4, writeFileSync as writeFileSync4 } from "node:fs";
@@ -22458,7 +22522,7 @@ function writeToken(token, expires_at) {
   return file();
 }
 
-// src/login.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/login.ts
 import http from "node:http";
 import { spawn } from "node:child_process";
 var DEFAULT_APP_URL = "https://tasks.bos.pro";
@@ -22512,7 +22576,7 @@ function login(appUrl = process.env.FRACTAL_APP_URL || DEFAULT_APP_URL) {
   });
 }
 
-// src/receipt-plane.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/receipt-plane.ts
 var CORRIDOR_TOOL_NAMES = /* @__PURE__ */ new Set([
   "fractal_create_task",
   "fractal_update_task",
@@ -22643,7 +22707,7 @@ function toCorridorToolResult(result) {
   return response;
 }
 
-// src/entry-gate-dispatch.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/entry-gate-dispatch.ts
 function applyEntryLoadResult(managedAuth, name, result) {
   if (!managedAuth && name === "fractal_load_context") {
     markEntryLoadedFromLoadContextResult(result);
@@ -22653,7 +22717,7 @@ function shouldAttachDesktopHarness(managedAuth, name) {
   return !managedAuth && !CORRIDOR_TOOL_NAMES.has(name);
 }
 
-// src/hud.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/hud.ts
 var HUD_RESOURCE_URI2 = "ui://fractal/context-hud-v1.html";
 var HUD_MIME_TYPE = "text/html;profile=mcp-app";
 var HUD_HTML = String.raw`<!doctype html>
@@ -22735,7 +22799,7 @@ var HUD_HTML = String.raw`<!doctype html>
 </body>
 </html>`;
 
-// src/tool-verb-map.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/tool-verb-map.ts
 var TOOL_VERB_MAP = [
   { tool: "fractal_context_hud", selector: null, verb: "read" },
   { tool: "fractal_load_context", selector: null, verb: "read" },
@@ -22806,7 +22870,7 @@ var MANAGED_TOOL_NAMES = /* @__PURE__ */ new Set([
   ...MANAGED_META_TOOL_NAMES
 ]);
 
-// src/index.ts
+// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/index.ts
 var REQUEST_SHA256_RE = /^[0-9a-f]{64}$/;
 function parseExactSafeInt(raw, min) {
   const s = raw?.trim() ?? "";

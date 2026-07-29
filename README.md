@@ -1,6 +1,6 @@
 # Fractal MCP (Claude Code + Claude Desktop)
 
-**v0.3.2** (2026-07-29, built from main e77278a) - includes Factory entry, plan gate, structured fields and corridor lifecycle.
+**v0.3.3** (2026-07-30, built from main 72527a4) - includes `fractal_set_task_structured_field` and allows agent Done transitions while retaining proof, corridor, preflight and revision gates.
 
 Даёт агенту доступ к задачам Fractal (`tasks.bos.pro`): навигация по дереву, чтение,
 создание/обновление, зависимости, перемещение, поиск — плюс браузер-логин одним тулом.
@@ -23,7 +23,7 @@ MCP-сервер **забандлен в один файл** — ни npm, ни 
 
 Плагины-маркетплейс — это только Claude Code. Для Desktop есть готовый `.mcpb`-бандл:
 
-1. Скачай [`desktop/fractal-mcp-0.3.2.mcpb`](desktop/fractal-mcp-0.3.2.mcpb).
+1. Скачай [`desktop/fractal-mcp-0.3.3.mcpb`](desktop/fractal-mcp-0.3.3.mcpb).
 2. Открой Claude Desktop → **Settings → Extensions** и перетащи туда файл (или дважды кликни по нему) → **Install**.
 3. Вызови тул `fractal_login` — откроется браузер, токен сохранится в `~/.fractal`.
 
@@ -58,5 +58,5 @@ npx esbuild mcp-server/src/index.ts --bundle --platform=node --format=esm \
 cp dist/fractal-mcp.mjs desktop/server/index.mjs
 
 # пересобрать .mcpb для Desktop
-cd desktop && npx @anthropic-ai/mcpb pack . fractal-mcp-0.3.2.mcpb
+cd desktop && npx @anthropic-ai/mcpb pack . fractal-mcp-0.3.3.mcpb
 ```
