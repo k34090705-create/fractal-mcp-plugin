@@ -29,9 +29,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// mcp-server/node_modules/ajv/dist/compile/codegen/code.js
+// node_modules/ajv/dist/compile/codegen/code.js
 var require_code = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/codegen/code.js"(exports) {
+  "node_modules/ajv/dist/compile/codegen/code.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.regexpCode = exports.getEsmExportName = exports.getProperty = exports.safeStringify = exports.stringify = exports.strConcat = exports.addCodeArg = exports.str = exports._ = exports.nil = exports._Code = exports.Name = exports.IDENTIFIER = exports._CodeOrName = void 0;
@@ -183,9 +183,9 @@ var require_code = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/codegen/scope.js
+// node_modules/ajv/dist/compile/codegen/scope.js
 var require_scope = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/codegen/scope.js"(exports) {
+  "node_modules/ajv/dist/compile/codegen/scope.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ValueScope = exports.ValueScopeName = exports.Scope = exports.varKinds = exports.UsedValueState = void 0;
@@ -328,9 +328,9 @@ var require_scope = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/codegen/index.js
+// node_modules/ajv/dist/compile/codegen/index.js
 var require_codegen = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/codegen/index.js"(exports) {
+  "node_modules/ajv/dist/compile/codegen/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.or = exports.and = exports.not = exports.CodeGen = exports.operators = exports.varKinds = exports.ValueScopeName = exports.ValueScope = exports.Scope = exports.Name = exports.regexpCode = exports.stringify = exports.getProperty = exports.nil = exports.strConcat = exports.str = exports._ = void 0;
@@ -1048,9 +1048,9 @@ var require_codegen = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/util.js
+// node_modules/ajv/dist/compile/util.js
 var require_util = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/util.js"(exports) {
+  "node_modules/ajv/dist/compile/util.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.checkStrictMode = exports.getErrorPath = exports.Type = exports.useFunc = exports.setEvaluated = exports.evaluatedPropsToName = exports.mergeEvaluated = exports.eachItem = exports.unescapeJsonPointer = exports.escapeJsonPointer = exports.escapeFragment = exports.unescapeFragment = exports.schemaRefOrVal = exports.schemaHasRulesButRef = exports.schemaHasRules = exports.checkUnknownRules = exports.alwaysValidSchema = exports.toHash = void 0;
@@ -1215,9 +1215,9 @@ var require_util = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/names.js
+// node_modules/ajv/dist/compile/names.js
 var require_names = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/names.js"(exports) {
+  "node_modules/ajv/dist/compile/names.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -1254,9 +1254,9 @@ var require_names = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/errors.js
+// node_modules/ajv/dist/compile/errors.js
 var require_errors = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/errors.js"(exports) {
+  "node_modules/ajv/dist/compile/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.extendErrors = exports.resetErrorsCount = exports.reportExtraError = exports.reportError = exports.keyword$DataError = exports.keywordError = void 0;
@@ -1376,9 +1376,9 @@ var require_errors = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/validate/boolSchema.js
+// node_modules/ajv/dist/compile/validate/boolSchema.js
 var require_boolSchema = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/validate/boolSchema.js"(exports) {
+  "node_modules/ajv/dist/compile/validate/boolSchema.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.boolOrEmptySchema = exports.topBoolOrEmptySchema = void 0;
@@ -1427,9 +1427,9 @@ var require_boolSchema = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/rules.js
+// node_modules/ajv/dist/compile/rules.js
 var require_rules = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/rules.js"(exports) {
+  "node_modules/ajv/dist/compile/rules.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getRules = exports.isJSONType = void 0;
@@ -1458,9 +1458,9 @@ var require_rules = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/validate/applicability.js
+// node_modules/ajv/dist/compile/validate/applicability.js
 var require_applicability = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/validate/applicability.js"(exports) {
+  "node_modules/ajv/dist/compile/validate/applicability.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.shouldUseRule = exports.shouldUseGroup = exports.schemaHasRulesForType = void 0;
@@ -1481,9 +1481,9 @@ var require_applicability = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/validate/dataType.js
+// node_modules/ajv/dist/compile/validate/dataType.js
 var require_dataType = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/validate/dataType.js"(exports) {
+  "node_modules/ajv/dist/compile/validate/dataType.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.reportTypeError = exports.checkDataTypes = exports.checkDataType = exports.coerceAndCheckDataType = exports.getJSONTypes = exports.getSchemaTypes = exports.DataType = void 0;
@@ -1665,9 +1665,9 @@ var require_dataType = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/validate/defaults.js
+// node_modules/ajv/dist/compile/validate/defaults.js
 var require_defaults = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/validate/defaults.js"(exports) {
+  "node_modules/ajv/dist/compile/validate/defaults.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.assignDefaults = void 0;
@@ -1702,9 +1702,9 @@ var require_defaults = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/code.js
+// node_modules/ajv/dist/vocabularies/code.js
 var require_code2 = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/code.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/code.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateUnion = exports.validateArray = exports.usePattern = exports.callValidateCode = exports.schemaProperties = exports.allSchemaProperties = exports.noPropertyInData = exports.propertyInData = exports.isOwnProperty = exports.hasPropFunc = exports.reportMissingProp = exports.checkMissingProp = exports.checkReportMissingProp = void 0;
@@ -1835,9 +1835,9 @@ var require_code2 = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/validate/keyword.js
+// node_modules/ajv/dist/compile/validate/keyword.js
 var require_keyword = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/validate/keyword.js"(exports) {
+  "node_modules/ajv/dist/compile/validate/keyword.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateKeywordUsage = exports.validSchemaType = exports.funcKeywordCode = exports.macroKeywordCode = void 0;
@@ -1953,9 +1953,9 @@ var require_keyword = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/validate/subschema.js
+// node_modules/ajv/dist/compile/validate/subschema.js
 var require_subschema = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/validate/subschema.js"(exports) {
+  "node_modules/ajv/dist/compile/validate/subschema.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.extendSubschemaMode = exports.extendSubschemaData = exports.getSubschema = void 0;
@@ -2036,9 +2036,9 @@ var require_subschema = __commonJS({
   }
 });
 
-// mcp-server/node_modules/fast-deep-equal/index.js
+// node_modules/fast-deep-equal/index.js
 var require_fast_deep_equal = __commonJS({
-  "mcp-server/node_modules/fast-deep-equal/index.js"(exports, module) {
+  "node_modules/fast-deep-equal/index.js"(exports, module) {
     "use strict";
     module.exports = function equal(a, b) {
       if (a === b) return true;
@@ -2071,9 +2071,9 @@ var require_fast_deep_equal = __commonJS({
   }
 });
 
-// mcp-server/node_modules/json-schema-traverse/index.js
+// node_modules/json-schema-traverse/index.js
 var require_json_schema_traverse = __commonJS({
-  "mcp-server/node_modules/json-schema-traverse/index.js"(exports, module) {
+  "node_modules/json-schema-traverse/index.js"(exports, module) {
     "use strict";
     var traverse = module.exports = function(schema, opts, cb) {
       if (typeof opts == "function") {
@@ -2159,9 +2159,9 @@ var require_json_schema_traverse = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/resolve.js
+// node_modules/ajv/dist/compile/resolve.js
 var require_resolve = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/resolve.js"(exports) {
+  "node_modules/ajv/dist/compile/resolve.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getSchemaRefs = exports.resolveUrl = exports.normalizeId = exports._getFullPath = exports.getFullPath = exports.inlineRef = void 0;
@@ -2315,9 +2315,9 @@ var require_resolve = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/validate/index.js
+// node_modules/ajv/dist/compile/validate/index.js
 var require_validate = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/validate/index.js"(exports) {
+  "node_modules/ajv/dist/compile/validate/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getData = exports.KeywordCxt = exports.validateFunctionCode = void 0;
@@ -2823,9 +2823,9 @@ var require_validate = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/runtime/validation_error.js
+// node_modules/ajv/dist/runtime/validation_error.js
 var require_validation_error = __commonJS({
-  "mcp-server/node_modules/ajv/dist/runtime/validation_error.js"(exports) {
+  "node_modules/ajv/dist/runtime/validation_error.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var ValidationError = class extends Error {
@@ -2839,9 +2839,9 @@ var require_validation_error = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/ref_error.js
+// node_modules/ajv/dist/compile/ref_error.js
 var require_ref_error = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/ref_error.js"(exports) {
+  "node_modules/ajv/dist/compile/ref_error.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var resolve_1 = require_resolve();
@@ -2856,9 +2856,9 @@ var require_ref_error = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/compile/index.js
+// node_modules/ajv/dist/compile/index.js
 var require_compile = __commonJS({
-  "mcp-server/node_modules/ajv/dist/compile/index.js"(exports) {
+  "node_modules/ajv/dist/compile/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.resolveSchema = exports.getCompilingSchema = exports.resolveRef = exports.compileSchema = exports.SchemaEnv = void 0;
@@ -3080,9 +3080,9 @@ var require_compile = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/refs/data.json
+// node_modules/ajv/dist/refs/data.json
 var require_data = __commonJS({
-  "mcp-server/node_modules/ajv/dist/refs/data.json"(exports, module) {
+  "node_modules/ajv/dist/refs/data.json"(exports, module) {
     module.exports = {
       $id: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#",
       description: "Meta-schema for $data reference (JSON AnySchema extension proposal)",
@@ -3099,9 +3099,9 @@ var require_data = __commonJS({
   }
 });
 
-// mcp-server/node_modules/fast-uri/lib/utils.js
+// node_modules/fast-uri/lib/utils.js
 var require_utils = __commonJS({
-  "mcp-server/node_modules/fast-uri/lib/utils.js"(exports, module) {
+  "node_modules/fast-uri/lib/utils.js"(exports, module) {
     "use strict";
     var isUUID = RegExp.prototype.test.bind(/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/iu);
     var isIPv4 = RegExp.prototype.test.bind(/^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)$/u);
@@ -3412,9 +3412,9 @@ var require_utils = __commonJS({
   }
 });
 
-// mcp-server/node_modules/fast-uri/lib/schemes.js
+// node_modules/fast-uri/lib/schemes.js
 var require_schemes = __commonJS({
-  "mcp-server/node_modules/fast-uri/lib/schemes.js"(exports, module) {
+  "node_modules/fast-uri/lib/schemes.js"(exports, module) {
     "use strict";
     var { isUUID } = require_utils();
     var URN_REG = /([\da-z][\d\-a-z]{0,31}):((?:[\w!$'()*+,\-.:;=@]|%[\da-f]{2})+)/iu;
@@ -3622,9 +3622,9 @@ var require_schemes = __commonJS({
   }
 });
 
-// mcp-server/node_modules/fast-uri/index.js
+// node_modules/fast-uri/index.js
 var require_fast_uri = __commonJS({
-  "mcp-server/node_modules/fast-uri/index.js"(exports, module) {
+  "node_modules/fast-uri/index.js"(exports, module) {
     "use strict";
     var { normalizeIPv6, removeDotSegments, recomposeAuthority, normalizePercentEncoding, normalizePathEncoding, escapePreservingEscapes, reescapeHostDelimiters, isIPv4, nonSimpleDomain } = require_utils();
     var { SCHEMES, getSchemeHandler } = require_schemes();
@@ -3908,9 +3908,9 @@ var require_fast_uri = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/runtime/uri.js
+// node_modules/ajv/dist/runtime/uri.js
 var require_uri = __commonJS({
-  "mcp-server/node_modules/ajv/dist/runtime/uri.js"(exports) {
+  "node_modules/ajv/dist/runtime/uri.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var uri = require_fast_uri();
@@ -3919,9 +3919,9 @@ var require_uri = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/core.js
+// node_modules/ajv/dist/core.js
 var require_core = __commonJS({
-  "mcp-server/node_modules/ajv/dist/core.js"(exports) {
+  "node_modules/ajv/dist/core.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
@@ -4530,9 +4530,9 @@ var require_core = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/core/id.js
+// node_modules/ajv/dist/vocabularies/core/id.js
 var require_id = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/core/id.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/core/id.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var def = {
@@ -4545,9 +4545,9 @@ var require_id = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/core/ref.js
+// node_modules/ajv/dist/vocabularies/core/ref.js
 var require_ref = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/core/ref.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/core/ref.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.callRef = exports.getValidate = void 0;
@@ -4667,9 +4667,9 @@ var require_ref = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/core/index.js
+// node_modules/ajv/dist/vocabularies/core/index.js
 var require_core2 = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/core/index.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/core/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var id_1 = require_id();
@@ -4688,9 +4688,9 @@ var require_core2 = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitNumber.js
+// node_modules/ajv/dist/vocabularies/validation/limitNumber.js
 var require_limitNumber = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitNumber.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/limitNumber.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4720,9 +4720,9 @@ var require_limitNumber = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/multipleOf.js
+// node_modules/ajv/dist/vocabularies/validation/multipleOf.js
 var require_multipleOf = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/multipleOf.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/multipleOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4748,9 +4748,9 @@ var require_multipleOf = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/runtime/ucs2length.js
+// node_modules/ajv/dist/runtime/ucs2length.js
 var require_ucs2length = __commonJS({
-  "mcp-server/node_modules/ajv/dist/runtime/ucs2length.js"(exports) {
+  "node_modules/ajv/dist/runtime/ucs2length.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function ucs2length(str) {
@@ -4774,9 +4774,9 @@ var require_ucs2length = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitLength.js
+// node_modules/ajv/dist/vocabularies/validation/limitLength.js
 var require_limitLength = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitLength.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/limitLength.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4806,9 +4806,9 @@ var require_limitLength = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/pattern.js
+// node_modules/ajv/dist/vocabularies/validation/pattern.js
 var require_pattern = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/pattern.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/pattern.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -4843,9 +4843,9 @@ var require_pattern = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitProperties.js
+// node_modules/ajv/dist/vocabularies/validation/limitProperties.js
 var require_limitProperties = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitProperties.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/limitProperties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4872,9 +4872,9 @@ var require_limitProperties = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/required.js
+// node_modules/ajv/dist/vocabularies/validation/required.js
 var require_required = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/required.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/required.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -4954,9 +4954,9 @@ var require_required = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/limitItems.js
+// node_modules/ajv/dist/vocabularies/validation/limitItems.js
 var require_limitItems = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/limitItems.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/limitItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -4983,9 +4983,9 @@ var require_limitItems = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/runtime/equal.js
+// node_modules/ajv/dist/runtime/equal.js
 var require_equal = __commonJS({
-  "mcp-server/node_modules/ajv/dist/runtime/equal.js"(exports) {
+  "node_modules/ajv/dist/runtime/equal.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var equal = require_fast_deep_equal();
@@ -4994,9 +4994,9 @@ var require_equal = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js
+// node_modules/ajv/dist/vocabularies/validation/uniqueItems.js
 var require_uniqueItems = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/uniqueItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var dataType_1 = require_dataType();
@@ -5061,9 +5061,9 @@ var require_uniqueItems = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/const.js
+// node_modules/ajv/dist/vocabularies/validation/const.js
 var require_const = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/const.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/const.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5090,9 +5090,9 @@ var require_const = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/enum.js
+// node_modules/ajv/dist/vocabularies/validation/enum.js
 var require_enum = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/enum.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/enum.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5139,9 +5139,9 @@ var require_enum = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/validation/index.js
+// node_modules/ajv/dist/vocabularies/validation/index.js
 var require_validation = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/validation/index.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/validation/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var limitNumber_1 = require_limitNumber();
@@ -5177,9 +5177,9 @@ var require_validation = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js
+// node_modules/ajv/dist/vocabularies/applicator/additionalItems.js
 var require_additionalItems = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/additionalItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateAdditionalItems = void 0;
@@ -5230,9 +5230,9 @@ var require_additionalItems = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/items.js
+// node_modules/ajv/dist/vocabularies/applicator/items.js
 var require_items = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/items.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/items.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateTuple = void 0;
@@ -5287,9 +5287,9 @@ var require_items = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js
+// node_modules/ajv/dist/vocabularies/applicator/prefixItems.js
 var require_prefixItems = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/prefixItems.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var items_1 = require_items();
@@ -5304,9 +5304,9 @@ var require_prefixItems = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/items2020.js
+// node_modules/ajv/dist/vocabularies/applicator/items2020.js
 var require_items2020 = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/items2020.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/items2020.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5339,9 +5339,9 @@ var require_items2020 = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/contains.js
+// node_modules/ajv/dist/vocabularies/applicator/contains.js
 var require_contains = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/contains.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/contains.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5433,9 +5433,9 @@ var require_contains = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/dependencies.js
+// node_modules/ajv/dist/vocabularies/applicator/dependencies.js
 var require_dependencies = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/dependencies.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/dependencies.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.validateSchemaDeps = exports.validatePropertyDeps = exports.error = void 0;
@@ -5527,9 +5527,9 @@ var require_dependencies = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js
+// node_modules/ajv/dist/vocabularies/applicator/propertyNames.js
 var require_propertyNames = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/propertyNames.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5570,9 +5570,9 @@ var require_propertyNames = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js
+// node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js
 var require_additionalProperties = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -5676,9 +5676,9 @@ var require_additionalProperties = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/properties.js
+// node_modules/ajv/dist/vocabularies/applicator/properties.js
 var require_properties = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/properties.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/properties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var validate_1 = require_validate();
@@ -5734,9 +5734,9 @@ var require_properties = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js
+// node_modules/ajv/dist/vocabularies/applicator/patternProperties.js
 var require_patternProperties = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/patternProperties.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -5808,9 +5808,9 @@ var require_patternProperties = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/not.js
+// node_modules/ajv/dist/vocabularies/applicator/not.js
 var require_not = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/not.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/not.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util();
@@ -5839,9 +5839,9 @@ var require_not = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/anyOf.js
+// node_modules/ajv/dist/vocabularies/applicator/anyOf.js
 var require_anyOf = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/anyOf.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/anyOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
@@ -5856,9 +5856,9 @@ var require_anyOf = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/oneOf.js
+// node_modules/ajv/dist/vocabularies/applicator/oneOf.js
 var require_oneOf = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/oneOf.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/oneOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -5914,9 +5914,9 @@ var require_oneOf = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/allOf.js
+// node_modules/ajv/dist/vocabularies/applicator/allOf.js
 var require_allOf = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/allOf.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/allOf.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util();
@@ -5941,9 +5941,9 @@ var require_allOf = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/if.js
+// node_modules/ajv/dist/vocabularies/applicator/if.js
 var require_if = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/if.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/if.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -6010,9 +6010,9 @@ var require_if = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/thenElse.js
+// node_modules/ajv/dist/vocabularies/applicator/thenElse.js
 var require_thenElse = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/thenElse.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/thenElse.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util();
@@ -6028,9 +6028,9 @@ var require_thenElse = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/applicator/index.js
+// node_modules/ajv/dist/vocabularies/applicator/index.js
 var require_applicator = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/applicator/index.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/applicator/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var additionalItems_1 = require_additionalItems();
@@ -6076,9 +6076,9 @@ var require_applicator = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/format/format.js
+// node_modules/ajv/dist/vocabularies/format/format.js
 var require_format = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/format/format.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/format/format.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -6166,9 +6166,9 @@ var require_format = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/format/index.js
+// node_modules/ajv/dist/vocabularies/format/index.js
 var require_format2 = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/format/index.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/format/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var format_1 = require_format();
@@ -6177,9 +6177,9 @@ var require_format2 = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/metadata.js
+// node_modules/ajv/dist/vocabularies/metadata.js
 var require_metadata = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/metadata.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/metadata.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.contentVocabulary = exports.metadataVocabulary = void 0;
@@ -6200,9 +6200,9 @@ var require_metadata = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/draft7.js
+// node_modules/ajv/dist/vocabularies/draft7.js
 var require_draft7 = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/draft7.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/draft7.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require_core2();
@@ -6222,9 +6222,9 @@ var require_draft7 = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/discriminator/types.js
+// node_modules/ajv/dist/vocabularies/discriminator/types.js
 var require_types = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/discriminator/types.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/discriminator/types.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DiscrError = void 0;
@@ -6236,9 +6236,9 @@ var require_types = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/vocabularies/discriminator/index.js
+// node_modules/ajv/dist/vocabularies/discriminator/index.js
 var require_discriminator = __commonJS({
-  "mcp-server/node_modules/ajv/dist/vocabularies/discriminator/index.js"(exports) {
+  "node_modules/ajv/dist/vocabularies/discriminator/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
@@ -6341,9 +6341,9 @@ var require_discriminator = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/refs/json-schema-draft-07.json
+// node_modules/ajv/dist/refs/json-schema-draft-07.json
 var require_json_schema_draft_07 = __commonJS({
-  "mcp-server/node_modules/ajv/dist/refs/json-schema-draft-07.json"(exports, module) {
+  "node_modules/ajv/dist/refs/json-schema-draft-07.json"(exports, module) {
     module.exports = {
       $schema: "http://json-schema.org/draft-07/schema#",
       $id: "http://json-schema.org/draft-07/schema#",
@@ -6498,9 +6498,9 @@ var require_json_schema_draft_07 = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv/dist/ajv.js
+// node_modules/ajv/dist/ajv.js
 var require_ajv = __commonJS({
-  "mcp-server/node_modules/ajv/dist/ajv.js"(exports, module) {
+  "node_modules/ajv/dist/ajv.js"(exports, module) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MissingRefError = exports.ValidationError = exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = exports.Ajv = void 0;
@@ -6568,9 +6568,9 @@ var require_ajv = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv-formats/dist/formats.js
+// node_modules/ajv-formats/dist/formats.js
 var require_formats = __commonJS({
-  "mcp-server/node_modules/ajv-formats/dist/formats.js"(exports) {
+  "node_modules/ajv-formats/dist/formats.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.formatNames = exports.fastFormats = exports.fullFormats = void 0;
@@ -6771,9 +6771,9 @@ var require_formats = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv-formats/dist/limit.js
+// node_modules/ajv-formats/dist/limit.js
 var require_limit = __commonJS({
-  "mcp-server/node_modules/ajv-formats/dist/limit.js"(exports) {
+  "node_modules/ajv-formats/dist/limit.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.formatLimitDefinition = void 0;
@@ -6843,9 +6843,9 @@ var require_limit = __commonJS({
   }
 });
 
-// mcp-server/node_modules/ajv-formats/dist/index.js
+// node_modules/ajv-formats/dist/index.js
 var require_dist = __commonJS({
-  "mcp-server/node_modules/ajv-formats/dist/index.js"(exports, module) {
+  "node_modules/ajv-formats/dist/index.js"(exports, module) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var formats_1 = require_formats();
@@ -6885,7 +6885,7 @@ var require_dist = __commonJS({
   }
 });
 
-// mcp-server/node_modules/zod/v4/core/core.js
+// node_modules/zod/v4/core/core.js
 var _a;
 // @__NO_SIDE_EFFECTS__
 function $constructor(name, initializer3, params) {
@@ -6959,7 +6959,7 @@ function config(newConfig) {
   return globalConfig;
 }
 
-// mcp-server/node_modules/zod/v4/core/util.js
+// node_modules/zod/v4/core/util.js
 var util_exports = {};
 __export(util_exports, {
   BIGINT_FORMAT_RANGES: () => BIGINT_FORMAT_RANGES,
@@ -7655,7 +7655,7 @@ var Class = class {
   }
 };
 
-// mcp-server/node_modules/zod/v4/core/errors.js
+// node_modules/zod/v4/core/errors.js
 var initializer = (inst, def) => {
   inst.name = "$ZodError";
   Object.defineProperty(inst, "_zod", {
@@ -7724,7 +7724,7 @@ function formatError(error2, mapper = (issue2) => issue2.message) {
   return fieldErrors;
 }
 
-// mcp-server/node_modules/zod/v4/core/parse.js
+// node_modules/zod/v4/core/parse.js
 var _parse = (_Err) => (schema, value, _ctx, _params) => {
   const ctx = _ctx ? { ..._ctx, async: false } : { async: false };
   const result = schema._zod.run({ value, issues: [] }, ctx);
@@ -7802,7 +7802,7 @@ var _safeDecodeAsync = (_Err) => async (schema, value, _ctx) => {
   return _safeParseAsync(_Err)(schema, value, _ctx);
 };
 
-// mcp-server/node_modules/zod/v4/core/regexes.js
+// node_modules/zod/v4/core/regexes.js
 var cuid = /^[cC][0-9a-z]{6,}$/;
 var cuid2 = /^[0-9a-z]+$/;
 var ulid = /^[0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{26}$/;
@@ -7860,7 +7860,7 @@ var _null = /^null$/i;
 var lowercase = /^[^A-Z]*$/;
 var uppercase = /^[^a-z]*$/;
 
-// mcp-server/node_modules/zod/v4/core/checks.js
+// node_modules/zod/v4/core/checks.js
 var $ZodCheck = /* @__PURE__ */ $constructor("$ZodCheck", (inst, def) => {
   var _a3;
   inst._zod ?? (inst._zod = {});
@@ -8250,7 +8250,7 @@ var $ZodCheckOverwrite = /* @__PURE__ */ $constructor("$ZodCheckOverwrite", (ins
   };
 });
 
-// mcp-server/node_modules/zod/v4/core/doc.js
+// node_modules/zod/v4/core/doc.js
 var Doc = class {
   constructor(args = []) {
     this.content = [];
@@ -8286,14 +8286,14 @@ var Doc = class {
   }
 };
 
-// mcp-server/node_modules/zod/v4/core/versions.js
+// node_modules/zod/v4/core/versions.js
 var version = {
   major: 4,
   minor: 4,
   patch: 3
 };
 
-// mcp-server/node_modules/zod/v4/core/schemas.js
+// node_modules/zod/v4/core/schemas.js
 var $ZodType = /* @__PURE__ */ $constructor("$ZodType", (inst, def) => {
   var _a3;
   inst ?? (inst = {});
@@ -9773,7 +9773,7 @@ function handleRefineResult(result, payload, input, inst) {
   }
 }
 
-// mcp-server/node_modules/zod/v4/locales/en.js
+// node_modules/zod/v4/locales/en.js
 var error = () => {
   const Sizable = {
     string: { unit: "characters", verb: "to have" },
@@ -9886,7 +9886,7 @@ function en_default() {
   };
 }
 
-// mcp-server/node_modules/zod/v4/core/registries.js
+// node_modules/zod/v4/core/registries.js
 var _a2;
 var $output = Symbol("ZodOutput");
 var $input = Symbol("ZodInput");
@@ -9936,7 +9936,7 @@ function registry() {
 (_a2 = globalThis).__zod_globalRegistry ?? (_a2.__zod_globalRegistry = registry());
 var globalRegistry = globalThis.__zod_globalRegistry;
 
-// mcp-server/node_modules/zod/v4/core/api.js
+// node_modules/zod/v4/core/api.js
 // @__NO_SIDE_EFFECTS__
 function _string(Class2, params) {
   return new Class2({
@@ -10464,7 +10464,7 @@ function _check(fn, params) {
   return ch;
 }
 
-// mcp-server/node_modules/zod/v4/core/to-json-schema.js
+// node_modules/zod/v4/core/to-json-schema.js
 function initializeContext(params) {
   let target = params?.target ?? "draft-2020-12";
   if (target === "draft-4")
@@ -10823,7 +10823,7 @@ var createStandardJSONSchemaMethod = (schema, io, processors = {}) => (params) =
   return finalize(ctx, schema);
 };
 
-// mcp-server/node_modules/zod/v4/core/json-schema-processors.js
+// node_modules/zod/v4/core/json-schema-processors.js
 var formatMap = {
   guid: "uuid",
   url: "uri",
@@ -11156,7 +11156,7 @@ var optionalProcessor = (schema, ctx, _json, params) => {
   seen.ref = def.innerType;
 };
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-compat.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-compat.js
 function isZ4Schema(s) {
   const schema = s;
   return !!schema._zod;
@@ -11219,7 +11219,7 @@ function getLiteralValue(schema) {
   return void 0;
 }
 
-// mcp-server/node_modules/zod/v4/classic/iso.js
+// node_modules/zod/v4/classic/iso.js
 var iso_exports = {};
 __export(iso_exports, {
   ZodISODate: () => ZodISODate,
@@ -11260,7 +11260,7 @@ function duration2(params) {
   return _isoDuration(ZodISODuration, params);
 }
 
-// mcp-server/node_modules/zod/v4/classic/errors.js
+// node_modules/zod/v4/classic/errors.js
 var initializer2 = (inst, issues) => {
   $ZodError.init(inst, issues);
   inst.name = "ZodError";
@@ -11299,7 +11299,7 @@ var ZodRealError = /* @__PURE__ */ $constructor("ZodError", initializer2, {
   Parent: Error
 });
 
-// mcp-server/node_modules/zod/v4/classic/parse.js
+// node_modules/zod/v4/classic/parse.js
 var parse2 = /* @__PURE__ */ _parse(ZodRealError);
 var parseAsync2 = /* @__PURE__ */ _parseAsync(ZodRealError);
 var safeParse3 = /* @__PURE__ */ _safeParse(ZodRealError);
@@ -11313,7 +11313,7 @@ var safeDecode2 = /* @__PURE__ */ _safeDecode(ZodRealError);
 var safeEncodeAsync2 = /* @__PURE__ */ _safeEncodeAsync(ZodRealError);
 var safeDecodeAsync2 = /* @__PURE__ */ _safeDecodeAsync(ZodRealError);
 
-// mcp-server/node_modules/zod/v4/classic/schemas.js
+// node_modules/zod/v4/classic/schemas.js
 var _installedGroups = /* @__PURE__ */ new WeakMap();
 function _installLazyMethods(inst, group, methods) {
   const proto = Object.getPrototypeOf(inst);
@@ -12155,10 +12155,10 @@ function preprocess(fn, schema) {
   });
 }
 
-// mcp-server/node_modules/zod/v4/classic/external.js
+// node_modules/zod/v4/classic/external.js
 config(en_default());
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/types.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/types.js
 var LATEST_PROTOCOL_VERSION = "2025-11-25";
 var SUPPORTED_PROTOCOL_VERSIONS = [LATEST_PROTOCOL_VERSION, "2025-06-18", "2025-03-26", "2024-11-05", "2024-10-07"];
 var RELATED_TASK_META_KEY = "io.modelcontextprotocol/related-task";
@@ -13677,18 +13677,18 @@ var UrlElicitationRequiredError = class extends McpError {
   }
 };
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/interfaces.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/interfaces.js
 function isTerminal(status) {
   return status === "completed" || status === "failed" || status === "cancelled";
 }
 
-// mcp-server/node_modules/zod-to-json-schema/dist/esm/Options.js
+// node_modules/zod-to-json-schema/dist/esm/Options.js
 var ignoreOverride = Symbol("Let zodToJsonSchema decide on which parser to use");
 
-// mcp-server/node_modules/zod-to-json-schema/dist/esm/parsers/string.js
+// node_modules/zod-to-json-schema/dist/esm/parsers/string.js
 var ALPHA_NUMERIC = new Set("ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789");
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-json-schema-compat.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/server/zod-json-schema-compat.js
 function getMethodLiteral(schema) {
   const shape = getObjectShape(schema);
   const methodSchema = shape?.method;
@@ -13709,7 +13709,7 @@ function parseWithCompat(schema, data) {
   return result.data;
 }
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js
 var DEFAULT_REQUEST_TIMEOUT_MSEC = 6e4;
 var Protocol = class {
   constructor(_options) {
@@ -14663,7 +14663,7 @@ function mergeCapabilities(base, additional) {
   return result;
 }
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/validation/ajv-provider.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/validation/ajv-provider.js
 var import_ajv = __toESM(require_ajv(), 1);
 var import_ajv_formats = __toESM(require_dist(), 1);
 function createDefaultAjvInstance() {
@@ -14731,7 +14731,7 @@ var AjvJsonSchemaValidator = class {
   }
 };
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/server.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/server.js
 var ExperimentalServerTasks = class {
   constructor(_server) {
     this._server = _server;
@@ -14944,7 +14944,7 @@ var ExperimentalServerTasks = class {
   }
 };
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/helpers.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/experimental/tasks/helpers.js
 function assertToolsCallTaskCapability(requests, method, entityName) {
   if (!requests) {
     throw new Error(`${entityName} does not support task creation (required for ${method})`);
@@ -14979,7 +14979,7 @@ function assertClientRequestTaskCapability(requests, method, entityName) {
   }
 }
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js
 var Server = class extends Protocol {
   /**
    * Initializes this server with the given name and version information.
@@ -15359,10 +15359,10 @@ var Server = class extends Protocol {
   }
 };
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
 import process3 from "node:process";
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/stdio.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/shared/stdio.js
 var ReadBuffer = class {
   append(chunk) {
     this._buffer = this._buffer ? Buffer.concat([this._buffer, chunk]) : chunk;
@@ -15390,7 +15390,7 @@ function serializeMessage(message) {
   return JSON.stringify(message) + "\n";
 }
 
-// mcp-server/node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
+// node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
 var StdioServerTransport = class {
   constructor(_stdin = process3.stdin, _stdout = process3.stdout) {
     this._stdin = _stdin;
@@ -15451,10 +15451,10 @@ var StdioServerTransport = class {
   }
 };
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/client.ts
+// src/client.ts
 import { createHash, randomUUID } from "node:crypto";
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/errors.ts
+// src/errors.ts
 var McpErrorCode = {
   TELEMETRY_REJECTED: "TELEMETRY_REJECTED",
   TELEMETRY_DEGRADED: "TELEMETRY_DEGRADED",
@@ -15621,7 +15621,7 @@ var HonestFailureError = class extends Error {
   }
 };
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/client.ts
+// src/client.ts
 var DEFAULT_FUNCTIONS_URL = "https://bzqzsvbjpqdjmtkvwsmh.supabase.co/functions/v1";
 var DEFAULT_REQUEST_BUDGET_MS = 45e3;
 var DESKTOP_CLAIM_TTL_MINUTES = 5;
@@ -16174,6 +16174,52 @@ var FractalClient = class _FractalClient {
     return this.board({ action: "task", taskId, ...fieldKey ? { fieldKey } : {} }, false, true);
   }
   /**
+   * Advisory-only governed preflight for the one approved product mapping:
+   * `type -> tasks.task_type`.  The edge owns authorization, resolver trace,
+   * receipt persistence and normalized diff; this client never manufactures an
+   * approval id or performs a write while previewing.
+   */
+  preflightTaskType(taskId, draft) {
+    return this.board(
+      { action: "field_write_preflight", taskId, field: "type", draft },
+      false,
+      true
+    );
+  }
+  /**
+   * Atomic server-side approval.  The payload is deliberately the normalized
+   * draft returned by preflight; the RPC binds it to the opaque receipt and
+   * rejects any substituted/replayed/stale form before changing a task.
+   */
+  approveTaskType(approvalPayload) {
+    return this.board(
+      { action: "field_write_approve", field: "type", approvalPayload },
+      true,
+      false
+    );
+  }
+  /** Read-only governed preflight for `bug_provenance -> tasks.bug_provenance`. */
+  preflightTaskBugProvenance(taskId, bugProvenance) {
+    return this.board(
+      {
+        action: "field_write_preflight",
+        taskId,
+        field: "bug_provenance",
+        draft: { bug_provenance: bugProvenance }
+      },
+      false,
+      true
+    );
+  }
+  /** Atomic approval for an unchanged server-issued bug provenance packet. */
+  approveTaskBugProvenance(approvalPayload) {
+    return this.board(
+      { action: "field_write_approve", field: "bug_provenance", approvalPayload },
+      true,
+      false
+    );
+  }
+  /**
    * Layer 3 comments read — newest-first page with opaque snapshot-bound cursor.
    * Independent of getTask (which never returns comments).
    */
@@ -16526,15 +16572,15 @@ var FractalClient = class _FractalClient {
   }
 };
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/tools.ts
-import { createHash as createHash9 } from "node:crypto";
+// src/tools.ts
+import { createHash as createHash10 } from "node:crypto";
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/gates.ts
+// src/gates.ts
 import { randomUUID as randomUUID5 } from "node:crypto";
 import { existsSync as existsSync3, statSync as statSync3 } from "node:fs";
 import { dirname as dirname2, isAbsolute as isAbsolute2, join as join3, resolve as resolve2, sep as sep2 } from "node:path";
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-telemetry.ts
+// src/session-telemetry.ts
 import { execFileSync } from "node:child_process";
 import { createHash as createHash2, randomUUID as randomUUID2 } from "node:crypto";
 import {
@@ -16551,7 +16597,7 @@ import {
 import { homedir } from "node:os";
 import { basename, join } from "node:path";
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/entry-instructions.ts
+// src/entry-instructions.ts
 var CANONICAL_FACTORY_ID = "e535d682-1ad7-439c-8cd6-480318570e97";
 var CANONICAL_ENTRY_TASK_ID = CANONICAL_FACTORY_ID;
 var UC_ROUTER_TASK_ID = "7291dc63-cacf-40c1-9048-9b2d76605eb5";
@@ -16559,7 +16605,7 @@ function buildServerInstructions() {
   return `Entry: call fractal_load_context with taskIds=[<your token's scope root task id>] (get it via fractal_get_task or fractal_context_hud after login) to load that workspace's entry skill, then follow it. Do not load the whole tree. Example (Factory v1.2 workspace only \u2014 do not use these ids for other workspaces' scope roots): factoryId ${CANONICAL_FACTORY_ID}, taskIds [${CANONICAL_ENTRY_TASK_ID}] (the kernel root is itself the entry), then follow the \u2699\uFE0F Factory v1.2 kernel. Selective context gate (enforced): route task \u2192 use case \u2192 minimal Rules/Skills; fractal_list_tasks, get_subtree(mode:full) and load_context(>8 ids) are rejected without an explicit justification receipt. Session telemetry starts automatically; after choosing a working task call fractal_session_event(event=attach_task, taskId), publish staged checkpoints (stage=PLAN/MILESTONE/DELIVERY/REVIEW/DONE/BLOCKED/HANDOFF) with verifiable receipts, and close the session before a clean handoff. Lifecycle gates (enforced): REVIEW/DONE require attached task + branch/HEAD + prUrl + tests:/evidence: receipts; BLOCKED and any blocker require the SK-10 reality check (blockerMissing/Owner/Cta/ResumeGate + >=2 checked routes + >=1 blockerEvidenceRefs locator) \u2014 also before moving a task to the blocked column; close with an attached task requires a done/next final summary (FR-15). Delegation policy: one primary agent owns the task end-to-end; spawn scout/worker/reviewer subagents only with a concrete reason (large read, parallelizable work, independent review after a stable result) \u2014 a permanent dispatcher subagent is an anti-pattern. Capability fallback: when no Fractal MCP tool can perform a necessary, narrowly scoped operation, first record the missing capability and then use the already authenticated Supabase CLI for that exact operation. Do not bypass the task token scope, RLS/authentication, mutation gates, or required human authorization; use read-only inspection first, keep credentials out of output, and record the command outcome/evidence in the owning Fractal task. Reasoning caps (FR-02 / PRB-22): never apply money, token, or wall-time stop-conditions to reasoning; caps may apply only to output length/tokens. Cutting reasoning for budget is a protocol violation. Never send prompts, reasoning, tool bodies, tokens, or secrets to telemetry.`;
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/archive.ts
+// src/archive.ts
 function isArchivedColumn(columnId) {
   if (typeof columnId !== "string" || !columnId) return false;
   const c = columnId.toLowerCase();
@@ -16569,7 +16615,7 @@ function isArchivedTask(task) {
   return Boolean(task.archived_at) || isArchivedColumn(task.column_id);
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/context-receipt.ts
+// src/context-receipt.ts
 var receipts = /* @__PURE__ */ new Map();
 function cleanTitle(value) {
   return String(value ?? "").replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
@@ -16748,7 +16794,7 @@ function getContextReceipt() {
   };
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-telemetry.ts
+// src/session-telemetry.ts
 var UNCONFIRMED_CLOSE_RESULT = "MCP process exited without an explicit session_close receipt";
 var ROTATION_CLOSE_RESULT = "session closed on token rotation before a replacement session started";
 function redactOperationalText(value) {
@@ -17286,7 +17332,7 @@ var SessionTelemetryRuntime = class {
   }
 };
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/entry-receipt.ts
+// src/entry-receipt.ts
 import {
   createHash as createHash3,
   createPrivateKey,
@@ -17979,7 +18025,7 @@ function describeReceiptLocation(env = process.env) {
   return isAbsolute(dir2) ? dir2 : resolve(dir2);
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/closure-grammar.ts
+// src/closure-grammar.ts
 var STATUS_RE = /\b(PLAN|MILESTONE|DELIVERY|REVIEW|DONE|BLOCKED|HANDOFF)\b/g;
 var FIELD_LABELS = ["M[", "T[", "P[", "B[", "\u0394[", "RISK[", "J[", "USE[", "SKIP[", "NEXT["];
 function checkSk13Grammar(result) {
@@ -18056,7 +18102,7 @@ function checkFalseDoneCorridor(args) {
   return { ok: true };
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/plan-check-disclose.ts
+// src/plan-check-disclose.ts
 var DISCLOSE_VERDICTS = /* @__PURE__ */ new Set(["NO_RULES", "UNAVAILABLE"]);
 function planCheckDiscloseRequired(verdict) {
   return typeof verdict === "string" && DISCLOSE_VERDICTS.has(verdict);
@@ -18080,7 +18126,7 @@ function checkPlanCheckDisclose(result, lastVerdict2) {
   return { ok: false, missing: [`plan_check: ${verdict}`] };
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/last-plan-verdict.ts
+// src/last-plan-verdict.ts
 var lastVerdict;
 function setLastPlanVerdict(verdict) {
   lastVerdict = typeof verdict === "string" && verdict.trim() ? verdict.trim() : void 0;
@@ -18091,7 +18137,7 @@ function getLastPlanVerdict() {
   return fromEnv || void 0;
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/os1-receipt.ts
+// src/os1-receipt.ts
 import {
   createHash as createHash4,
   createPrivateKey as createPrivateKey2,
@@ -18481,7 +18527,7 @@ function redeemAndAllow(opts) {
   return { allow: true, payload };
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/gates.ts
+// src/gates.ts
 var SAFE_PLAN_CHECK_TIMEOUT_MS = DEFAULT_REQUEST_BUDGET_MS - 5e3;
 if (!process.env.PLAN_GATE_TIMEOUT_MS) {
   process.env.PLAN_GATE_TIMEOUT_MS = String(SAFE_PLAN_CHECK_TIMEOUT_MS);
@@ -18530,7 +18576,11 @@ var TOOL_GATE_CLASS = {
   fractal_move_task: "gated",
   fractal_remove_parent: "gated",
   fractal_copy_subtree: "gated",
-  fractal_delete_task: "gated"
+  fractal_delete_task: "gated",
+  fractal_task_write_type: "gated",
+  fractal_task_write_type_approve: "gated",
+  fractal_task_write_bug_provenance: "gated",
+  fractal_task_write_bug_provenance_approve: "gated"
 };
 var LIFECYCLE_STAGES = [
   "PLAN",
@@ -19158,10 +19208,10 @@ function extractOs1ReceiptJws(args, meta2) {
   return null;
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-allowlist-tools.ts
+// src/session-allowlist-tools.ts
 import { createHash as createHash6 } from "node:crypto";
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/scripts/session-allowlist.mjs
+// scripts/session-allowlist.mjs
 import {
   existsSync as existsSync4,
   mkdirSync as mkdirSync3,
@@ -19173,7 +19223,7 @@ import {
   realpathSync,
   statSync as statSync4
 } from "node:fs";
-import { join as join4, resolve as resolve3, relative, isAbsolute as isAbsolute3, sep as sep3 } from "node:path";
+import { join as join4, resolve as resolve3, relative, isAbsolute as isAbsolute3, dirname as dirname3, basename as basename2, sep as sep3 } from "node:path";
 import { createHash as createHash5 } from "node:crypto";
 import { execFileSync as execFileSync3 } from "node:child_process";
 import { homedir as homedir3 } from "node:os";
@@ -19441,24 +19491,53 @@ function rootAllows(root, canonical) {
   if (root.policy_version !== POLICY_VERSION) return false;
   return root.recursive ? contains(root.canonical_path, canonical) : samePath(root.canonical_path, canonical);
 }
+function mainWorktreeRoot(canonical) {
+  const dotGit = join4(canonical, ".git");
+  let pointer;
+  try {
+    if (!statSync4(dotGit).isFile()) return null;
+    pointer = readFileSync3(dotGit, "utf8").trim();
+  } catch {
+    return null;
+  }
+  const match = pointer.match(/^gitdir:\s*(.+)$/);
+  if (!match) return null;
+  const wtDir = tryCanonicalize(resolve3(canonical, match[1].trim()));
+  if (!wtDir) return null;
+  let back;
+  try {
+    back = tryCanonicalize(readFileSync3(join4(wtDir, "gitdir"), "utf8").trim());
+  } catch {
+    return null;
+  }
+  if (!back || !samePath(back, tryCanonicalize(dotGit) || "")) return null;
+  const common = dirname3(dirname3(wtDir));
+  if (basename2(common) !== ".git") return null;
+  return tryCanonicalize(dirname3(common));
+}
+function rootAllowsWorktree(root, canonical) {
+  if (rootAllows(root, canonical)) return true;
+  const main = mainWorktreeRoot(canonical);
+  return main ? rootAllows(root, main) : false;
+}
 function decide(cwd, cfg, { workspaceRoots: workspaceRoots2 = [] } = {}) {
   if (!cwd) return { decision: "UNKNOWN", reason: "no_cwd" };
   const canonical = tryCanonicalize(cwd);
   if (!canonical) return { decision: "UNKNOWN", reason: "cwd_missing" };
-  const root = cfg.allowed_roots.find((r) => rootAllows(r, canonical));
+  const root = cfg.allowed_roots.find((r) => rootAllowsWorktree(r, canonical));
   if (!root) return { decision: "OUT", reason: "not_in_allowlist" };
   for (const raw of workspaceRoots2) {
     const wr = tryCanonicalize(raw);
     if (!wr) return { decision: "OUT", reason: "workspace_root_missing" };
-    if (!rootAllows(root, wr)) return { decision: "OUT", reason: "workspace_root_outside_allowlist" };
+    if (!rootAllowsWorktree(root, wr)) return { decision: "OUT", reason: "workspace_root_outside_allowlist" };
   }
   const info = gitInfo(canonical);
   if (!info) return { decision: "OUT", reason: "allowlisted_no_git", root };
-  if (!rootAllows(root, info.root)) return { decision: "OUT", reason: "git_root_outside_allowlist", root };
+  if (!rootAllowsWorktree(root, info.root)) return { decision: "OUT", reason: "git_root_outside_allowlist", root };
   return { decision: "IN", reason: "allowlisted_git", root, git: info };
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/session-allowlist-tools.ts
+// src/session-allowlist-tools.ts
 var LOCAL_ALLOWLIST_TOOL_NAMES = /* @__PURE__ */ new Set([
   "fractal_session_allowlist_preview",
   "fractal_session_allowlist_list",
@@ -19555,8 +19634,195 @@ function mutateAllowlist(name, args, identity, baseUrl) {
   throw new Error(`Unknown local allowlist mutation tool: ${name}`);
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/issue-card.ts
-var ISSUE_CARD_RESOURCE_URI = "ui://fractal/issue-card-v1.html";
+// src/field-write-mappings.ts
+var FIELD_WRITE_MAPPINGS = [
+  {
+    slug: "type",
+    owner: "fractal-core (MCP field-write)",
+    readSource: "public.tasks.task_type",
+    writeTarget: "public.update_board_task_with_version(task_type)",
+    validator: "enum public.task_type + allowlist \u043E\u0434\u043D\u043E\u0433\u043E \u043A\u043B\u044E\u0447\u0430 \u0432 normalized_draft",
+    instructionTarget: "resolve_effective_instructions(field_key='type')",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E, \u043F\u043E\u043B\u0435 \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442: \u043D\u043E\u0432\u044B\u0439 governed route \u0440\u044F\u0434\u043E\u043C \u0441 fractal_update_task, \u0434\u0430\u043D\u043D\u044B\u0435 \u043D\u0435 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u044F\u0442\u0441\u044F",
+    enablement: "registered",
+    evidence: [
+      "design.md Decision 3: \u0442\u043E\u043B\u044C\u043A\u043E type -> tasks.task_type \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D \u0442\u0435\u043A\u0443\u0449\u0438\u043C\u0438 \u0434\u0430\u043D\u043D\u044B\u043C\u0438",
+      "supabase/migrations/20260729190000_mcp_field_write_type_approvals.sql",
+      "supabase/tests/mcp_field_write/10_contract_tests.sql"
+    ]
+  },
+  {
+    slug: "blocker",
+    owner: "fractal-core (MCP field-write)",
+    readSource: "public.task_dependencies (blocker_id, blocked_id)",
+    writeTarget: "public.task_dependencies \u0447\u0435\u0440\u0435\u0437 dependency mutation path, \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 blocker -> blocked",
+    validator: "UNIQUE(blocker_id, blocked_id) + CHECK(blocker_id != blocked_id) + \u0442\u0440\u0438\u0433\u0433\u0435\u0440 prevent_dependency_cycle",
+    instructionTarget: "resolve_effective_instructions(field_key='blocked'); lock \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u043C lease",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E, \u0442\u0430\u0431\u043B\u0438\u0446\u0430 \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 (20260708000000_task_dependencies.sql); lease/locked_* \u043D\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u044E\u0442\u0441\u044F \u043A\u0430\u043A blocker state",
+    enablement: "approved_not_implemented",
+    evidence: [
+      "design.md Decision 4: \u0431\u0438\u043D\u0434\u0438\u0442\u044C \u043E\u0431\u0430 \u043A\u043E\u043D\u0446\u0430 \u0441\u0432\u044F\u0437\u0438, \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0438 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044E",
+      "ITA-03 globally published for field_key='blocked' (binding e4d60679-ea59-4dfc-831e-0b2fc102eeb4)",
+      "specs/mcp-field-write-approvals/spec.md: \xABBlocker approval mutates only task dependencies\xBB",
+      "supabase/migrations/20260708000000_task_dependencies.sql"
+    ]
+  },
+  {
+    slug: "review_stage",
+    owner: "\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D",
+    readSource: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D: stage / last_review / \u043D\u043E\u0432\u043E\u0435 \u043F\u043E\u043B\u0435 \u2014 \u043E\u0442\u043A\u0440\u044B\u0442\u044B\u0439 \u0432\u043E\u043F\u0440\u043E\u0441",
+    writeTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    validator: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    instructionTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    migration: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D: \u0430\u043B\u0438\u0430\u0441\u0438\u0442\u044C \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0435 stage/last_review \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u043E",
+    enablement: "unapproved",
+    evidence: [
+      "design.md Open Questions: \xABIs review stage a new storage field, an existing semantic column stage, or a projection of last_review?\xBB"
+    ]
+  },
+  {
+    slug: "trigger",
+    owner: "\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D",
+    readSource: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    writeTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    validator: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    instructionTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    migration: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    enablement: "unapproved",
+    evidence: [
+      "design.md Open Questions: authoritative storage/validation contract \u0434\u043B\u044F trigger \u043D\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D",
+      "src/integrations/supabase/types.ts: \u0432 \u0442\u0430\u0431\u043B\u0438\u0446\u0435 tasks \u041D\u0415\u0422 \u043A\u043E\u043B\u043E\u043D\u043A\u0438 trigger; trigger_executions \u2014 \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0430\u044F \u0442\u0430\u0431\u043B\u0438\u0446\u0430 (FK agent_id/execution_id), \u043D\u0435 \u043F\u043E\u043B\u0435 \u0437\u0430\u0434\u0430\u0447\u0438",
+      "supabase/functions/widget-api-board/index.ts getAllowedUpdates: trigger \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 write-allowlist",
+      "\u0432\u044B\u0432\u043E\u0434: write target \u043F\u0440\u0438\u0448\u043B\u043E\u0441\u044C \u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0441 \u043D\u0443\u043B\u044F, \u0447\u0442\u043E \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u043E proposal.md \xABSHALL not be registered until its canonical mapping ... is approved\xBB"
+    ]
+  },
+  {
+    slug: "metrics",
+    owner: "\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D",
+    readSource: "instruction-\u043A\u043B\u044E\u0447 metrics \u0443\u0436\u0435 \u0435\u0441\u0442\u044C \u0432 \u0437\u0430\u043A\u0440\u044B\u0442\u043E\u043C \u0441\u043B\u043E\u0432\u0430\u0440\u0435 (src/lib/instructionFieldKeys.ts), \u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0430 \u0447\u0442\u0435\u043D\u0438\u0435",
+    writeTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    validator: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    instructionTarget: "resolve_effective_instructions(field_key='metrics') \u2014 \u0442\u043E\u043B\u044C\u043A\u043E read projection",
+    migration: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D: \u043D\u0430\u043B\u0438\u0447\u0438\u0435 read-\u043A\u043B\u044E\u0447\u0430 \u043D\u0435 \u0434\u0430\u0451\u0442 \u043F\u0440\u0430\u0432\u0430 \u043D\u0430 write route",
+    enablement: "unapproved",
+    evidence: [
+      "design.md Open Questions: authoritative storage/validation contract \u0434\u043B\u044F metrics \u043D\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D",
+      "src/lib/instructionFieldKeys.ts: metrics \u043F\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u043A\u0430\u043A read-only instruction key",
+      "src/integrations/supabase/types.ts: \u0432 \u0442\u0430\u0431\u043B\u0438\u0446\u0435 tasks \u041D\u0415\u0422 \u043A\u043E\u043B\u043E\u043D\u043A\u0438 metrics \u2014 read-\u043A\u043B\u044E\u0447 \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438 \u043D\u0435 \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435\u043C",
+      "supabase/functions/widget-api-board/index.ts getAllowedUpdates: metrics \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 write-allowlist",
+      "\u0432\u044B\u0432\u043E\u0434: write target \u043F\u0440\u0438\u0448\u043B\u043E\u0441\u044C \u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0441 \u043D\u0443\u043B\u044F, \u0447\u0442\u043E \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u043E proposal.md \xABSHALL not be registered until its canonical mapping ... is approved\xBB"
+    ]
+  },
+  {
+    slug: "bug_provenance",
+    owner: "fractal-core (TPF-31)",
+    readSource: "public.tasks.bug_provenance",
+    writeTarget: "public.mcp_field_write_bug_provenance_preflight/approve -> public.tasks.bug_provenance",
+    validator: "tasks_bug_provenance_shape_chk: answer yes|no|unknown + bounded non-empty note; \u0442\u043E\u043B\u044C\u043A\u043E yes \u0434\u043E\u043F\u0443\u0441\u043A\u0430\u0435\u0442 full SHA + bounded http(s) PR",
+    instructionTarget: "resolve_effective_instructions(field_key='bug_provenance')",
+    migration: "20260731140000_mcp_field_write_bug_provenance_approvals.sql",
+    enablement: "registered",
+    evidence: [
+      "TPF-31: \u043A\u0430\u043D\u043E\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439 manual provenance contract",
+      "supabase/migrations/20260725030000_tasks_bug_provenance.sql",
+      "supabase/migrations/20260730190000_bug_provenance_evidence_contract.sql",
+      "supabase/migrations/20260731140000_mcp_field_write_bug_provenance_approvals.sql",
+      "mcp-server tools: fractal_task_write_bug_provenance + _approve",
+      "supabase/functions/widget-api-board/index.ts getAllowedUpdates: bug_provenance \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 generic write-allowlist",
+      "ITA-01: \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F \u043F\u043E\u0438\u0441\u043A\u0430 commit/PR-\u0432\u0438\u043D\u043E\u0432\u043D\u0438\u043A\u0430"
+    ]
+  },
+  {
+    slug: "child_stage",
+    owner: "fractal-core (UI)",
+    readSource: "\u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u0430\u044F \u043E\u0442 \u0434\u043E\u0447\u0435\u0440\u043D\u0438\u0445 \u0437\u0430\u0434\u0430\u0447, \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+    writeTarget: "\u043D\u0435\u0442 \u0438 \u043D\u0435 \u0431\u0443\u0434\u0435\u0442",
+    validator: "\u043D\u0435\u0442",
+    instructionTarget: "\u043D\u0435\u0442: \u043F\u043E\u043B\u0435 \u043D\u0435 \u043D\u0435\u0441\u0451\u0442 \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438",
+    migration: "\u043D\u0435\u0442",
+    enablement: "never_writable",
+    evidence: [
+      "specs/mcp-field-instruction-context/spec.md: \xABChild stage is display-only\xBB",
+      "specs/mcp-field-write-approvals/spec.md: preflight \u0434\u043B\u044F child_stage \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 FIELD_NOT_WRITABLE"
+    ]
+  },
+  {
+    slug: "name",
+    owner: "fractal-core (TTAL-02 structured fields)",
+    readSource: "public.tasks.title",
+    writeTarget: "\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u2014 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439 route \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F \u0437\u0430\u0434\u0430\u0447\u0438 (fractal_update_task); metadata-\u043A\u043E\u043D\u0432\u0435\u0440\u0442 \u2014 public.submit_task_structured_field(field_key='name'), \u043F\u043E\u043A\u0430 \u0422\u041E\u041B\u042C\u041A\u041E \u0447\u0435\u043B\u043E\u0432\u0435\u0447\u0435\u0441\u043A\u0438\u0439: \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u0435 \u0433\u0435\u0439\u0442\u044B (widget-api-board set_structured_field \u0438 MCP-enum) \u0432\u0441\u0451 \u0435\u0449\u0451 \u043F\u0440\u043E\u043F\u0443\u0441\u043A\u0430\u044E\u0442 \u0442\u043E\u043B\u044C\u043A\u043E proof_of_done/last_review/next_action",
+    validator: "app_normalize_task_structured_field: metadata-only (text \u043E\u0431\u044F\u0437\u0430\u043D \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C, reasoning \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D, selected \u0437\u0430\u043F\u0440\u0435\u0449\u0451\u043D, model_opinions \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u044B)",
+    instructionTarget: "resolve_effective_instructions(field_key='name')",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E: 20260731130000 \u0440\u0430\u0441\u0448\u0438\u0440\u044F\u0435\u0442 \u0437\u0430\u043A\u0440\u044B\u0442\u044B\u0439 \u043D\u0430\u0431\u043E\u0440 \u043A\u043B\u044E\u0447\u0435\u0439 structured_fields; tasks.title \u043D\u0435 \u043C\u0438\u0433\u0440\u0438\u0440\u0443\u0435\u0442 \u0438 \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u043C \u043D\u043E\u0441\u0438\u0442\u0435\u043B\u0435\u043C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F",
+    enablement: "unapproved",
+    evidence: [
+      "supabase/migrations/20260731130000_name_description_metadata_fields.sql",
+      "\u041F\u0430\u0440\u0430 fractal_task_write_name \u041D\u0415 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0430: governed write \u0437\u0434\u0435\u0441\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F metadata-\u043A\u043E\u043D\u0432\u0435\u0440\u0442\u0430, \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u043F\u043E-\u043F\u0440\u0435\u0436\u043D\u0435\u043C\u0443 \u0438\u0434\u0451\u0442 \u043E\u0431\u044B\u0447\u043D\u044B\u043C task-update \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u043E\u043C"
+    ]
+  },
+  {
+    slug: "description",
+    owner: "fractal-core (TTAL-02 structured fields)",
+    readSource: "public.tasks.content",
+    writeTarget: "\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u2014 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439 route \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F \u0437\u0430\u0434\u0430\u0447\u0438 (fractal_update_task); metadata-\u043A\u043E\u043D\u0432\u0435\u0440\u0442 \u2014 public.submit_task_structured_field(field_key='description'), \u043F\u043E\u043A\u0430 \u0422\u041E\u041B\u042C\u041A\u041E \u0447\u0435\u043B\u043E\u0432\u0435\u0447\u0435\u0441\u043A\u0438\u0439: \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u0435 \u0433\u0435\u0439\u0442\u044B (widget-api-board set_structured_field \u0438 MCP-enum) \u0432\u0441\u0451 \u0435\u0449\u0451 \u043F\u0440\u043E\u043F\u0443\u0441\u043A\u0430\u044E\u0442 \u0442\u043E\u043B\u044C\u043A\u043E proof_of_done/last_review/next_action",
+    validator: "app_normalize_task_structured_field: metadata-only (text \u043E\u0431\u044F\u0437\u0430\u043D \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C, reasoning \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D, selected \u0437\u0430\u043F\u0440\u0435\u0449\u0451\u043D, model_opinions \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u044B)",
+    instructionTarget: "resolve_effective_instructions(field_key='description')",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E: 20260731130000 \u0440\u0430\u0441\u0448\u0438\u0440\u044F\u0435\u0442 \u0437\u0430\u043A\u0440\u044B\u0442\u044B\u0439 \u043D\u0430\u0431\u043E\u0440 \u043A\u043B\u044E\u0447\u0435\u0439 structured_fields; tasks.content \u043D\u0435 \u043C\u0438\u0433\u0440\u0438\u0440\u0443\u0435\u0442, \u043C\u0430\u0448\u0438\u043D\u043D\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0432 task_versions",
+    enablement: "unapproved",
+    evidence: [
+      "supabase/migrations/20260731130000_name_description_metadata_fields.sql",
+      "\u041F\u0430\u0440\u0430 fractal_task_write_description \u041D\u0415 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0430: \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u2014 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u043B\u044C\u043D\u044B\u0439 HTML, \u0435\u0433\u043E \u043D\u0435\u043B\u044C\u0437\u044F \u043F\u0440\u043E\u0432\u0435\u0441\u0442\u0438 \u0447\u0435\u0440\u0435\u0437 2000-\u0441\u0438\u043C\u0432\u043E\u043B\u044C\u043D\u044B\u0439 \u043A\u043E\u043D\u0432\u0435\u0440\u0442 structured field"
+    ]
+  }
+];
+var FIELD_WRITE_TOOL_PREFIX = "fractal_task_write_";
+var APPROVE_SUFFIX = "_approve";
+var fieldWriteMapping = (slug) => FIELD_WRITE_MAPPINGS.find((mapping) => mapping.slug === slug);
+var registeredFieldWriteSlugs = () => FIELD_WRITE_MAPPINGS.filter((mapping) => mapping.enablement === "registered").map(
+  (mapping) => mapping.slug
+);
+var fieldWriteToolNames = (slug) => [
+  `${FIELD_WRITE_TOOL_PREFIX}${slug}`,
+  `${FIELD_WRITE_TOOL_PREFIX}${slug}${APPROVE_SUFFIX}`
+];
+var fieldWriteSlugFromToolName = (name) => {
+  if (!name.startsWith(FIELD_WRITE_TOOL_PREFIX)) return void 0;
+  const rest = name.slice(FIELD_WRITE_TOOL_PREFIX.length);
+  const slug = rest.endsWith(APPROVE_SUFFIX) ? rest.slice(0, -APPROVE_SUFFIX.length) : rest;
+  return slug.length > 0 ? slug : void 0;
+};
+var assertFieldWriteToolRegistry = (toolNames) => {
+  const published = toolNames.filter((name) => fieldWriteSlugFromToolName(name) !== void 0);
+  for (const name of published) {
+    const slug = fieldWriteSlugFromToolName(name);
+    const mapping = fieldWriteMapping(slug);
+    if (!mapping) {
+      throw new Error(
+        `field-write registry: \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 ${name} \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D \u0431\u0435\u0437 \u0441\u0442\u0440\u043E\u043A\u0438 \u043C\u0430\u043F\u043F\u0438\u043D\u0433\u0430 \u0434\u043B\u044F slug "${slug}"`
+      );
+    }
+    if (mapping.enablement !== "registered") {
+      throw new Error(
+        `field-write registry: \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 ${name} \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D, \u043D\u043E enablement \u043C\u0430\u043F\u043F\u0438\u043D\u0433\u0430 "${slug}" = ${mapping.enablement}`
+      );
+    }
+  }
+  for (const slug of registeredFieldWriteSlugs()) {
+    for (const expected of fieldWriteToolNames(slug)) {
+      if (!published.includes(expected)) {
+        throw new Error(
+          `field-write registry: \u043C\u0430\u043F\u043F\u0438\u043D\u0433 "${slug}" \u043F\u043E\u043C\u0435\u0447\u0435\u043D registered, \u043D\u043E \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 ${expected} \u043D\u0435 \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D`
+        );
+      }
+    }
+  }
+};
+
+// src/issue-card.ts
+import { createHash as createHash7 } from "node:crypto";
+var ISSUE_CARD_RESOURCE_VERSION = "2";
+var ISSUE_CARD_SNAPSHOT_SCHEMA_VERSION = "fractal.issue-card/v2";
+var ISSUE_CARD_RESOURCE_URI = "ui://fractal/issue-card-v2.html";
 var ISSUE_CARD_MIME_TYPE = "text/html;profile=mcp-app";
 var MAX_RELATIONS = 8;
 function publicIssueId(value) {
@@ -19597,6 +19863,12 @@ async function buildIssueCardSnapshot(client, taskId) {
   const parent = await resolveParent(client, result.parent_ids?.[0]);
   const issueId = publicIssueId(task.issue_id);
   return {
+    schemaVersion: ISSUE_CARD_SNAPSHOT_SCHEMA_VERSION,
+    resource: {
+      uri: ISSUE_CARD_RESOURCE_URI,
+      version: ISSUE_CARD_RESOURCE_VERSION,
+      digest: ISSUE_CARD_RESOURCE_DIGEST
+    },
     taskId: task.id,
     ...issueId ? { issueId } : {},
     title: task.title ?? "",
@@ -19837,8 +20109,9 @@ var ISSUE_CARD_HTML = String.raw`<!doctype html>
 })();</script>
 </body>
 </html>`;
+var ISSUE_CARD_RESOURCE_DIGEST = createHash7("sha256").update(ISSUE_CARD_HTML, "utf8").digest("hex");
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/discovery-projection.ts
+// src/discovery-projection.ts
 function taskIdOf(task) {
   if (!task || typeof task !== "object") return null;
   const id = task.id;
@@ -19950,7 +20223,7 @@ function projectStructuralRelations(relations) {
   return out;
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/subtree-truncation.ts
+// src/subtree-truncation.ts
 var SUBTREE_RESULT_MAX_CHARS = 48e3;
 function serializedSize(value) {
   return JSON.stringify(value, null, 2).length;
@@ -20030,7 +20303,7 @@ function applySubtreeTruncation(payload, maxChars = SUBTREE_RESULT_MAX_CHARS) {
   return buildPayload(base, tasks.slice(0, best), true);
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/task-truncation.ts
+// src/task-truncation.ts
 var TASK_RESULT_MAX_CHARS = 15e3;
 var TASK_CONTENT_MIN_CHARS = 1e3;
 var TASK_HEADER_SUFFIX_HEADROOM = 200;
@@ -20411,8 +20684,8 @@ function markContentRead(task, contentMeta, window) {
   for (const key of keys) contentReads.set(key, state2);
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/body-delivery.ts
-import { createHash as createHash7, createHmac, randomUUID as randomUUID6, timingSafeEqual } from "node:crypto";
+// src/body-delivery.ts
+import { createHash as createHash8, createHmac, randomUUID as randomUUID6, timingSafeEqual } from "node:crypto";
 var BODY_FRAGMENT_MAX_SCALARS = 5e3;
 var BODY_RESPONSE_MAX_SERIALIZED_BYTES = 24e3;
 var BODY_RESPONSE_MAX_TOKEN_ESTIMATE = 24e3;
@@ -20426,7 +20699,7 @@ function canonicalContent(content) {
   return content.normalize("NFC");
 }
 function sha256(value) {
-  return createHash7("sha256").update(value).digest("hex");
+  return createHash8("sha256").update(value).digest("hex");
 }
 function deliveryKey(sessionId, taskId) {
   return `${sessionId}\0${taskId}`;
@@ -20448,10 +20721,10 @@ var BodyDeliveryStore = class {
     }
     if (input.cursor) {
       const cursor = this.decode(input.cursor, "page");
-      this.assertMatches(cursor, input, contentHash);
       if (!state2) {
         throw new BodyDeliveryError("STALE_DELIVERY", "body delivery was invalidated; restart from the first page");
       }
+      this.assertMatches(cursor, input, contentHash, state2);
       const replay = state2.pages.get(input.cursor);
       if (replay) return replay;
       if (cursor.position !== state2.nextPosition) {
@@ -20562,8 +20835,8 @@ var BodyDeliveryStore = class {
     if (requestCursor) state2.pages.set(requestCursor, page);
     return page;
   }
-  assertMatches(cursor, input, contentHash) {
-    if (cursor.sessionId !== input.sessionId || cursor.taskId !== input.taskId || cursor.revision !== input.revision || cursor.contentHash !== contentHash) {
+  assertMatches(cursor, input, contentHash, state2) {
+    if (cursor.deliveryId !== state2.id || cursor.sessionId !== input.sessionId || cursor.taskId !== input.taskId || cursor.revision !== input.revision || cursor.contentHash !== contentHash) {
       throw new BodyDeliveryError("STALE_DELIVERY", "continuation cursor does not match the current task revision");
     }
   }
@@ -20716,7 +20989,7 @@ function enforceBodyDeliveryResponseBudget(payload) {
   }
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/field-preflight.ts
+// src/field-preflight.ts
 import { randomUUID as randomUUID7 } from "node:crypto";
 var ORDER_TTL_MS = 10 * 60 * 1e3;
 var orders = /* @__PURE__ */ new Map();
@@ -20731,20 +21004,35 @@ function cleanupExpiredOrders() {
 var INSTRUCTION_FIELD_KEYS = [
   "type",
   "stage",
+  "blocked",
   "proof_of_done",
   "last_review",
   "next_action",
   "repo",
   "lock",
   "tags",
-  "metrics"
+  "metrics",
+  "bug_provenance"
 ];
 function fieldKeyForField(fieldName) {
   return INSTRUCTION_FIELD_KEYS.includes(fieldName) ? fieldName : void 0;
 }
 function fieldKeyForStatus(destinationStatus) {
-  const s = destinationStatus.toLowerCase();
-  return s.includes("done") || s.includes("proof") ? "proof_of_done" : "stage";
+  const normalized = destinationStatus.toLocaleLowerCase("ru-RU").replace(/[^a-zа-яё0-9]+/gu, " ").trim().replace(/\s+/g, " ");
+  if (["done", "proof", "proof of done", "\u0433\u043E\u0442\u043E\u0432\u043E", "\u0441\u0434\u0435\u043B\u0430\u043D\u043E", "\u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E"].includes(normalized)) {
+    return "proof_of_done";
+  }
+  if ([
+    "blocked",
+    "\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0430",
+    "\u0431\u043B\u043E\u043A\u0435\u0440\u044B",
+    "\u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D",
+    "\u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u0430",
+    "\u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
+  ].includes(normalized)) {
+    return "blocked";
+  }
+  return "stage";
 }
 async function resolveInstruction(client, taskId, fieldKey) {
   if (!taskId) return void 0;
@@ -20847,9 +21135,9 @@ function validateMoveOrder(orderId, destinationStatus) {
   return validateOrder(orderId, "move", destinationStatus, "destination status");
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/plan-gate.ts
+// src/plan-gate.ts
 import { spawnSync } from "node:child_process";
-import { createHash as createHash8 } from "node:crypto";
+import { createHash as createHash9 } from "node:crypto";
 var lastReceipt;
 function getPlanReceipt() {
   return lastReceipt;
@@ -20902,7 +21190,7 @@ function sanitizePlanText(raw) {
   return { text: stripped.slice(0, PLAN_TEXT_CAP), truncated };
 }
 function hashPlanText(text) {
-  return createHash8("sha256").update(text, "utf8").digest("hex");
+  return createHash9("sha256").update(text, "utf8").digest("hex");
 }
 function extractJson(text) {
   const match = text.match(/\{[\s\S]*\}/);
@@ -20929,7 +21217,7 @@ function parseCheckerCommand(cmd) {
 }
 function rulesFingerprintOf(rules) {
   const material = rules.map((r) => `${r.id}\0${r.title}\0${r.content ?? ""}`).sort().join("\n");
-  return createHash8("sha256").update(material, "utf8").digest("hex");
+  return createHash9("sha256").update(material, "utf8").digest("hex");
 }
 function currentRulesFingerprint() {
   return rulesFingerprintOf(loadedRuleCards());
@@ -21119,7 +21407,7 @@ function planGateRejectionMessage(context) {
   return `Plan-gate: ${verdictReason ?? "\u043C\u0443\u0442\u0430\u0446\u0438\u044F \u043D\u0435 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u0430"} (${tag})`;
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/tools.ts
+// src/tools.ts
 var HUD_RESOURCE_URI = "ui://fractal/context-hud-v1.html";
 var PLAN_HASH_PROP = {
   type: "string",
@@ -21217,15 +21505,19 @@ var TOOLS = [
         fieldKey: {
           type: "string",
           enum: [
+            "name",
+            "description",
             "type",
             "stage",
+            "blocked",
             "proof_of_done",
             "last_review",
             "next_action",
             "repo",
             "lock",
             "tags",
-            "metrics"
+            "metrics",
+            "bug_provenance"
           ],
           description: "\u041A\u043E\u043D\u0442\u0435\u043A\u0441\u0442 \u043F\u043E\u043B\u044F \u0434\u043B\u044F \u043F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0438 field-oriented \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F; \u0431\u0435\u0437 \u043D\u0435\u0433\u043E \u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044F \u0432\u0441\u044F \u0437\u0430\u0434\u0430\u0447\u0430"
         },
@@ -21291,10 +21583,82 @@ var TOOLS = [
     },
     annotations: { readOnlyHint: true },
     _meta: {
-      ui: { resourceUri: ISSUE_CARD_RESOURCE_URI },
+      ui: {
+        resourceUri: ISSUE_CARD_RESOURCE_URI,
+        resourceVersion: ISSUE_CARD_RESOURCE_VERSION,
+        resourceDigest: ISSUE_CARD_RESOURCE_DIGEST
+      },
       "openai/outputTemplate": ISSUE_CARD_RESOURCE_URI,
       "openai/toolInvocation/invoking": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u044E \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443 \u0437\u0430\u0434\u0430\u0447\u0438\u2026",
       "openai/toolInvocation/invoked": "\u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u0437\u0430\u0434\u0430\u0447\u0438 \u0433\u043E\u0442\u043E\u0432\u0430."
+    }
+  },
+  {
+    name: "fractal_task_write_type",
+    title: "Fractal Task Type Preflight",
+    description: "Read-only governed preview for the approved type field mapping; returns an explicit approval packet without changing a task",
+    inputSchema: {
+      type: "object",
+      properties: {
+        taskId: { type: "string", minLength: 1 },
+        task_type: { type: "string", minLength: 1 }
+      },
+      required: ["taskId", "task_type"],
+      additionalProperties: false
+    },
+    annotations: { readOnlyHint: true }
+  },
+  {
+    name: "fractal_task_write_type_approve",
+    title: "Fractal Task Type Approve",
+    description: "Atomically apply one unchanged server-issued type approval packet after the separate human enablement gate is open",
+    inputSchema: {
+      type: "object",
+      properties: {
+        planHash: PLAN_HASH_PROP,
+        approval_payload: { type: "object", minProperties: 1 }
+      },
+      required: ["approval_payload"],
+      additionalProperties: false
+    }
+  },
+  {
+    name: "fractal_task_write_bug_provenance",
+    title: "Fractal Bug Provenance Preflight",
+    description: "Read-only governed preview for the canonical bug provenance field; resolves its effective instruction and returns a signed approval packet without changing the task",
+    inputSchema: {
+      type: "object",
+      properties: {
+        taskId: { type: "string", minLength: 1 },
+        bug_provenance: {
+          type: "object",
+          properties: {
+            answer: { type: "string", enum: ["yes", "no", "unknown"] },
+            commit_sha: { type: ["string", "null"] },
+            pr_url: { type: ["string", "null"], maxLength: 2048 },
+            note: { type: "string", minLength: 1, maxLength: 4e3 }
+          },
+          required: ["answer", "note"],
+          additionalProperties: false
+        }
+      },
+      required: ["taskId", "bug_provenance"],
+      additionalProperties: false
+    },
+    annotations: { readOnlyHint: true }
+  },
+  {
+    name: "fractal_task_write_bug_provenance_approve",
+    title: "Fractal Bug Provenance Approve",
+    description: "Atomically apply one unchanged server-issued bug provenance approval packet after the separate human enablement gate is open",
+    inputSchema: {
+      type: "object",
+      properties: {
+        planHash: PLAN_HASH_PROP,
+        approval_payload: { type: "object", minProperties: 1 }
+      },
+      required: ["approval_payload"],
+      additionalProperties: false
     }
   },
   {
@@ -21405,7 +21769,7 @@ var TOOLS = [
   },
   {
     name: "fractal_update_task",
-    description: "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443 \u0432 \u043F\u043E\u0434\u0434\u0435\u0440\u0435\u0432\u0435 \u0442\u043E\u043A\u0435\u043D\u0430. \u041E\u0411\u042F\u0417\u0410\u0422\u0415\u041B\u042C\u041D\u041E: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 fractal_preflight_update \u0441 \u0438\u043C\u0435\u043D\u0435\u043C \u043F\u043E\u043B\u044F, \u043F\u043E\u043B\u0443\u0447\u0438 orderId \u0438 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0437\u0434\u0435\u0441\u044C. \u041E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u0435: updates \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0420\u041E\u0412\u041D\u041E \u041E\u0414\u041D\u041E \u043F\u043E\u043B\u0435 (\u043E\u0434\u043D\u0430 \u043F\u0430\u0442\u0447 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044F). \u0421\u0435\u0440\u0432\u0435\u0440 \u043F\u0440\u0438\u043C\u0435\u043D\u044F\u0435\u0442 \u0442\u043E\u043B\u044C\u043A\u043E whitelisted-\u043F\u043E\u043B\u044F (title, content, column_id, task_type, priority, start_date, end_date, position, subtask_order, attachments, custom_columns \u2014 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 \u0434\u0432\u0430 \u0442\u043E\u043B\u044C\u043A\u043E \u043C\u0430\u0441\u0441\u0438\u0432 \u0438\u043B\u0438 null). \u041D\u0443\u0436\u0435\u043D write.",
+    description: "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443 \u0432 \u043F\u043E\u0434\u0434\u0435\u0440\u0435\u0432\u0435 \u0442\u043E\u043A\u0435\u043D\u0430. \u041E\u0411\u042F\u0417\u0410\u0422\u0415\u041B\u042C\u041D\u041E: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 fractal_preflight_update \u0441 \u0438\u043C\u0435\u043D\u0435\u043C \u043F\u043E\u043B\u044F, \u043F\u043E\u043B\u0443\u0447\u0438 orderId \u0438 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0437\u0434\u0435\u0441\u044C. \u041E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u0435: updates \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0420\u041E\u0412\u041D\u041E \u041E\u0414\u041D\u041E \u043F\u043E\u043B\u0435 (\u043E\u0434\u043D\u0430 \u043F\u0430\u0442\u0447 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044F). \u0421\u0435\u0440\u0432\u0435\u0440 \u043F\u0440\u0438\u043C\u0435\u043D\u044F\u0435\u0442 \u0442\u043E\u043B\u044C\u043A\u043E whitelisted-\u043F\u043E\u043B\u044F (title, content, column_id, task_type, priority, start_date, end_date, position, subtask_order, attachments \u2014 \u0442\u043E\u043B\u044C\u043A\u043E \u043C\u0430\u0441\u0441\u0438\u0432 \u0438\u043B\u0438 null). \u041D\u0443\u0436\u0435\u043D write. custom_columns \u041D\u0415 \u0437\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F: \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430 \u044D\u0442\u0430\u043F\u043E\u0432 \u0434\u043E\u0441\u043A\u0438 \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0438\u0442 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0435 (TPF-74 / P03).",
     inputSchema: {
       type: "object",
       properties: {
@@ -21781,6 +22145,7 @@ var TOOLS = [
     inputSchema: { type: "object", properties: {}, additionalProperties: false }
   }
 ];
+assertFieldWriteToolRegistry(TOOLS.map((tool) => tool.name));
 function loadedContextNodeCount() {
   return getContextReceipt().items.filter(
     (item) => item.state === "loaded" || item.state === "read"
@@ -21861,7 +22226,7 @@ function registrationProjection(task) {
   const title = String(task.title ?? id);
   const revision = extractTaskRevision(task);
   const raw = typeof task.content === "string" ? task.content : "";
-  const contentHash = createHash9("sha256").update(raw.normalize("NFC")).digest("hex");
+  const contentHash = createHash10("sha256").update(raw.normalize("NFC")).digest("hex");
   const out = {
     id,
     title,
@@ -22184,6 +22549,27 @@ function runTool(client, name, args, sessionRuntime) {
       });
     case "fractal_issue_card":
       return buildIssueCardSnapshot(client, String(args.taskId));
+    case "fractal_task_write_type":
+      return client.preflightTaskType(String(args.taskId), { task_type: String(args.task_type) });
+    case "fractal_task_write_type_approve": {
+      const approvalPayload = args.approval_payload;
+      return planGateTail(
+        { tool: name, taskId: approvalPayload?.task_id, planHash: args.planHash },
+        () => client.approveTaskType(approvalPayload)
+      );
+    }
+    case "fractal_task_write_bug_provenance":
+      return client.preflightTaskBugProvenance(
+        String(args.taskId),
+        args.bug_provenance
+      );
+    case "fractal_task_write_bug_provenance_approve": {
+      const approvalPayload = args.approval_payload;
+      return planGateTail(
+        { tool: name, taskId: approvalPayload?.task_id, planHash: args.planHash },
+        () => client.approveTaskBugProvenance(approvalPayload)
+      );
+    }
     case "fractal_get_review_export":
       return client.getReviewExport(String(args.taskId));
     case "fractal_add_comment":
@@ -22470,7 +22856,7 @@ function runTool(client, name, args, sessionRuntime) {
   }
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/context-contract.ts
+// src/context-contract.ts
 var CONTEXT_READ_CAPABILITY = "fractal.mcp.context_read";
 var CONTEXT_READ_ACTIVE_VERSION = "3-layer/v1";
 var CONTEXT_READ_LEGACY_SAFE_VERSION = "legacy-safe/v0";
@@ -22499,7 +22885,7 @@ function attachContextContract(payload, contract) {
   return { ...payload, _contract: contract };
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/config.ts
+// src/config.ts
 import { homedir as homedir4 } from "node:os";
 import { join as join5 } from "node:path";
 import { mkdirSync as mkdirSync4, readFileSync as readFileSync4, writeFileSync as writeFileSync4 } from "node:fs";
@@ -22522,7 +22908,7 @@ function writeToken(token, expires_at) {
   return file();
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/login.ts
+// src/login.ts
 import http from "node:http";
 import { spawn } from "node:child_process";
 var DEFAULT_APP_URL = "https://tasks.bos.pro";
@@ -22576,7 +22962,7 @@ function login(appUrl = process.env.FRACTAL_APP_URL || DEFAULT_APP_URL) {
   });
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/receipt-plane.ts
+// src/receipt-plane.ts
 var CORRIDOR_TOOL_NAMES = /* @__PURE__ */ new Set([
   "fractal_create_task",
   "fractal_update_task",
@@ -22707,7 +23093,7 @@ function toCorridorToolResult(result) {
   return response;
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/entry-gate-dispatch.ts
+// src/entry-gate-dispatch.ts
 function applyEntryLoadResult(managedAuth, name, result) {
   if (!managedAuth && name === "fractal_load_context") {
     markEntryLoadedFromLoadContextResult(result);
@@ -22717,7 +23103,7 @@ function shouldAttachDesktopHarness(managedAuth, name) {
   return !managedAuth && !CORRIDOR_TOOL_NAMES.has(name);
 }
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/hud.ts
+// src/hud.ts
 var HUD_RESOURCE_URI2 = "ui://fractal/context-hud-v1.html";
 var HUD_MIME_TYPE = "text/html;profile=mcp-app";
 var HUD_HTML = String.raw`<!doctype html>
@@ -22799,7 +23185,7 @@ var HUD_HTML = String.raw`<!doctype html>
 </body>
 </html>`;
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/tool-verb-map.ts
+// src/tool-verb-map.ts
 var TOOL_VERB_MAP = [
   { tool: "fractal_context_hud", selector: null, verb: "read" },
   { tool: "fractal_load_context", selector: null, verb: "read" },
@@ -22811,6 +23197,10 @@ var TOOL_VERB_MAP = [
   { tool: "fractal_search", selector: null, verb: "read" },
   { tool: "fractal_list_tasks", selector: null, verb: "read" },
   { tool: "fractal_issue_card", selector: null, verb: "read" },
+  { tool: "fractal_task_write_type", selector: null, verb: "preflight" },
+  { tool: "fractal_task_write_type_approve", selector: null, verb: "approve" },
+  { tool: "fractal_task_write_bug_provenance", selector: null, verb: "preflight" },
+  { tool: "fractal_task_write_bug_provenance_approve", selector: null, verb: "approve" },
   { tool: "fractal_add_comment", selector: null, verb: "comment" },
   { tool: "fractal_preflight_create", selector: null, verb: "read" },
   { tool: "fractal_preflight_update", selector: null, verb: "read" },
@@ -22870,7 +23260,7 @@ var MANAGED_TOOL_NAMES = /* @__PURE__ */ new Set([
   ...MANAGED_META_TOOL_NAMES
 ]);
 
-// ../../../AppData/Local/Temp/fractal-main-552-mcp-src/src/index.ts
+// src/index.ts
 var REQUEST_SHA256_RE = /^[0-9a-f]{64}$/;
 function parseExactSafeInt(raw, min) {
   const s = raw?.trim() ?? "";
