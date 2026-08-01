@@ -15453,7 +15453,177 @@ var StdioServerTransport = class {
 
 // src/client.ts
 import { createHash, randomUUID } from "node:crypto";
+
+// src/errors.ts
+var McpErrorCode = {
+  TELEMETRY_REJECTED: "TELEMETRY_REJECTED",
+  TELEMETRY_DEGRADED: "TELEMETRY_DEGRADED",
+  TELEMETRY_SPOOLED: "TELEMETRY_SPOOLED",
+  TELEMETRY_FAILED: "TELEMETRY_FAILED",
+  SESSION_UNAVAILABLE: "SESSION_UNAVAILABLE",
+  UPSTREAM: "UPSTREAM",
+  EMPTY_RESPONSE: "EMPTY_RESPONSE",
+  UNKNOWN: "UNKNOWN",
+  DEADLINE_EXCEEDED: "DEADLINE_EXCEEDED"
+};
+var FAILED_TELEMETRY_DELIVERIES = [
+  "rejected",
+  "degraded",
+  "failed",
+  "spooled"
+];
+function isFailedTelemetryDelivery(value) {
+  return typeof value === "string" && FAILED_TELEMETRY_DELIVERIES.includes(value);
+}
+function telemetryErrorCode(delivery) {
+  switch (delivery) {
+    case "rejected":
+      return McpErrorCode.TELEMETRY_REJECTED;
+    case "degraded":
+      return McpErrorCode.TELEMETRY_DEGRADED;
+    case "spooled":
+      return McpErrorCode.TELEMETRY_SPOOLED;
+    case "failed":
+      return McpErrorCode.TELEMETRY_FAILED;
+    default:
+      return McpErrorCode.UNKNOWN;
+  }
+}
+function parseIdentityEnvelopeReject(body) {
+  if (!body || typeof body !== "object" || Array.isArray(body)) return null;
+  const record2 = body;
+  const envelope = record2.identityEnvelope;
+  if (!envelope || typeof envelope !== "object" || Array.isArray(envelope)) return null;
+  const env = envelope;
+  const error2 = typeof record2.error === "string" && record2.error.trim() ? record2.error.trim() : "Canonical Fractal session identity required";
+  const remediation = typeof env.remediation === "string" && env.remediation.trim() ? env.remediation.trim() : "Upgrade fractal MCP plugin; send full schemaVersion=1 lineage (vendor, nativeSessionId, workspaceId\u2260legacy, runKind).";
+  const requiredFields = Array.isArray(env.requiredFields) ? env.requiredFields.filter((f) => typeof f === "string") : [];
+  const minPluginVersion = typeof env.minPluginVersion === "string" ? env.minPluginVersion : void 0;
+  return { error: error2, remediation, minPluginVersion, requiredFields };
+}
+function telemetryErrorEnvelope(receipt2) {
+  const identity = parseIdentityEnvelopeReject(receipt2.body);
+  if (identity) {
+    return {
+      code: McpErrorCode.TELEMETRY_REJECTED,
+      message: `${identity.error} \u2014 ${identity.remediation}`,
+      kind: "identity_envelope"
+    };
+  }
+  const delivery = isFailedTelemetryDelivery(receipt2.delivery) ? receipt2.delivery : "failed";
+  const code = receipt2.delivery === "degraded" && typeof receipt2.reason === "string" && /session_start/i.test(receipt2.reason) ? McpErrorCode.SESSION_UNAVAILABLE : telemetryErrorCode(delivery);
+  const reason = typeof receipt2.reason === "string" && receipt2.reason.trim() ? receipt2.reason.trim() : defaultTelemetryMessage(delivery);
+  const kind = typeof receipt2.error_kind === "string" && receipt2.error_kind.trim() ? receipt2.error_kind.trim() : void 0;
+  return {
+    code,
+    message: humanTelemetryMessage(delivery, reason),
+    ...kind ? { kind } : {}
+  };
+}
+function defaultTelemetryMessage(delivery) {
+  switch (delivery) {
+    case "rejected":
+      return "Telemetry event rejected by server";
+    case "degraded":
+      return "Telemetry delivery degraded";
+    case "spooled":
+      return "Telemetry event spooled for retry (not yet stored)";
+    case "failed":
+      return "Telemetry event failed";
+    default:
+      return "Telemetry event not stored";
+  }
+}
+function humanTelemetryMessage(delivery, reason) {
+  switch (delivery) {
+    case "rejected":
+      return `Telemetry not stored (rejected): ${reason}`;
+    case "degraded":
+      return `Telemetry not stored (degraded): ${reason}`;
+    case "spooled":
+      return `Telemetry not stored (spooled for retry): ${reason}`;
+    case "failed":
+      return `Telemetry not stored (failed): ${reason}`;
+    default:
+      return `Telemetry not stored: ${reason}`;
+  }
+}
+function withErrorEnvelope(body, error2) {
+  return { ...body, error: error2 };
+}
+function isToolResultError(result) {
+  if (!result || typeof result !== "object") return false;
+  const body = result;
+  if (body.error && typeof body.error === "object") {
+    const env = body.error;
+    if (typeof env.code === "string" && env.code.length > 0) return true;
+  }
+  if (body.receipt === null && isFailedTelemetryDelivery(body.delivery)) return true;
+  if (body.stored === false) return true;
+  const receipt2 = body.receipt;
+  if (receipt2 && typeof receipt2 === "object") {
+    const rec = receipt2;
+    if (rec.stored === false) return true;
+    if (isFailedTelemetryDelivery(rec.delivery)) return true;
+  }
+  return false;
+}
+function summarizeToolResultError(result) {
+  if (!result || typeof result !== "object") return "Tool failed";
+  const body = result;
+  if (body.error && typeof body.error === "object") {
+    const env = body.error;
+    if (typeof env.message === "string" && env.message.trim()) return env.message.trim();
+  }
+  const receipt2 = body.receipt && typeof body.receipt === "object" ? body.receipt : body;
+  if (typeof receipt2.reason === "string" && receipt2.reason.trim()) {
+    const delivery = isFailedTelemetryDelivery(receipt2.delivery) ? receipt2.delivery : "failed";
+    return humanTelemetryMessage(delivery, receipt2.reason.trim());
+  }
+  if (isFailedTelemetryDelivery(receipt2.delivery)) {
+    return defaultTelemetryMessage(receipt2.delivery);
+  }
+  return "Tool failed";
+}
+function toMcpToolResult(result) {
+  const text = JSON.stringify(result, null, 2);
+  if (isToolResultError(result)) {
+    return { content: [{ type: "text", text }], isError: true };
+  }
+  return { content: [{ type: "text", text }] };
+}
+function isSuccessfulSessionEventResponse(response) {
+  if (!response || typeof response !== "object") return false;
+  const receipt2 = response.receipt;
+  if (!receipt2 || typeof receipt2 !== "object") return false;
+  const rec = receipt2;
+  if (rec.stored === false) return false;
+  if (isFailedTelemetryDelivery(rec.delivery)) return false;
+  if (rec.stored === true) return true;
+  if (rec.duplicate === true && typeof rec.session_id === "string") return true;
+  return false;
+}
+function buildHonestFailureEnvelope(input) {
+  return {
+    code: input.code,
+    reason: input.reason,
+    remediation: input.remediation,
+    retryable: input.retryable,
+    wroteUnknown: input.wroteUnknown
+  };
+}
+var HonestFailureError = class extends Error {
+  envelope;
+  constructor(envelope) {
+    super(JSON.stringify(envelope));
+    this.name = "HonestFailureError";
+    this.envelope = envelope;
+  }
+};
+
+// src/client.ts
 var DEFAULT_FUNCTIONS_URL = "https://bzqzsvbjpqdjmtkvwsmh.supabase.co/functions/v1";
+var DEFAULT_REQUEST_BUDGET_MS = 45e3;
 var DESKTOP_CLAIM_TTL_MINUTES = 5;
 var DESKTOP_CLAIM_RENEW_MARGIN_MS = 3e4;
 var WidgetApiError = class extends Error {
@@ -15539,6 +15709,7 @@ var FractalClient = class _FractalClient {
   desktopClaimExpiresAt;
   cachedScopeRoot;
   desktopClaimPromise;
+  requestBudgetMs;
   functionsBaseUrl;
   constructor(opts) {
     if (!opts.token) throw new Error("FRACTAL_WIDGET_TOKEN is required");
@@ -15546,6 +15717,7 @@ var FractalClient = class _FractalClient {
     this.baseUrl = (opts.baseUrl || DEFAULT_FUNCTIONS_URL).replace(/\/$/, "");
     this.functionsBaseUrl = this.baseUrl;
     this.fetchImpl = opts.fetchImpl || fetch;
+    this.requestBudgetMs = typeof opts.requestBudgetMs === "number" && Number.isFinite(opts.requestBudgetMs) && opts.requestBudgetMs > 0 ? opts.requestBudgetMs : DEFAULT_REQUEST_BUDGET_MS;
   }
   /**
    * Координационная сессия, выданная сервером этому рантайму. Ставится
@@ -15637,7 +15809,7 @@ var FractalClient = class _FractalClient {
     "comment_add",
     "dependency_add",
     "dependency_remove",
-    "mark_reviewed"
+    "set_structured_field"
   ]);
   allowDesktopContentWrites() {
     return (process.env.FRACTAL_ALLOW_DESKTOP_WRITES ?? "").trim() === "1";
@@ -15844,6 +16016,7 @@ var FractalClient = class _FractalClient {
     const nativeSessionId = typeof session.nativeSessionId === "string" ? session.nativeSessionId : void 0;
     const workspaceId = typeof session.workspaceId === "string" ? session.workspaceId : void 0;
     const schemaVersion = session.schemaVersion === 1 ? 1 : void 0;
+    const runKind = session.runKind === "primary" || session.runKind === "subagent" ? session.runKind : void 0;
     return this.board({
       action: "session_start",
       session: {
@@ -15852,7 +16025,8 @@ var FractalClient = class _FractalClient {
         ...vendor !== void 0 ? { vendor } : {},
         ...nativeSessionId !== void 0 ? { nativeSessionId } : {},
         ...workspaceId !== void 0 ? { workspaceId } : {},
-        ...schemaVersion !== void 0 ? { schemaVersion } : {}
+        ...schemaVersion !== void 0 ? { schemaVersion } : {},
+        ...runKind !== void 0 ? { runKind } : {}
       }
     });
   }
@@ -15952,8 +16126,23 @@ var FractalClient = class _FractalClient {
       false
     );
   }
-  markTaskReviewed(taskId) {
-    return this.board({ action: "mark_reviewed", taskId }, true, false);
+  setTaskStructuredField(taskId, fieldKey, fieldValue, expectedRevision) {
+    if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 1) {
+      throw new Error(
+        "setTaskStructuredField requires a positive expectedRevision from fractal_get_task"
+      );
+    }
+    return this.board(
+      {
+        action: "set_structured_field",
+        taskId,
+        fieldKey,
+        fieldValue,
+        expectedRevision
+      },
+      true,
+      false
+    );
   }
   async taskLease(taskId, action, ttlMinutes) {
     if ((action === "acquire" || action === "renew") && !this.corridorContext && !this.preClaimCorridorContext) {
@@ -15986,6 +16175,52 @@ var FractalClient = class _FractalClient {
   }
   getTask(taskId, fieldKey) {
     return this.board({ action: "task", taskId, ...fieldKey ? { fieldKey } : {} }, false, true);
+  }
+  /**
+   * Advisory-only governed preflight for the one approved product mapping:
+   * `type -> tasks.task_type`.  The edge owns authorization, resolver trace,
+   * receipt persistence and normalized diff; this client never manufactures an
+   * approval id or performs a write while previewing.
+   */
+  preflightTaskType(taskId, draft) {
+    return this.board(
+      { action: "field_write_preflight", taskId, field: "type", draft },
+      false,
+      true
+    );
+  }
+  /**
+   * Atomic server-side approval.  The payload is deliberately the normalized
+   * draft returned by preflight; the RPC binds it to the opaque receipt and
+   * rejects any substituted/replayed/stale form before changing a task.
+   */
+  approveTaskType(approvalPayload) {
+    return this.board(
+      { action: "field_write_approve", field: "type", approvalPayload },
+      true,
+      false
+    );
+  }
+  /** Read-only governed preflight for `bug_provenance -> tasks.bug_provenance`. */
+  preflightTaskBugProvenance(taskId, bugProvenance) {
+    return this.board(
+      {
+        action: "field_write_preflight",
+        taskId,
+        field: "bug_provenance",
+        draft: { bug_provenance: bugProvenance }
+      },
+      false,
+      true
+    );
+  }
+  /** Atomic approval for an unchanged server-issued bug provenance packet. */
+  approveTaskBugProvenance(approvalPayload) {
+    return this.board(
+      { action: "field_write_approve", field: "bug_provenance", approvalPayload },
+      true,
+      false
+    );
   }
   /**
    * TTE-06 perf fix: one round trip for up to 16 ids (server-enforced cap)
@@ -16219,25 +16454,113 @@ var FractalClient = class _FractalClient {
     }
     return true;
   }
+  isAbortError(err) {
+    return err instanceof Error && err.name === "AbortError";
+  }
+  isDefiniteResponseError(err) {
+    return err instanceof WidgetApiError || err instanceof BoardVerdictError;
+  }
+  /**
+   * Honest timeout for the overall per-tool budget. Once any fetch attempt has
+   * been dispatched, delivery may or may not have happened server-side, so the
+   * caller must check state before deciding whether a retry is safe.
+   */
+  deadlineError(action, anyAttemptDispatched) {
+    return new HonestFailureError(
+      buildHonestFailureEnvelope({
+        code: McpErrorCode.DEADLINE_EXCEEDED,
+        reason: anyAttemptDispatched ? `${action}: no response within the ${this.requestBudgetMs}ms per-tool budget after a request was sent \u2014 delivery is unknown, not failed` : `${action}: ${this.requestBudgetMs}ms per-tool budget exhausted before any request could be dispatched`,
+        remediation: anyAttemptDispatched ? "Do NOT assume this write failed and do NOT blindly retry it \u2014 first check server-side state (e.g. re-read the task/session) to learn whether it actually landed, then act on what you find." : "Nothing was sent to the server. Safe to call the tool again.",
+        retryable: !anyAttemptDispatched,
+        wroteUnknown: anyAttemptDispatched
+      })
+    );
+  }
+  /**
+   * A transport rejection after fetch was invoked is not proof that the
+   * server rejected the request: the write may have landed before the
+   * connection failed. Definite HTTP responses keep their WidgetApiError /
+   * BoardVerdictError contracts and never come through this path.
+   */
+  upstreamTransportError(action, err) {
+    const detail = err instanceof Error && err.message.trim() ? ` (${err.message.trim()})` : "";
+    return new HonestFailureError(
+      buildHonestFailureEnvelope({
+        code: McpErrorCode.UPSTREAM,
+        reason: `${action}: transport failed after a request was sent${detail} \u2014 delivery is unknown, not failed`,
+        remediation: "Do NOT assume this write failed and do NOT blindly retry it \u2014 first check server-side state (e.g. re-read the task/session) to learn whether it actually landed, then act on what you find.",
+        retryable: false,
+        wroteUnknown: true
+      })
+    );
+  }
   async send(url, init, retryable = false) {
     const maxAttempts = retryable ? 3 : 1;
+    const deadline = Date.now() + this.requestBudgetMs;
+    let anyAttemptDispatched = false;
     let lastError;
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const remaining = deadline - Date.now();
+      if (remaining <= 0) {
+        if (this.isDefiniteResponseError(lastError)) {
+          throw lastError;
+        }
+        throw this.deadlineError(url, anyAttemptDispatched);
+      }
+      const controller = new AbortController();
+      let timer;
+      const deadlinePromise = new Promise((_resolve, reject) => {
+        timer = setTimeout(() => {
+          controller.abort();
+          reject(this.deadlineError(url, anyAttemptDispatched));
+        }, remaining);
+      });
       try {
-        return await this.sendOnce(url, init);
+        anyAttemptDispatched = true;
+        const sendPromise = this.sendOnce(url, { ...init, signal: controller.signal });
+        return await Promise.race([sendPromise, deadlinePromise]);
       } catch (err) {
-        lastError = err;
-        if (attempt + 1 >= maxAttempts || !this.isRetryableError(err)) {
+        if (err instanceof HonestFailureError) {
           throw err;
         }
-        await this.sleep(_FractalClient.retryDelayMs(attempt));
+        if (this.isAbortError(err)) {
+          throw this.deadlineError(url, anyAttemptDispatched);
+        }
+        lastError = err;
+        if (attempt + 1 >= maxAttempts || !this.isRetryableError(err)) {
+          if (anyAttemptDispatched && !this.isDefiniteResponseError(err)) {
+            throw this.upstreamTransportError(url, err);
+          }
+          throw err;
+        }
+        const delay = _FractalClient.retryDelayMs(attempt);
+        if (deadline - Date.now() <= delay) {
+          if (this.isDefiniteResponseError(err)) {
+            throw err;
+          }
+          throw this.deadlineError(url, anyAttemptDispatched);
+        }
+        await this.sleep(delay);
+      } finally {
+        if (timer !== void 0) {
+          clearTimeout(timer);
+        }
       }
     }
     throw lastError;
   }
   async sendOnce(url, init) {
     const res = await this.fetchImpl(url, init);
-    const text = await res.text();
+    let text;
+    try {
+      text = await res.text();
+    } catch (err) {
+      const detail = err instanceof Error && err.message.trim() ? `: ${err.message.trim()}` : "";
+      throw new WidgetApiError(
+        res.status,
+        `HTTP ${res.status} response body could not be read${detail}`
+      );
+    }
     let parsed = void 0;
     try {
       parsed = text ? JSON.parse(text) : void 0;
@@ -16265,7 +16588,7 @@ var FractalClient = class _FractalClient {
 };
 
 // src/tools.ts
-import { createHash as createHash9 } from "node:crypto";
+import { createHash as createHash10 } from "node:crypto";
 
 // src/gates.ts
 import { randomUUID as randomUUID5 } from "node:crypto";
@@ -16389,6 +16712,16 @@ function upsertTask(raw, state2, sourceTool, factoryId, opts) {
 }
 function resetContextReceipt() {
   receipts.clear();
+  routerEvents.length = 0;
+}
+var ROUTER_EVENT_CAP = 50;
+var routerEvents = [];
+function recordRouterEvent(kind, tool, detail) {
+  routerEvents.push({ at: (/* @__PURE__ */ new Date()).toISOString(), kind, tool, ...detail ? { detail } : {} });
+  if (routerEvents.length > ROUTER_EVENT_CAP) routerEvents.splice(0, routerEvents.length - ROUTER_EVENT_CAP);
+}
+function getRouterEvents(limit = 20) {
+  return routerEvents.slice(-Math.max(0, limit));
 }
 function recordVerifiedDelivery(opts) {
   const previous = receipts.get(opts.taskId);
@@ -16488,155 +16821,6 @@ function getContextReceipt() {
       (a, b) => order[a.kind] - order[b.kind] || a.title.localeCompare(b.title)
     )
   };
-}
-
-// src/errors.ts
-var McpErrorCode = {
-  TELEMETRY_REJECTED: "TELEMETRY_REJECTED",
-  TELEMETRY_DEGRADED: "TELEMETRY_DEGRADED",
-  TELEMETRY_SPOOLED: "TELEMETRY_SPOOLED",
-  TELEMETRY_FAILED: "TELEMETRY_FAILED",
-  SESSION_UNAVAILABLE: "SESSION_UNAVAILABLE",
-  UPSTREAM: "UPSTREAM",
-  EMPTY_RESPONSE: "EMPTY_RESPONSE",
-  UNKNOWN: "UNKNOWN"
-};
-var FAILED_TELEMETRY_DELIVERIES = [
-  "rejected",
-  "degraded",
-  "failed",
-  "spooled"
-];
-function isFailedTelemetryDelivery(value) {
-  return typeof value === "string" && FAILED_TELEMETRY_DELIVERIES.includes(value);
-}
-function telemetryErrorCode(delivery) {
-  switch (delivery) {
-    case "rejected":
-      return McpErrorCode.TELEMETRY_REJECTED;
-    case "degraded":
-      return McpErrorCode.TELEMETRY_DEGRADED;
-    case "spooled":
-      return McpErrorCode.TELEMETRY_SPOOLED;
-    case "failed":
-      return McpErrorCode.TELEMETRY_FAILED;
-    default:
-      return McpErrorCode.UNKNOWN;
-  }
-}
-function parseIdentityEnvelopeReject(body) {
-  if (!body || typeof body !== "object" || Array.isArray(body)) return null;
-  const record2 = body;
-  const envelope = record2.identityEnvelope;
-  if (!envelope || typeof envelope !== "object" || Array.isArray(envelope)) return null;
-  const env = envelope;
-  const error2 = typeof record2.error === "string" && record2.error.trim() ? record2.error.trim() : "Canonical Fractal session identity required";
-  const remediation = typeof env.remediation === "string" && env.remediation.trim() ? env.remediation.trim() : "Upgrade fractal MCP plugin; send full schemaVersion=1 lineage (vendor, nativeSessionId, workspaceId\u2260legacy, runKind).";
-  const requiredFields = Array.isArray(env.requiredFields) ? env.requiredFields.filter((f) => typeof f === "string") : [];
-  const minPluginVersion = typeof env.minPluginVersion === "string" ? env.minPluginVersion : void 0;
-  return { error: error2, remediation, minPluginVersion, requiredFields };
-}
-function telemetryErrorEnvelope(receipt2) {
-  const identity = parseIdentityEnvelopeReject(receipt2.body);
-  if (identity) {
-    return {
-      code: McpErrorCode.TELEMETRY_REJECTED,
-      message: `${identity.error} \u2014 ${identity.remediation}`,
-      kind: "identity_envelope"
-    };
-  }
-  const delivery = isFailedTelemetryDelivery(receipt2.delivery) ? receipt2.delivery : "failed";
-  const code = receipt2.delivery === "degraded" && typeof receipt2.reason === "string" && /session_start/i.test(receipt2.reason) ? McpErrorCode.SESSION_UNAVAILABLE : telemetryErrorCode(delivery);
-  const reason = typeof receipt2.reason === "string" && receipt2.reason.trim() ? receipt2.reason.trim() : defaultTelemetryMessage(delivery);
-  const kind = typeof receipt2.error_kind === "string" && receipt2.error_kind.trim() ? receipt2.error_kind.trim() : void 0;
-  return {
-    code,
-    message: humanTelemetryMessage(delivery, reason),
-    ...kind ? { kind } : {}
-  };
-}
-function defaultTelemetryMessage(delivery) {
-  switch (delivery) {
-    case "rejected":
-      return "Telemetry event rejected by server";
-    case "degraded":
-      return "Telemetry delivery degraded";
-    case "spooled":
-      return "Telemetry event spooled for retry (not yet stored)";
-    case "failed":
-      return "Telemetry event failed";
-    default:
-      return "Telemetry event not stored";
-  }
-}
-function humanTelemetryMessage(delivery, reason) {
-  switch (delivery) {
-    case "rejected":
-      return `Telemetry not stored (rejected): ${reason}`;
-    case "degraded":
-      return `Telemetry not stored (degraded): ${reason}`;
-    case "spooled":
-      return `Telemetry not stored (spooled for retry): ${reason}`;
-    case "failed":
-      return `Telemetry not stored (failed): ${reason}`;
-    default:
-      return `Telemetry not stored: ${reason}`;
-  }
-}
-function withErrorEnvelope(body, error2) {
-  return { ...body, error: error2 };
-}
-function isToolResultError(result) {
-  if (!result || typeof result !== "object") return false;
-  const body = result;
-  if (body.error && typeof body.error === "object") {
-    const env = body.error;
-    if (typeof env.code === "string" && env.code.length > 0) return true;
-  }
-  if (body.receipt === null && isFailedTelemetryDelivery(body.delivery)) return true;
-  if (body.stored === false) return true;
-  const receipt2 = body.receipt;
-  if (receipt2 && typeof receipt2 === "object") {
-    const rec = receipt2;
-    if (rec.stored === false) return true;
-    if (isFailedTelemetryDelivery(rec.delivery)) return true;
-  }
-  return false;
-}
-function summarizeToolResultError(result) {
-  if (!result || typeof result !== "object") return "Tool failed";
-  const body = result;
-  if (body.error && typeof body.error === "object") {
-    const env = body.error;
-    if (typeof env.message === "string" && env.message.trim()) return env.message.trim();
-  }
-  const receipt2 = body.receipt && typeof body.receipt === "object" ? body.receipt : body;
-  if (typeof receipt2.reason === "string" && receipt2.reason.trim()) {
-    const delivery = isFailedTelemetryDelivery(receipt2.delivery) ? receipt2.delivery : "failed";
-    return humanTelemetryMessage(delivery, receipt2.reason.trim());
-  }
-  if (isFailedTelemetryDelivery(receipt2.delivery)) {
-    return defaultTelemetryMessage(receipt2.delivery);
-  }
-  return "Tool failed";
-}
-function toMcpToolResult(result) {
-  const text = JSON.stringify(result, null, 2);
-  if (isToolResultError(result)) {
-    return { content: [{ type: "text", text }], isError: true };
-  }
-  return { content: [{ type: "text", text }] };
-}
-function isSuccessfulSessionEventResponse(response) {
-  if (!response || typeof response !== "object") return false;
-  const receipt2 = response.receipt;
-  if (!receipt2 || typeof receipt2 !== "object") return false;
-  const rec = receipt2;
-  if (rec.stored === false) return false;
-  if (isFailedTelemetryDelivery(rec.delivery)) return false;
-  if (rec.stored === true) return true;
-  if (rec.duplicate === true && typeof rec.session_id === "string") return true;
-  return false;
 }
 
 // src/session-telemetry.ts
@@ -16925,7 +17109,8 @@ var SessionTelemetryRuntime = class {
             vendor: this.identity.vendor ?? "legacy",
             nativeSessionId: this.identity.nativeSessionId ?? this.identity.sessionId.replaceAll("/", ":"),
             workspaceId: this.identity.workspaceId ?? "legacy",
-            schemaVersion: this.identity.schemaVersion ?? 1
+            schemaVersion: this.identity.schemaVersion ?? 1,
+            runKind: this.identity.runKind === "subagent" ? "subagent" : "primary"
           });
           const started = response?.session;
           if (typeof started?.sessionId !== "string" || !started.sessionId) return void 0;
@@ -18849,6 +19034,10 @@ function redeemAndAllow(opts) {
 }
 
 // src/gates.ts
+var SAFE_PLAN_CHECK_TIMEOUT_MS = DEFAULT_REQUEST_BUDGET_MS - 5e3;
+if (!process.env.PLAN_GATE_TIMEOUT_MS) {
+  process.env.PLAN_GATE_TIMEOUT_MS = String(SAFE_PLAN_CHECK_TIMEOUT_MS);
+}
 var TOOL_GATE_CLASS = {
   fractal_login: "bootstrap",
   fractal_context_hud: "bootstrap",
@@ -18888,6 +19077,9 @@ var TOOL_GATE_CLASS = {
   fractal_add_comment: "gated",
   fractal_search: "gated",
   fractal_list_tasks: "gated",
+  fractal_preflight_create: "gated",
+  fractal_preflight_update: "gated",
+  fractal_preflight_move: "gated",
   fractal_create_task: "gated",
   fractal_update_task: "gated",
   fractal_task_lease: "gated",
@@ -18895,7 +19087,11 @@ var TOOL_GATE_CLASS = {
   fractal_move_task: "gated",
   fractal_remove_parent: "gated",
   fractal_copy_subtree: "gated",
-  fractal_delete_task: "gated"
+  fractal_delete_task: "gated",
+  fractal_task_write_type: "gated",
+  fractal_task_write_type_approve: "gated",
+  fractal_task_write_bug_provenance: "gated",
+  fractal_task_write_bug_provenance_approve: "gated"
 };
 var LIFECYCLE_STAGES = [
   "PLAN",
@@ -20019,8 +20215,211 @@ function mutateAllowlist(name, args, identity, baseUrl) {
   throw new Error(`Unknown local allowlist mutation tool: ${name}`);
 }
 
+// src/field-write-mappings.ts
+var FIELD_WRITE_MAPPINGS = [
+  {
+    slug: "type",
+    owner: "fractal-core (MCP field-write)",
+    readSource: "public.tasks.task_type",
+    writeTarget: "public.update_board_task_with_version(task_type)",
+    validator: "enum public.task_type + allowlist \u043E\u0434\u043D\u043E\u0433\u043E \u043A\u043B\u044E\u0447\u0430 \u0432 normalized_draft",
+    instructionTarget: "resolve_effective_instructions(field_key='type')",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E, \u043F\u043E\u043B\u0435 \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442: \u043D\u043E\u0432\u044B\u0439 governed route \u0440\u044F\u0434\u043E\u043C \u0441 fractal_update_task, \u0434\u0430\u043D\u043D\u044B\u0435 \u043D\u0435 \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u044F\u0442\u0441\u044F",
+    enablement: "registered",
+    evidence: [
+      "design.md Decision 3: \u0442\u043E\u043B\u044C\u043A\u043E type -> tasks.task_type \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D \u0442\u0435\u043A\u0443\u0449\u0438\u043C\u0438 \u0434\u0430\u043D\u043D\u044B\u043C\u0438",
+      "supabase/migrations/20260729190000_mcp_field_write_type_approvals.sql",
+      "supabase/tests/mcp_field_write/10_contract_tests.sql"
+    ]
+  },
+  {
+    slug: "blocker",
+    owner: "fractal-core (MCP field-write)",
+    readSource: "public.task_dependencies (blocker_id, blocked_id)",
+    writeTarget: "public.task_dependencies \u0447\u0435\u0440\u0435\u0437 dependency mutation path, \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 blocker -> blocked",
+    validator: "UNIQUE(blocker_id, blocked_id) + CHECK(blocker_id != blocked_id) + \u0442\u0440\u0438\u0433\u0433\u0435\u0440 prevent_dependency_cycle",
+    instructionTarget: "resolve_effective_instructions(field_key='blocked'); lock \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u043C lease",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E, \u0442\u0430\u0431\u043B\u0438\u0446\u0430 \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 (20260708000000_task_dependencies.sql); lease/locked_* \u043D\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u044E\u0442\u0441\u044F \u043A\u0430\u043A blocker state",
+    enablement: "approved_not_implemented",
+    evidence: [
+      "design.md Decision 4: \u0431\u0438\u043D\u0434\u0438\u0442\u044C \u043E\u0431\u0430 \u043A\u043E\u043D\u0446\u0430 \u0441\u0432\u044F\u0437\u0438, \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0438 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044E",
+      "ITA-03 globally published for field_key='blocked' (binding e4d60679-ea59-4dfc-831e-0b2fc102eeb4)",
+      "specs/mcp-field-write-approvals/spec.md: \xABBlocker approval mutates only task dependencies\xBB",
+      "supabase/migrations/20260708000000_task_dependencies.sql"
+    ]
+  },
+  {
+    slug: "review_stage",
+    owner: "\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D",
+    readSource: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D: stage / last_review / \u043D\u043E\u0432\u043E\u0435 \u043F\u043E\u043B\u0435 \u2014 \u043E\u0442\u043A\u0440\u044B\u0442\u044B\u0439 \u0432\u043E\u043F\u0440\u043E\u0441",
+    writeTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    validator: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    instructionTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    migration: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D: \u0430\u043B\u0438\u0430\u0441\u0438\u0442\u044C \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0435 stage/last_review \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u043E",
+    enablement: "unapproved",
+    evidence: [
+      "design.md Open Questions: \xABIs review stage a new storage field, an existing semantic column stage, or a projection of last_review?\xBB"
+    ]
+  },
+  {
+    slug: "trigger",
+    owner: "\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D",
+    readSource: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    writeTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    validator: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    instructionTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    migration: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    enablement: "unapproved",
+    evidence: [
+      "design.md Open Questions: authoritative storage/validation contract \u0434\u043B\u044F trigger \u043D\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D",
+      "src/integrations/supabase/types.ts: \u0432 \u0442\u0430\u0431\u043B\u0438\u0446\u0435 tasks \u041D\u0415\u0422 \u043A\u043E\u043B\u043E\u043D\u043A\u0438 trigger; trigger_executions \u2014 \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0430\u044F \u0442\u0430\u0431\u043B\u0438\u0446\u0430 (FK agent_id/execution_id), \u043D\u0435 \u043F\u043E\u043B\u0435 \u0437\u0430\u0434\u0430\u0447\u0438",
+      "supabase/functions/widget-api-board/index.ts getAllowedUpdates: trigger \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 write-allowlist",
+      "\u0432\u044B\u0432\u043E\u0434: write target \u043F\u0440\u0438\u0448\u043B\u043E\u0441\u044C \u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0441 \u043D\u0443\u043B\u044F, \u0447\u0442\u043E \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u043E proposal.md \xABSHALL not be registered until its canonical mapping ... is approved\xBB"
+    ]
+  },
+  {
+    slug: "metrics",
+    owner: "\u043D\u0435 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D",
+    readSource: "instruction-\u043A\u043B\u044E\u0447 metrics \u0443\u0436\u0435 \u0435\u0441\u0442\u044C \u0432 \u0437\u0430\u043A\u0440\u044B\u0442\u043E\u043C \u0441\u043B\u043E\u0432\u0430\u0440\u0435 (src/lib/instructionFieldKeys.ts), \u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0430 \u0447\u0442\u0435\u043D\u0438\u0435",
+    writeTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    validator: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D",
+    instructionTarget: "resolve_effective_instructions(field_key='metrics') \u2014 \u0442\u043E\u043B\u044C\u043A\u043E read projection",
+    migration: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D: \u043D\u0430\u043B\u0438\u0447\u0438\u0435 read-\u043A\u043B\u044E\u0447\u0430 \u043D\u0435 \u0434\u0430\u0451\u0442 \u043F\u0440\u0430\u0432\u0430 \u043D\u0430 write route",
+    enablement: "unapproved",
+    evidence: [
+      "design.md Open Questions: authoritative storage/validation contract \u0434\u043B\u044F metrics \u043D\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D",
+      "src/lib/instructionFieldKeys.ts: metrics \u043F\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u043A\u0430\u043A read-only instruction key",
+      "src/integrations/supabase/types.ts: \u0432 \u0442\u0430\u0431\u043B\u0438\u0446\u0435 tasks \u041D\u0415\u0422 \u043A\u043E\u043B\u043E\u043D\u043A\u0438 metrics \u2014 read-\u043A\u043B\u044E\u0447 \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438 \u043D\u0435 \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435\u043C",
+      "supabase/functions/widget-api-board/index.ts getAllowedUpdates: metrics \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 write-allowlist",
+      "\u0432\u044B\u0432\u043E\u0434: write target \u043F\u0440\u0438\u0448\u043B\u043E\u0441\u044C \u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0441 \u043D\u0443\u043B\u044F, \u0447\u0442\u043E \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u043E proposal.md \xABSHALL not be registered until its canonical mapping ... is approved\xBB"
+    ]
+  },
+  {
+    slug: "proposal_linked",
+    owner: "fractal-core (TPSD-08)",
+    readSource: "public.tasks.proposal_linked",
+    writeTarget: "\u043D\u0435 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D: UI-\u043F\u043E\u043B\u0435 \u043F\u0438\u0448\u0435\u0442 \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u0447\u0435\u0440\u0435\u0437 generic revision-CAS, MCP-\u043A\u043E\u0440\u0440\u0438\u0434\u043E\u0440 \u043D\u0435 \u043E\u0442\u043A\u0440\u044B\u0442",
+    validator: "tasks_proposal_linked_shape_chk: answer yes|no|unknown + \u043D\u0435\u043F\u0443\u0441\u0442\u043E\u0435 bounded reasoning \u0441 \u043C\u0435\u043D\u0448\u0435\u043D\u0430\u043C\u0438 \u043D\u0430 \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0439",
+    instructionTarget: "resolve_effective_instructions(field_key='proposal_linked')",
+    migration: "20260801160000_tasks_proposal_linked.sql (\u0442\u043E\u043B\u044C\u043A\u043E \u043A\u043E\u043B\u043E\u043D\u043A\u0430 + CHECK + audit-\u0442\u0440\u0438\u0433\u0433\u0435\u0440)",
+    enablement: "unapproved",
+    evidence: [
+      "TPSD-08: \u043A\u043E\u043B\u043E\u043D\u043A\u0430 \u0438 \u043F\u043E\u043B\u0435 \xAB\u0421\u0432\u044F\u0437\u044C \u0441 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435\u043C\xBB \u0432 \u0442\u0430\u0431\u043B\u0438\u0446\u0435 \u0437\u0430\u0434\u0430\u0447",
+      "supabase/migrations/20260801160000_tasks_proposal_linked.sql",
+      "supabase/functions/widget-api-board/index.ts getAllowedUpdates: proposal_linked \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 generic write-allowlist",
+      "\u0432\u044B\u0432\u043E\u0434: \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u0439 write-\u043A\u043E\u0440\u0440\u0438\u0434\u043E\u0440 \u043F\u043E\u0442\u0440\u0435\u0431\u043E\u0432\u0430\u043B \u0431\u044B \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E\u0439 preflight/approve \u043F\u0430\u0440\u044B \u0438 \u0447\u0435\u043B\u043E\u0432\u0435\u0447\u0435\u0441\u043A\u043E\u0433\u043E \u043E\u0434\u043E\u0431\u0440\u0435\u043D\u0438\u044F \u2014 \u043A\u0430\u043A \u0443 bug_provenance"
+    ]
+  },
+  {
+    slug: "bug_provenance",
+    owner: "fractal-core (TPF-31)",
+    readSource: "public.tasks.bug_provenance",
+    writeTarget: "public.mcp_field_write_bug_provenance_preflight/approve -> public.tasks.bug_provenance",
+    validator: "tasks_bug_provenance_shape_chk: answer yes|no|unknown + bounded non-empty note; \u0442\u043E\u043B\u044C\u043A\u043E yes \u0434\u043E\u043F\u0443\u0441\u043A\u0430\u0435\u0442 full SHA + bounded http(s) PR",
+    instructionTarget: "resolve_effective_instructions(field_key='bug_provenance')",
+    migration: "20260731140000_mcp_field_write_bug_provenance_approvals.sql",
+    enablement: "registered",
+    evidence: [
+      "TPF-31: \u043A\u0430\u043D\u043E\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439 manual provenance contract",
+      "supabase/migrations/20260725030000_tasks_bug_provenance.sql",
+      "supabase/migrations/20260730190000_bug_provenance_evidence_contract.sql",
+      "supabase/migrations/20260731140000_mcp_field_write_bug_provenance_approvals.sql",
+      "mcp-server tools: fractal_task_write_bug_provenance + _approve",
+      "supabase/functions/widget-api-board/index.ts getAllowedUpdates: bug_provenance \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 generic write-allowlist",
+      "ITA-01: \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F \u043F\u043E\u0438\u0441\u043A\u0430 commit/PR-\u0432\u0438\u043D\u043E\u0432\u043D\u0438\u043A\u0430"
+    ]
+  },
+  {
+    slug: "child_stage",
+    owner: "fractal-core (UI)",
+    readSource: "\u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u0430\u044F \u043E\u0442 \u0434\u043E\u0447\u0435\u0440\u043D\u0438\u0445 \u0437\u0430\u0434\u0430\u0447, \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+    writeTarget: "\u043D\u0435\u0442 \u0438 \u043D\u0435 \u0431\u0443\u0434\u0435\u0442",
+    validator: "\u043D\u0435\u0442",
+    instructionTarget: "\u043D\u0435\u0442: \u043F\u043E\u043B\u0435 \u043D\u0435 \u043D\u0435\u0441\u0451\u0442 \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438",
+    migration: "\u043D\u0435\u0442",
+    enablement: "never_writable",
+    evidence: [
+      "specs/mcp-field-instruction-context/spec.md: \xABChild stage is display-only\xBB",
+      "specs/mcp-field-write-approvals/spec.md: preflight \u0434\u043B\u044F child_stage \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 FIELD_NOT_WRITABLE"
+    ]
+  },
+  {
+    slug: "name",
+    owner: "fractal-core (TTAL-02 structured fields)",
+    readSource: "public.tasks.title",
+    writeTarget: "\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u2014 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439 route \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F \u0437\u0430\u0434\u0430\u0447\u0438 (fractal_update_task); metadata-\u043A\u043E\u043D\u0432\u0435\u0440\u0442 \u2014 public.submit_task_structured_field(field_key='name'), \u043F\u043E\u043A\u0430 \u0422\u041E\u041B\u042C\u041A\u041E \u0447\u0435\u043B\u043E\u0432\u0435\u0447\u0435\u0441\u043A\u0438\u0439: \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u0435 \u0433\u0435\u0439\u0442\u044B (widget-api-board set_structured_field \u0438 MCP-enum) \u0432\u0441\u0451 \u0435\u0449\u0451 \u043F\u0440\u043E\u043F\u0443\u0441\u043A\u0430\u044E\u0442 \u0442\u043E\u043B\u044C\u043A\u043E proof_of_done/last_review/next_action",
+    validator: "app_normalize_task_structured_field: metadata-only (text \u043E\u0431\u044F\u0437\u0430\u043D \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C, reasoning \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D, selected \u0437\u0430\u043F\u0440\u0435\u0449\u0451\u043D, model_opinions \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u044B)",
+    instructionTarget: "resolve_effective_instructions(field_key='name')",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E: 20260731130000 \u0440\u0430\u0441\u0448\u0438\u0440\u044F\u0435\u0442 \u0437\u0430\u043A\u0440\u044B\u0442\u044B\u0439 \u043D\u0430\u0431\u043E\u0440 \u043A\u043B\u044E\u0447\u0435\u0439 structured_fields; tasks.title \u043D\u0435 \u043C\u0438\u0433\u0440\u0438\u0440\u0443\u0435\u0442 \u0438 \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u043C \u043D\u043E\u0441\u0438\u0442\u0435\u043B\u0435\u043C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F",
+    enablement: "unapproved",
+    evidence: [
+      "supabase/migrations/20260731130000_name_description_metadata_fields.sql",
+      "\u041F\u0430\u0440\u0430 fractal_task_write_name \u041D\u0415 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0430: governed write \u0437\u0434\u0435\u0441\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F metadata-\u043A\u043E\u043D\u0432\u0435\u0440\u0442\u0430, \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u043F\u043E-\u043F\u0440\u0435\u0436\u043D\u0435\u043C\u0443 \u0438\u0434\u0451\u0442 \u043E\u0431\u044B\u0447\u043D\u044B\u043C task-update \u043C\u0430\u0440\u0448\u0440\u0443\u0442\u043E\u043C"
+    ]
+  },
+  {
+    slug: "description",
+    owner: "fractal-core (TTAL-02 structured fields)",
+    readSource: "public.tasks.content",
+    writeTarget: "\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u2014 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439 route \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F \u0437\u0430\u0434\u0430\u0447\u0438 (fractal_update_task); metadata-\u043A\u043E\u043D\u0432\u0435\u0440\u0442 \u2014 public.submit_task_structured_field(field_key='description'), \u043F\u043E\u043A\u0430 \u0422\u041E\u041B\u042C\u041A\u041E \u0447\u0435\u043B\u043E\u0432\u0435\u0447\u0435\u0441\u043A\u0438\u0439: \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u0435 \u0433\u0435\u0439\u0442\u044B (widget-api-board set_structured_field \u0438 MCP-enum) \u0432\u0441\u0451 \u0435\u0449\u0451 \u043F\u0440\u043E\u043F\u0443\u0441\u043A\u0430\u044E\u0442 \u0442\u043E\u043B\u044C\u043A\u043E proof_of_done/last_review/next_action",
+    validator: "app_normalize_task_structured_field: metadata-only (text \u043E\u0431\u044F\u0437\u0430\u043D \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C, reasoning \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D, selected \u0437\u0430\u043F\u0440\u0435\u0449\u0451\u043D, model_opinions \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D\u044B)",
+    instructionTarget: "resolve_effective_instructions(field_key='description')",
+    migration: "\u0430\u0434\u0434\u0438\u0442\u0438\u0432\u043D\u043E: 20260731130000 \u0440\u0430\u0441\u0448\u0438\u0440\u044F\u0435\u0442 \u0437\u0430\u043A\u0440\u044B\u0442\u044B\u0439 \u043D\u0430\u0431\u043E\u0440 \u043A\u043B\u044E\u0447\u0435\u0439 structured_fields; tasks.content \u043D\u0435 \u043C\u0438\u0433\u0440\u0438\u0440\u0443\u0435\u0442, \u043C\u0430\u0448\u0438\u043D\u043D\u0430\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u043E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0432 task_versions",
+    enablement: "unapproved",
+    evidence: [
+      "supabase/migrations/20260731130000_name_description_metadata_fields.sql",
+      "\u041F\u0430\u0440\u0430 fractal_task_write_description \u041D\u0415 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0430: \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u2014 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u043B\u044C\u043D\u044B\u0439 HTML, \u0435\u0433\u043E \u043D\u0435\u043B\u044C\u0437\u044F \u043F\u0440\u043E\u0432\u0435\u0441\u0442\u0438 \u0447\u0435\u0440\u0435\u0437 2000-\u0441\u0438\u043C\u0432\u043E\u043B\u044C\u043D\u044B\u0439 \u043A\u043E\u043D\u0432\u0435\u0440\u0442 structured field"
+    ]
+  }
+];
+var FIELD_WRITE_TOOL_PREFIX = "fractal_task_write_";
+var APPROVE_SUFFIX = "_approve";
+var fieldWriteMapping = (slug) => FIELD_WRITE_MAPPINGS.find((mapping) => mapping.slug === slug);
+var registeredFieldWriteSlugs = () => FIELD_WRITE_MAPPINGS.filter((mapping) => mapping.enablement === "registered").map(
+  (mapping) => mapping.slug
+);
+var fieldWriteToolNames = (slug) => [
+  `${FIELD_WRITE_TOOL_PREFIX}${slug}`,
+  `${FIELD_WRITE_TOOL_PREFIX}${slug}${APPROVE_SUFFIX}`
+];
+var fieldWriteSlugFromToolName = (name) => {
+  if (!name.startsWith(FIELD_WRITE_TOOL_PREFIX)) return void 0;
+  const rest = name.slice(FIELD_WRITE_TOOL_PREFIX.length);
+  const slug = rest.endsWith(APPROVE_SUFFIX) ? rest.slice(0, -APPROVE_SUFFIX.length) : rest;
+  return slug.length > 0 ? slug : void 0;
+};
+var assertFieldWriteToolRegistry = (toolNames) => {
+  const published = toolNames.filter((name) => fieldWriteSlugFromToolName(name) !== void 0);
+  for (const name of published) {
+    const slug = fieldWriteSlugFromToolName(name);
+    const mapping = fieldWriteMapping(slug);
+    if (!mapping) {
+      throw new Error(
+        `field-write registry: \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 ${name} \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D \u0431\u0435\u0437 \u0441\u0442\u0440\u043E\u043A\u0438 \u043C\u0430\u043F\u043F\u0438\u043D\u0433\u0430 \u0434\u043B\u044F slug "${slug}"`
+      );
+    }
+    if (mapping.enablement !== "registered") {
+      throw new Error(
+        `field-write registry: \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 ${name} \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D, \u043D\u043E enablement \u043C\u0430\u043F\u043F\u0438\u043D\u0433\u0430 "${slug}" = ${mapping.enablement}`
+      );
+    }
+  }
+  for (const slug of registeredFieldWriteSlugs()) {
+    for (const expected of fieldWriteToolNames(slug)) {
+      if (!published.includes(expected)) {
+        throw new Error(
+          `field-write registry: \u043C\u0430\u043F\u043F\u0438\u043D\u0433 "${slug}" \u043F\u043E\u043C\u0435\u0447\u0435\u043D registered, \u043D\u043E \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 ${expected} \u043D\u0435 \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D`
+        );
+      }
+    }
+  }
+};
+
 // src/issue-card.ts
-var ISSUE_CARD_RESOURCE_URI = "ui://fractal/issue-card-v1.html";
+import { createHash as createHash8 } from "node:crypto";
+var ISSUE_CARD_RESOURCE_VERSION = "2";
+var ISSUE_CARD_SNAPSHOT_SCHEMA_VERSION = "fractal.issue-card/v2";
+var ISSUE_CARD_RESOURCE_URI = "ui://fractal/issue-card-v2.html";
 var ISSUE_CARD_MIME_TYPE = "text/html;profile=mcp-app";
 var MAX_RELATIONS = 8;
 function publicIssueId(value) {
@@ -20061,6 +20460,12 @@ async function buildIssueCardSnapshot(client, taskId) {
   const parent = await resolveParent(client, result.parent_ids?.[0]);
   const issueId = publicIssueId(task.issue_id);
   return {
+    schemaVersion: ISSUE_CARD_SNAPSHOT_SCHEMA_VERSION,
+    resource: {
+      uri: ISSUE_CARD_RESOURCE_URI,
+      version: ISSUE_CARD_RESOURCE_VERSION,
+      digest: ISSUE_CARD_RESOURCE_DIGEST
+    },
     taskId: task.id,
     ...issueId ? { issueId } : {},
     title: task.title ?? "",
@@ -20301,6 +20706,7 @@ var ISSUE_CARD_HTML = String.raw`<!doctype html>
 })();</script>
 </body>
 </html>`;
+var ISSUE_CARD_RESOURCE_DIGEST = createHash8("sha256").update(ISSUE_CARD_HTML, "utf8").digest("hex");
 
 // src/discovery-projection.ts
 function taskIdOf(task) {
@@ -20876,7 +21282,7 @@ function markContentRead(task, contentMeta, window) {
 }
 
 // src/body-delivery.ts
-import { createHash as createHash8, createHmac, randomUUID as randomUUID6, timingSafeEqual } from "node:crypto";
+import { createHash as createHash9, createHmac, randomUUID as randomUUID6, timingSafeEqual } from "node:crypto";
 var BODY_FRAGMENT_MAX_SCALARS = 5e3;
 var BODY_RESPONSE_MAX_SERIALIZED_BYTES = 24e3;
 var BODY_RESPONSE_MAX_TOKEN_ESTIMATE = 24e3;
@@ -20890,7 +21296,7 @@ function canonicalContent(content) {
   return content.normalize("NFC");
 }
 function sha256(value) {
-  return createHash8("sha256").update(value).digest("hex");
+  return createHash9("sha256").update(value).digest("hex");
 }
 function deliveryKey(sessionId, taskId) {
   return `${sessionId}\0${taskId}`;
@@ -20912,10 +21318,10 @@ var BodyDeliveryStore = class {
     }
     if (input.cursor) {
       const cursor = this.decode(input.cursor, "page");
-      this.assertMatches(cursor, input, contentHash);
       if (!state2) {
         throw new BodyDeliveryError("STALE_DELIVERY", "body delivery was invalidated; restart from the first page");
       }
+      this.assertMatches(cursor, input, contentHash, state2);
       const replay = state2.pages.get(input.cursor);
       if (replay) return replay;
       if (cursor.position !== state2.nextPosition) {
@@ -21026,8 +21432,8 @@ var BodyDeliveryStore = class {
     if (requestCursor) state2.pages.set(requestCursor, page);
     return page;
   }
-  assertMatches(cursor, input, contentHash) {
-    if (cursor.sessionId !== input.sessionId || cursor.taskId !== input.taskId || cursor.revision !== input.revision || cursor.contentHash !== contentHash) {
+  assertMatches(cursor, input, contentHash, state2) {
+    if (cursor.deliveryId !== state2.id || cursor.sessionId !== input.sessionId || cursor.taskId !== input.taskId || cursor.revision !== input.revision || cursor.contentHash !== contentHash) {
       throw new BodyDeliveryError("STALE_DELIVERY", "continuation cursor does not match the current task revision");
     }
   }
@@ -21068,8 +21474,17 @@ var BodyDeliveryStore = class {
 };
 var processSessionId;
 var processStore;
+var ephemeralDeliverySecret;
 function deliverySecret() {
-  return process.env.FRACTAL_BODY_DELIVERY_SECRET?.trim() || process.env.FRACTAL_SESSION_KEY?.trim() || "fractal-body-delivery-dev-secret";
+  const secret = process.env.FRACTAL_BODY_DELIVERY_SECRET?.trim() || process.env.FRACTAL_SESSION_KEY?.trim();
+  if (secret) return secret;
+  if (process.env.FRACTAL_BODY_DELIVERY_REQUIRE_SECRET?.trim() === "1") {
+    throw new Error(
+      "FRACTAL_BODY_DELIVERY_SECRET or FRACTAL_SESSION_KEY must be configured for body delivery"
+    );
+  }
+  ephemeralDeliverySecret ??= randomUUID6();
+  return ephemeralDeliverySecret;
 }
 function getBodyDeliverySessionId() {
   const fromEnv = process.env.FRACTAL_SESSION_ID?.trim();
@@ -21169,6 +21584,154 @@ function enforceBodyDeliveryResponseBudget(payload) {
       "Layer 2 response envelope exceeds its serialized-byte/token budget; reduce task metadata before retrying"
     );
   }
+}
+
+// src/field-preflight.ts
+import { randomUUID as randomUUID7 } from "node:crypto";
+var ORDER_TTL_MS = 10 * 60 * 1e3;
+var orders = /* @__PURE__ */ new Map();
+function cleanupExpiredOrders() {
+  const now = Date.now();
+  for (const [id, order] of orders.entries()) {
+    if (now - order.issuedAt > ORDER_TTL_MS) {
+      orders.delete(id);
+    }
+  }
+}
+var INSTRUCTION_FIELD_KEYS = [
+  "type",
+  "stage",
+  "blocked",
+  "proof_of_done",
+  "last_review",
+  "last_comment",
+  "proposal_linked",
+  "next_action",
+  "repo",
+  "lock",
+  "tags",
+  "metrics",
+  "bug_provenance"
+];
+function fieldKeyForField(fieldName) {
+  return INSTRUCTION_FIELD_KEYS.includes(fieldName) ? fieldName : void 0;
+}
+function fieldKeyForStatus(destinationStatus) {
+  const normalized = destinationStatus.toLocaleLowerCase("ru-RU").replace(/[^a-zа-яё0-9]+/gu, " ").trim().replace(/\s+/g, " ");
+  if (["done", "proof", "proof of done", "\u0433\u043E\u0442\u043E\u0432\u043E", "\u0441\u0434\u0435\u043B\u0430\u043D\u043E", "\u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E"].includes(normalized)) {
+    return "proof_of_done";
+  }
+  if ([
+    "blocked",
+    "\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043A\u0430",
+    "\u0431\u043B\u043E\u043A\u0435\u0440\u044B",
+    "\u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D",
+    "\u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u0430",
+    "\u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
+  ].includes(normalized)) {
+    return "blocked";
+  }
+  return "stage";
+}
+async function resolveInstruction(client, taskId, fieldKey) {
+  if (!taskId) return void 0;
+  let result;
+  try {
+    result = await client.getTask(taskId, fieldKey);
+  } catch {
+    return void 0;
+  }
+  const task = result?.task;
+  if (!task || task.effective_instructions_error === true) return void 0;
+  const text = task.effective_instruction_text ?? task.type_instruction;
+  return typeof text === "string" && text.trim() !== "" ? text : void 0;
+}
+function issueCreateOrder(instruction) {
+  const orderId = randomUUID7();
+  orders.set(orderId, {
+    id: orderId,
+    type: "create",
+    issuedAt: Date.now(),
+    used: false
+  });
+  return {
+    orderId,
+    ttlSeconds: Math.floor(ORDER_TTL_MS / 1e3),
+    ...instruction ? { instruction } : {},
+    instruction_missing: !instruction
+  };
+}
+function issueUpdateOrder(fieldName, instruction) {
+  const orderId = randomUUID7();
+  orders.set(orderId, {
+    id: orderId,
+    type: "update",
+    target: fieldName,
+    issuedAt: Date.now(),
+    used: false
+  });
+  return {
+    orderId,
+    ttlSeconds: Math.floor(ORDER_TTL_MS / 1e3),
+    ...instruction ? { instruction } : {},
+    instruction_missing: !instruction
+  };
+}
+function issueMoveOrder(destinationStatus, instruction) {
+  const orderId = randomUUID7();
+  orders.set(orderId, {
+    id: orderId,
+    type: "move",
+    target: destinationStatus,
+    issuedAt: Date.now(),
+    used: false
+  });
+  return {
+    orderId,
+    ttlSeconds: Math.floor(ORDER_TTL_MS / 1e3),
+    ...instruction ? { instruction } : {},
+    instruction_missing: !instruction
+  };
+}
+function validateOrder(orderId, type, target, targetLabel) {
+  cleanupExpiredOrders();
+  const order = orders.get(orderId);
+  if (!order) {
+    return {
+      valid: false,
+      reason: "PREPARE_REQUIRED: order not found (expired, invalid, or never issued)"
+    };
+  }
+  if (order.type !== type) {
+    return { valid: false, reason: `PREPARE_REQUIRED: order is not for ${type} operation` };
+  }
+  if (order.used) {
+    return {
+      valid: false,
+      reason: "PREPARE_REQUIRED: order already used (single use only)"
+    };
+  }
+  if (Date.now() - order.issuedAt > ORDER_TTL_MS) {
+    orders.delete(orderId);
+    return { valid: false, reason: "PREPARE_REQUIRED: order expired (10-minute TTL)" };
+  }
+  if (target !== void 0 && order.target !== target) {
+    return {
+      valid: false,
+      reason: `PREPARE_REQUIRED: order was issued for ${targetLabel} "${order.target}", got "${target}" \u2014 prepare the ${targetLabel} you are about to write`
+    };
+  }
+  order.used = true;
+  return { valid: true };
+}
+function validateCreateOrder(orderId) {
+  return validateOrder(orderId, "create");
+}
+function validateUpdateOrder(orderId, fieldName) {
+  return validateOrder(orderId, "update", fieldName, "field");
+}
+function validateMoveOrder(orderId, destinationStatus) {
+  return validateOrder(orderId, "move", destinationStatus, "destination status");
 }
 
 // src/report-gate.ts
@@ -21395,16 +21958,28 @@ async function judgeDelivery(kind, opts) {
   const note = await writeJudgeNote(opts.headSha, kind, verdict, [...reasons, `panel: ${vendors.join(" ")}`], opts.cwd);
   return { verdict, reasons, promptCardIds, vendors, ...note ? { note } : {} };
 }
+function lastReviewFromJudgement(kind, result, at) {
+  const vendors = result.vendors ?? [];
+  const head = `judge/${kind}: ${result.verdict} \xB7 ${at}`;
+  const body = result.reasons.length > 0 ? result.reasons.map((r) => `- ${r}`).join("\n") : "no objections";
+  return {
+    verdict: result.verdict,
+    vendors,
+    text: [head, vendors.join(" \xB7 "), body].filter(Boolean).join("\n")
+  };
+}
 async function assertDeliveryJudged(kind, opts) {
   const mode = judgeGateMode();
-  if (mode === "off") return;
-  const { verdict, reasons, note } = await judgeDelivery(kind, opts);
-  if (verdict === "PASS") return;
+  if (mode === "off") return null;
+  const judged = await judgeDelivery(kind, opts);
+  const { verdict, reasons, note } = judged;
+  if (verdict === "PASS") return judged;
   const detail = `${reasons.join("; ") || verdict}${note ? ` (note: ${note})` : ""}`;
   if (mode === "enforce") {
     throw new Error(`Judge gate (${kind}/${verdict}): ${detail}`);
   }
   console.error(`[fractal] judge-gate(${mode}/${kind}): ${verdict} \u2014 ${detail}`);
+  return judged;
 }
 
 // src/proof-gate.ts
@@ -21563,7 +22138,23 @@ var TOOLS = [
         taskId: { type: "string", description: "ID \u0437\u0430\u0434\u0430\u0447\u0438" },
         fieldKey: {
           type: "string",
-          enum: ["type", "stage", "last_review", "repo", "lock", "tags"],
+          enum: [
+            "name",
+            "description",
+            "type",
+            "stage",
+            "blocked",
+            "proof_of_done",
+            "last_review",
+            "last_comment",
+            "proposal_linked",
+            "next_action",
+            "repo",
+            "lock",
+            "tags",
+            "metrics",
+            "bug_provenance"
+          ],
           description: "\u041A\u043E\u043D\u0442\u0435\u043A\u0441\u0442 \u043F\u043E\u043B\u044F \u0434\u043B\u044F \u043F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0438 field-oriented \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F; \u0431\u0435\u0437 \u043D\u0435\u0433\u043E \u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044F \u0432\u0441\u044F \u0437\u0430\u0434\u0430\u0447\u0430"
         },
         cursor: {
@@ -21628,10 +22219,82 @@ var TOOLS = [
     },
     annotations: { readOnlyHint: true },
     _meta: {
-      ui: { resourceUri: ISSUE_CARD_RESOURCE_URI },
+      ui: {
+        resourceUri: ISSUE_CARD_RESOURCE_URI,
+        resourceVersion: ISSUE_CARD_RESOURCE_VERSION,
+        resourceDigest: ISSUE_CARD_RESOURCE_DIGEST
+      },
       "openai/outputTemplate": ISSUE_CARD_RESOURCE_URI,
       "openai/toolInvocation/invoking": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u044E \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443 \u0437\u0430\u0434\u0430\u0447\u0438\u2026",
       "openai/toolInvocation/invoked": "\u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u0437\u0430\u0434\u0430\u0447\u0438 \u0433\u043E\u0442\u043E\u0432\u0430."
+    }
+  },
+  {
+    name: "fractal_task_write_type",
+    title: "Fractal Task Type Preflight",
+    description: "Read-only governed preview for the approved type field mapping; returns an explicit approval packet without changing a task",
+    inputSchema: {
+      type: "object",
+      properties: {
+        taskId: { type: "string", minLength: 1 },
+        task_type: { type: "string", minLength: 1 }
+      },
+      required: ["taskId", "task_type"],
+      additionalProperties: false
+    },
+    annotations: { readOnlyHint: true }
+  },
+  {
+    name: "fractal_task_write_type_approve",
+    title: "Fractal Task Type Approve",
+    description: "Atomically apply one unchanged server-issued type approval packet after the separate human enablement gate is open",
+    inputSchema: {
+      type: "object",
+      properties: {
+        planHash: PLAN_HASH_PROP,
+        approval_payload: { type: "object", minProperties: 1 }
+      },
+      required: ["approval_payload"],
+      additionalProperties: false
+    }
+  },
+  {
+    name: "fractal_task_write_bug_provenance",
+    title: "Fractal Bug Provenance Preflight",
+    description: "Read-only governed preview for the canonical bug provenance field; resolves its effective instruction and returns a signed approval packet without changing the task",
+    inputSchema: {
+      type: "object",
+      properties: {
+        taskId: { type: "string", minLength: 1 },
+        bug_provenance: {
+          type: "object",
+          properties: {
+            answer: { type: "string", enum: ["yes", "no", "unknown"] },
+            commit_sha: { type: ["string", "null"] },
+            pr_url: { type: ["string", "null"], maxLength: 2048 },
+            note: { type: "string", minLength: 1, maxLength: 4e3 }
+          },
+          required: ["answer", "note"],
+          additionalProperties: false
+        }
+      },
+      required: ["taskId", "bug_provenance"],
+      additionalProperties: false
+    },
+    annotations: { readOnlyHint: true }
+  },
+  {
+    name: "fractal_task_write_bug_provenance_approve",
+    title: "Fractal Bug Provenance Approve",
+    description: "Atomically apply one unchanged server-issued bug provenance approval packet after the separate human enablement gate is open",
+    inputSchema: {
+      type: "object",
+      properties: {
+        planHash: PLAN_HASH_PROP,
+        approval_payload: { type: "object", minProperties: 1 }
+      },
+      required: ["approval_payload"],
+      additionalProperties: false
     }
   },
   {
@@ -21712,11 +22375,12 @@ var TOOLS = [
   },
   {
     name: "fractal_create_task",
-    description: "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443 \u0432 \u043F\u043E\u0434\u0434\u0435\u0440\u0435\u0432\u0435 \u0442\u043E\u043A\u0435\u043D\u0430. Read-then-create: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 fractal_get_task \u043D\u0430 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u0435, \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0442\u0435\u043A\u0443\u0449\u0438\u0439 revision \u043A\u0430\u043A expectedParentRevision. \u041F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044C \u2014 \u043A\u043E\u0440\u0435\u043D\u044C \u0442\u043E\u043A\u0435\u043D\u0430; \u043F\u0435\u0440\u0435\u0434\u0430\u0439 parentId, \u0447\u0442\u043E\u0431\u044B \u0432\u043B\u043E\u0436\u0438\u0442\u044C \u0432 \u043A\u043E\u043D\u043A\u0440\u0435\u0442\u043D\u0443\u044E \u0437\u0430\u0434\u0430\u0447\u0443 (\u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u0432\u043D\u0443\u0442\u0440\u0438 scope \u0442\u043E\u043A\u0435\u043D\u0430). \u041F\u0440\u0438 \u0440\u0430\u0441\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u0438 revision \u0441\u0435\u0440\u0432\u0435\u0440 \u0432\u0435\u0440\u043D\u0451\u0442 stale_parent_revision. \u041D\u0443\u0436\u0435\u043D write.",
+    description: "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443 \u0432 \u043F\u043E\u0434\u0434\u0435\u0440\u0435\u0432\u0435 \u0442\u043E\u043A\u0435\u043D\u0430. \u041E\u0411\u042F\u0417\u0410\u0422\u0415\u041B\u042C\u041D\u041E: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 fractal_preflight_create, \u043F\u043E\u043B\u0443\u0447\u0438 orderId \u0438 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0437\u0434\u0435\u0441\u044C. Read-then-create: \u0437\u0430\u0442\u0435\u043C fractal_get_task \u043D\u0430 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u0435, \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0442\u0435\u043A\u0443\u0449\u0438\u0439 revision \u043A\u0430\u043A expectedParentRevision. \u041F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044C \u2014 \u043A\u043E\u0440\u0435\u043D\u044C \u0442\u043E\u043A\u0435\u043D\u0430; \u043F\u0435\u0440\u0435\u0434\u0430\u0439 parentId, \u0447\u0442\u043E\u0431\u044B \u0432\u043B\u043E\u0436\u0438\u0442\u044C \u0432 \u043A\u043E\u043D\u043A\u0440\u0435\u0442\u043D\u0443\u044E \u0437\u0430\u0434\u0430\u0447\u0443 (\u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u0432\u043D\u0443\u0442\u0440\u0438 scope \u0442\u043E\u043A\u0435\u043D\u0430). \u041F\u0440\u0438 \u0440\u0430\u0441\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u0438 revision \u0441\u0435\u0440\u0432\u0435\u0440 \u0432\u0435\u0440\u043D\u0451\u0442 stale_parent_revision. \u041D\u0443\u0436\u0435\u043D write.",
     inputSchema: {
       type: "object",
       properties: {
         planHash: PLAN_HASH_PROP,
+        preflight_order_id: { type: "string", description: "Order ID \u0438\u0437 fractal_preflight_create (\u0422\u0420\u0415\u0411\u0423\u0415\u0422\u0421\u042F)" },
         title: { type: "string", description: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0437\u0430\u0434\u0430\u0447\u0438" },
         content: { type: "string", description: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 (HTML/\u0442\u0435\u043A\u0441\u0442)" },
         markdown: { type: "string", description: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432 Markdown (\u043E\u043F\u0446., \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442\u043D\u0435\u0435 content)" },
@@ -21735,21 +22399,22 @@ var TOOLS = [
         start_date: { type: ["string", "null"] },
         end_date: { type: ["string", "null"] }
       },
-      required: ["title", "expectedParentRevision"],
+      required: ["title", "expectedParentRevision", "preflight_order_id"],
       additionalProperties: false
     }
   },
   {
     name: "fractal_update_task",
-    description: "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443 \u0432 \u043F\u043E\u0434\u0434\u0435\u0440\u0435\u0432\u0435 \u0442\u043E\u043A\u0435\u043D\u0430. \u0421\u0435\u0440\u0432\u0435\u0440 \u043F\u0440\u0438\u043C\u0435\u043D\u044F\u0435\u0442 \u0442\u043E\u043B\u044C\u043A\u043E whitelisted-\u043F\u043E\u043B\u044F (title, content, column_id, task_type, priority, start_date, end_date, position, subtask_order, attachments, custom_columns \u2014 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 \u0434\u0432\u0430 \u0442\u043E\u043B\u044C\u043A\u043E \u043C\u0430\u0441\u0441\u0438\u0432 \u0438\u043B\u0438 null; proof_of_done \u2014 \u0441\u0442\u0440\u043E\u043A\u0430 \u0438\u043B\u0438 null). \u041F\u0435\u0440\u0435\u0445\u043E\u0434 \u0432 Done \u0440\u0430\u0437\u0440\u0435\u0448\u0451\u043D \u0442\u043E\u043B\u044C\u043A\u043E \u043F\u0440\u0438 \u043D\u0435\u043F\u0443\u0441\u0442\u043E\u043C proof_of_done. \u041D\u0443\u0436\u0435\u043D write.",
+    description: "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443 \u0432 \u043F\u043E\u0434\u0434\u0435\u0440\u0435\u0432\u0435 \u0442\u043E\u043A\u0435\u043D\u0430. \u041E\u0411\u042F\u0417\u0410\u0422\u0415\u041B\u042C\u041D\u041E: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 fractal_preflight_update \u0441 \u0438\u043C\u0435\u043D\u0435\u043C \u043F\u043E\u043B\u044F, \u043F\u043E\u043B\u0443\u0447\u0438 orderId \u0438 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0437\u0434\u0435\u0441\u044C. \u041E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u0435: updates \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0420\u041E\u0412\u041D\u041E \u041E\u0414\u041D\u041E \u043F\u043E\u043B\u0435 (\u043E\u0434\u043D\u0430 \u043F\u0430\u0442\u0447 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044F). \u0421\u0435\u0440\u0432\u0435\u0440 \u043F\u0440\u0438\u043C\u0435\u043D\u044F\u0435\u0442 \u0442\u043E\u043B\u044C\u043A\u043E whitelisted-\u043F\u043E\u043B\u044F (title, content, column_id, task_type, priority, start_date, end_date, position, subtask_order, attachments \u2014 \u0442\u043E\u043B\u044C\u043A\u043E \u043C\u0430\u0441\u0441\u0438\u0432 \u0438\u043B\u0438 null; proof_of_done \u2014 \u0441\u0442\u0440\u043E\u043A\u0430 \u0438\u043B\u0438 null). custom_columns \u041D\u0415 \u0437\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F: \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430 \u044D\u0442\u0430\u043F\u043E\u0432 \u0434\u043E\u0441\u043A\u0438 \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0438\u0442 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u0435 (TPF-74 / P03). \u041F\u0435\u0440\u0435\u0445\u043E\u0434 \u0432 Done \u0440\u0430\u0437\u0440\u0435\u0448\u0451\u043D \u0442\u043E\u043B\u044C\u043A\u043E \u043F\u0440\u0438 \u043D\u0435\u043F\u0443\u0441\u0442\u043E\u043C proof_of_done (TPF-74). \u041D\u0443\u0436\u0435\u043D write.",
     inputSchema: {
       type: "object",
       properties: {
         planHash: PLAN_HASH_PROP,
+        preflight_order_id: { type: "string", description: "Order ID \u0438\u0437 fractal_preflight_update (\u0422\u0420\u0415\u0411\u0423\u0415\u0422\u0421\u042F)" },
         taskId: { type: "string", description: "ID \u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u043C\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438" },
         updates: {
           type: "object",
-          description: "\u041F\u043E\u043B\u044F \u0434\u043B\u044F \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F (\u043D\u0435-whitelisted \u0438\u0433\u043D\u043E\u0440\u0438\u0440\u0443\u044E\u0442\u0441\u044F/\u043E\u0442\u043A\u043B\u043E\u043D\u044F\u044E\u0442\u0441\u044F \u0441\u0435\u0440\u0432\u0435\u0440\u043E\u043C)",
+          description: "\u0420\u043E\u0432\u043D\u043E \u041E\u0414\u041D\u041E \u043F\u043E\u043B\u0435 \u0434\u043B\u044F \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F (\u043D\u0435-whitelisted \u0438\u0433\u043D\u043E\u0440\u0438\u0440\u0443\u044E\u0442\u0441\u044F/\u043E\u0442\u043A\u043B\u043E\u043D\u044F\u044E\u0442\u0441\u044F \u0441\u0435\u0440\u0432\u0435\u0440\u043E\u043C)",
           additionalProperties: true
         },
         markdown: { type: "string", description: "\u041D\u043E\u0432\u044B\u0439 content \u0432 Markdown (\u043E\u043F\u0446., \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442\u043D\u0435\u0435 updates.content)" },
@@ -21775,7 +22440,7 @@ var TOOLS = [
       // corridor-gated update/checkpoint (widget-api-board's isPositiveInt check) — every
       // fractal_update_task call is an agent-corridor call, so making it optional here only
       // bought a wasted round-trip to a call the edge was always going to reject.
-      required: ["taskId", "updates", "expectedRevision"],
+      required: ["taskId", "updates", "expectedRevision", "preflight_order_id"],
       additionalProperties: false
     }
   },
@@ -21802,12 +22467,39 @@ var TOOLS = [
     }
   },
   {
-    name: "fractal_mark_task_reviewed",
-    description: "\u0417\u0430\u0444\u0438\u043A\u0441\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0440\u0435\u0432\u044C\u044E \u0437\u0430\u0434\u0430\u0447\u0438 \u0447\u0435\u0440\u0435\u0437 \u0437\u0430\u0449\u0438\u0449\u0451\u043D\u043D\u044B\u0439 \u0430\u0433\u0435\u043D\u0442\u0441\u043A\u0438\u0439 corridor. \u0412\u0440\u0435\u043C\u044F \u0441\u0442\u0430\u0432\u0438\u0442 \u0442\u043E\u043B\u044C\u043A\u043E \u0441\u0435\u0440\u0432\u0435\u0440.",
+    name: "fractal_set_task_structured_field",
+    description: "\u0417\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u044C Proof of Done, Last Review \u0438\u043B\u0438 Next action \u0447\u0435\u0440\u0435\u0437 \u0437\u0430\u0449\u0438\u0449\u0451\u043D\u043D\u044B\u0439 CAS-\u043A\u043E\u0440\u0438\u0434\u043E\u0440. \u041E\u0411\u042F\u0417\u0410\u0422\u0415\u041B\u042C\u041D\u041E: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 fractal_preflight_update \u0434\u043B\u044F \u0442\u043E\u0433\u043E \u0436\u0435 fieldKey, \u043F\u043E\u043B\u0443\u0447\u0438 orderId \u0438 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0437\u0434\u0435\u0441\u044C. \u0421\u0435\u0440\u0432\u0435\u0440 \u0441\u0442\u0430\u0432\u0438\u0442 principal/\u0432\u0440\u0435\u043C\u044F \u0438 \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043F\u043E\u0434\u0440\u043E\u0431\u043D\u044B\u0439 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439. \u041F\u0435\u0440\u0435\u0434 \u0437\u0430\u043F\u0438\u0441\u044C\u044E \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0439 revision \u0437\u0430\u0434\u0430\u0447\u0438.",
     inputSchema: {
       type: "object",
-      properties: { taskId: { type: "string", description: "ID \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438" } },
-      required: ["taskId"],
+      properties: {
+        preflight_order_id: {
+          type: "string",
+          description: "Order ID \u0438\u0437 fractal_preflight_update \u0434\u043B\u044F fieldKey (\u0422\u0420\u0415\u0411\u0423\u0415\u0422\u0421\u042F)"
+        },
+        taskId: { type: "string", description: "ID \u0437\u0430\u0434\u0430\u0447\u0438" },
+        fieldKey: {
+          enum: ["proof_of_done", "last_review", "next_action"],
+          description: "\u0417\u0430\u043A\u0440\u044B\u0442\u044B\u0439 \u043A\u043B\u044E\u0447 \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0433\u043E \u043F\u043E\u043B\u044F"
+        },
+        value: {
+          type: "object",
+          properties: {
+            selected: { type: "array", items: { type: "string" } },
+            text: { type: "string" },
+            reasoning: { type: "string" },
+            details: { type: "object", additionalProperties: true },
+            models: { type: "array", items: { type: "string" } }
+          },
+          required: ["selected", "text", "reasoning", "details", "models"],
+          additionalProperties: false
+        },
+        expectedRevision: {
+          type: "number",
+          minimum: 1,
+          description: "\u0422\u0435\u043A\u0443\u0449\u0438\u0439 revision \u0438\u0437 \u0441\u0432\u0435\u0436\u0435\u0433\u043E fractal_get_task"
+        }
+      },
+      required: ["preflight_order_id", "taskId", "fieldKey", "value", "expectedRevision"],
       additionalProperties: false
     }
   },
@@ -21828,17 +22520,18 @@ var TOOLS = [
   },
   {
     name: "fractal_move_task",
-    description: "\u041F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443: \u0441\u043C\u0435\u043D\u0438\u0442\u044C \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044F \u0438/\u0438\u043B\u0438 lane column_id. \u041F\u0440\u0438 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u0438\u0445 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044F\u0445 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 oldParentId. \u041D\u0443\u0436\u0435\u043D write.",
+    description: "\u041F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443: \u0441\u043C\u0435\u043D\u0438\u0442\u044C \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044F \u0438/\u0438\u043B\u0438 lane column_id. \u041E\u0411\u042F\u0417\u0410\u0422\u0415\u041B\u042C\u041D\u041E: \u0441\u043D\u0430\u0447\u0430\u043B\u0430 fractal_preflight_move \u0441 \u0446\u0435\u043B\u0435\u0432\u044B\u043C \u0441\u0442\u0430\u0442\u0443\u0441\u043E\u043C, \u043F\u043E\u043B\u0443\u0447\u0438 orderId \u0438 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 \u0435\u0433\u043E \u0437\u0434\u0435\u0441\u044C. \u041F\u0440\u0438 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u0438\u0445 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044F\u0445 \u043F\u0435\u0440\u0435\u0434\u0430\u0439 oldParentId. \u041D\u0443\u0436\u0435\u043D write.",
     inputSchema: {
       type: "object",
       properties: {
         planHash: PLAN_HASH_PROP,
+        preflight_order_id: { type: "string", description: "Order ID \u0438\u0437 fractal_preflight_move (\u0422\u0420\u0415\u0411\u0423\u0415\u0422\u0421\u042F)" },
         taskId: { type: "string", description: "ID \u0437\u0430\u0434\u0430\u0447\u0438" },
         newParentId: { type: "string", description: "\u041D\u043E\u0432\u044B\u0439 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044C (\u043E\u043F\u0446.)" },
         oldParentId: { type: "string", description: "\u0421\u0442\u0430\u0440\u044B\u0439 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044C \u0434\u043B\u044F DAG \u0441 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u0438\u043C\u0438 \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044F\u043C\u0438 (\u043E\u043F\u0446.)" },
         newLane: { type: "string", description: '\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u043B\u043E\u043D\u043A\u0430/lane, \u043D\u0430\u043F\u0440. "inprogress" (\u043E\u043F\u0446.)' }
       },
-      required: ["taskId"],
+      required: ["taskId", "preflight_order_id"],
       additionalProperties: false
     }
   },
@@ -21858,6 +22551,62 @@ var TOOLS = [
       required: ["taskId", "parentId"],
       additionalProperties: false
     }
+  },
+  {
+    name: "fractal_preflight_create",
+    description: "\u0412\u044B\u043F\u0443\u0441\u0442\u0438\u0442\u044C order ID \u043F\u0435\u0440\u0435\u0434 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u0435\u043C \u0437\u0430\u0434\u0430\u0447\u0438. \u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 instruction (\u0435\u0441\u043B\u0438 \u043D\u0430\u0439\u0434\u0435\u043D\u0430) \u0438 orderId \u0441 TTL. \u041F\u0435\u0440\u0435\u0434\u0430\u0439 orderId \u0432 fractal_create_task \u043A\u0430\u043A preflight_order_id. Instruction \u043C\u043E\u0436\u0435\u0442 \u0431\u044B\u0442\u044C \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442: instruction_missing=true, \u043D\u043E order \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u0432\u044B\u043F\u0443\u0441\u043A\u0430\u0435\u0442\u0441\u044F.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        parentId: {
+          type: "string",
+          description: "ID \u0431\u0443\u0434\u0443\u0449\u0435\u0433\u043E \u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044F \u2014 \u0438\u0437 \u043D\u0435\u0433\u043E \u0440\u0435\u0437\u043E\u043B\u0432\u0438\u0442\u0441\u044F \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F"
+        }
+      },
+      required: ["parentId"],
+      additionalProperties: false
+    },
+    annotations: { readOnlyHint: true }
+  },
+  {
+    name: "fractal_preflight_update",
+    description: "\u0412\u044B\u043F\u0443\u0441\u0442\u0438\u0442\u044C order ID \u043F\u0435\u0440\u0435\u0434 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435\u043C \u043F\u043E\u043B\u044F. \u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 instruction \u0434\u043B\u044F \u043F\u043E\u043B\u044F (\u0435\u0441\u043B\u0438 \u043D\u0430\u0439\u0434\u0435\u043D\u0430) \u0438 orderId \u0441 TTL. \u041F\u0435\u0440\u0435\u0434\u0430\u0439 orderId \u0432 fractal_update_task \u043A\u0430\u043A preflight_order_id. Instruction \u043C\u043E\u0436\u0435\u0442 \u0431\u044B\u0442\u044C \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442: instruction_missing=true, \u043D\u043E order \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u0432\u044B\u043F\u0443\u0441\u043A\u0430\u0435\u0442\u0441\u044F.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        fieldName: {
+          type: "string",
+          description: "\u0418\u043C\u044F \u043F\u043E\u043B\u044F \u0434\u043B\u044F \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F (\u043D\u0430\u043F\u0440. 'title', 'column_id')"
+        },
+        taskId: {
+          type: "string",
+          description: "ID \u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u043C\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438 \u2014 \u0438\u0437 \u043D\u0435\u0451 \u0440\u0435\u0437\u043E\u043B\u0432\u0438\u0442\u0441\u044F \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F \u043F\u043E\u043B\u044F"
+        }
+      },
+      required: ["fieldName", "taskId"],
+      additionalProperties: false
+    },
+    annotations: { readOnlyHint: true }
+  },
+  {
+    name: "fractal_preflight_move",
+    description: "\u0412\u044B\u043F\u0443\u0441\u0442\u0438\u0442\u044C order ID \u043F\u0435\u0440\u0435\u0434 \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u0435\u043C \u0437\u0430\u0434\u0430\u0447\u0438. \u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 instruction \u0434\u043B\u044F \u0441\u0442\u0430\u0442\u0443\u0441\u0430 (\u0435\u0441\u043B\u0438 \u043D\u0430\u0439\u0434\u0435\u043D\u0430) \u0438 orderId \u0441 TTL. \u041F\u0435\u0440\u0435\u0434\u0430\u0439 orderId \u0432 fractal_move_task \u043A\u0430\u043A preflight_order_id. Instruction \u043C\u043E\u0436\u0435\u0442 \u0431\u044B\u0442\u044C \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442: instruction_missing=true, \u043D\u043E order \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u0432\u044B\u043F\u0443\u0441\u043A\u0430\u0435\u0442\u0441\u044F.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        destinationStatus: {
+          type: "string",
+          description: "\u0426\u0435\u043B\u0435\u0432\u043E\u0439 \u0441\u0442\u0430\u0442\u0443\u0441/\u043A\u043E\u043B\u043E\u043D\u043A\u0430 (\u043D\u0430\u043F\u0440. 'done', 'blocked', 'inprogress')"
+        },
+        taskId: {
+          type: "string",
+          description: "ID \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0430\u0435\u043C\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438 \u2014 \u0438\u0437 \u043D\u0435\u0451 \u0440\u0435\u0437\u043E\u043B\u0432\u0438\u0442\u0441\u044F \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F \u0441\u0442\u0430\u0442\u0443\u0441\u0430"
+        }
+      },
+      required: ["destinationStatus", "taskId"],
+      additionalProperties: false
+    },
+    annotations: { readOnlyHint: true }
   },
   {
     name: "fractal_copy_subtree",
@@ -22044,6 +22793,7 @@ var TOOLS = [
     inputSchema: { type: "object", properties: {}, additionalProperties: false }
   }
 ];
+assertFieldWriteToolRegistry(TOOLS.map((tool) => tool.name));
 function loadedContextNodeCount() {
   return getContextReceipt().items.filter(
     (item) => item.state === "loaded" || item.state === "read"
@@ -22159,7 +22909,7 @@ function registrationProjection(task) {
   const title = String(task.title ?? id);
   const revision = extractTaskRevision(task);
   const raw = typeof task.content === "string" ? task.content : "";
-  const contentHash = createHash9("sha256").update(raw.normalize("NFC")).digest("hex");
+  const contentHash = createHash10("sha256").update(raw.normalize("NFC")).digest("hex");
   const out = {
     id,
     title,
@@ -22182,6 +22932,42 @@ function packMember(task, role, sourceTool) {
     repeat: previously ? true : void 0
   };
 }
+function guardBroadLoad(name, args) {
+  try {
+    assertBroadLoadJustified(name, args);
+  } catch (error2) {
+    recordRouterEvent("broad_load_reject", name, error2 instanceof Error ? error2.message : String(error2));
+    throw error2;
+  }
+  const ids = Array.isArray(args.taskIds) ? args.taskIds.length : void 0;
+  recordRouterEvent(
+    "broad_load_accept",
+    name,
+    [
+      ids !== void 0 ? `ids=${ids}` : void 0,
+      args.mode ? `mode=${String(args.mode)}` : void 0,
+      args.justification ? "justification=given" : void 0
+    ].filter(Boolean).join(", ") || void 0
+  );
+}
+var entryMandatoryRuleIds = [];
+function pendingMandatoryDeliveries(memberIds = entryMandatoryRuleIds) {
+  const items = getContextReceipt().items;
+  return memberIds.filter((id) => !items.some((item) => item.id === id && item.deliveryVerified === true));
+}
+function entryNextRequired(pendingIds, afterAck) {
+  if (pendingIds.length === 0) return { next_required: afterAck };
+  return {
+    next_required: `\u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u0434\u043E\u0441\u0442\u0430\u0432\u044C \u0442\u0435\u043B\u0430 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043A\u0430\u0440\u0442\u043E\u0447\u0435\u043A (${pendingIds.length} \u0448\u0442., \u0435\u0449\u0451 \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u044B): ` + pendingIds.map((id) => `fractal_get_task({taskId:"${id}"}) \u2192 fractal_ack_task_delivery({finalDeliveryToken})`).join("; ") + `; \u0437\u0430\u0442\u0435\u043C ${afterAck}. \u0411\u0435\u0437 ack fractal_plan_check \u0432\u0435\u0440\u043D\u0451\u0442 NO_RULES (rulesCount:0) \u0438 \u0437\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u0443\u0435\u0442 \u043B\u044E\u0431\u0443\u044E \u0437\u0430\u043F\u0438\u0441\u044C \u2014 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438 \u0432 load_context \u0434\u043B\u044F \u0433\u0435\u0439\u0442\u043E\u0432 \u043D\u0435\u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E.`,
+    next_calls: [
+      ...pendingIds.flatMap((id) => [
+        { tool: "fractal_get_task", args: { taskId: id }, why: "\u0442\u0435\u043B\u043E \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0439 \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0438 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430\u043C\u0438" },
+        { tool: "fractal_ack_task_delivery", args: { finalDeliveryToken: "<header.final_delivery_token \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B>" }, why: "\u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 (VDR)" }
+      ]),
+      { tool: afterAck.startsWith("fractal_") ? afterAck.split(/[\s(]/)[0] : "fractal_select_uc", args: {}, why: afterAck }
+    ]
+  };
+}
 async function buildEntryPack(client, kernel, base) {
   const ids = taskLinkIds(kernel.content, CANONICAL_ENTRY_TASK_ID);
   const fetched = await fetchTasksBatch(client, ids);
@@ -22196,6 +22982,13 @@ async function buildEntryPack(client, kernel, base) {
   for (const { id, task } of fetched) {
     if (!task) members.push({ id, error: "unresolved" });
   }
+  const mandatoryIds = mandatory.map(({ id }) => id);
+  entryMandatoryRuleIds = mandatoryIds;
+  recordRouterEvent(
+    "load_context",
+    "fractal_load_context",
+    `entry pack: ${members.length} \u043D\u043E\u0434, \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0430\u0432\u0438\u043B ${mandatoryIds.length}` + (dropped.length ? `, \u0441\u0440\u0435\u0437\u0430\u043D\u043E ${dropped.length}` : "")
+  );
   return {
     ...base,
     pack: {
@@ -22203,7 +22996,13 @@ async function buildEntryPack(client, kernel, base) {
       members,
       ...dropped.length ? { truncated: true, dropped, rule_limit: ENTRY_PACK_RULE_LIMIT } : {}
     },
-    _harness: { stage: "entry_loaded", next_required: "\u0432\u044B\u0431\u0435\u0440\u0438 \u043E\u0434\u0438\u043D UC \u0438\u0437 Use Cases \u0438 \u0437\u0430\u0433\u0440\u0443\u0437\u0438 \u0435\u0433\u043E bundle" }
+    _harness: {
+      stage: "entry_loaded",
+      ...entryNextRequired(
+        pendingMandatoryDeliveries(mandatoryIds),
+        "fractal_select_uc({ucId}) \u2014 \u0432\u044B\u0431\u0435\u0440\u0438 \u043E\u0434\u0438\u043D UC \u0438\u0437 \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0438 Use Cases"
+      )
+    }
   };
 }
 async function buildUcPack(client, ucId) {
@@ -22262,11 +23061,24 @@ async function buildUcPack(client, ucId) {
     };
   }
   markUcSelected(normalizedUcId);
+  recordRouterEvent("select_uc", "fractal_select_uc", `UC ${normalizedUcId}, bundle ${members.length - 1} \u043D\u043E\u0434`);
   return {
     pack: { kind: "uc", members },
     entry_receipt: entryReceipt,
-    _harness: { stage: "uc_selected", active_uc: normalizedUcId, next_required: "\u0440\u0430\u0431\u043E\u0442\u0430\u0439 \u043F\u043E bundle \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E UC; \u0444\u0438\u043D\u0430\u043B \u0447\u0435\u0440\u0435\u0437 SK-13/FR-15" }
+    _harness: {
+      stage: "uc_selected",
+      active_uc: normalizedUcId,
+      ...entryNextRequired(
+        pendingMandatoryDeliveries(),
+        "fractal_plan_check({plan}) \u0434\u043E \u043F\u0435\u0440\u0432\u043E\u0439 \u043C\u0443\u0442\u0430\u0446\u0438\u0438; \u0440\u0430\u0431\u043E\u0442\u0430\u0439 \u043F\u043E bundle \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E UC, \u0444\u0438\u043D\u0430\u043B \u0447\u0435\u0440\u0435\u0437 SK-13/FR-15"
+      )
+    }
   };
+}
+function requirePreflightScopeId(tool, param, value) {
+  const id = typeof value === "string" ? value.trim() : "";
+  if (!id) throw new Error(`PREPARE_REQUIRED: ${tool} requires ${param}`);
+  return id;
 }
 async function judgeTaskText(client, taskId) {
   if (!taskId) return "";
@@ -22280,12 +23092,40 @@ ${String(task.content ?? "")}`;
     return "";
   }
 }
+async function recordLastReview(client, taskId, kind, judged, now = (/* @__PURE__ */ new Date()).toISOString()) {
+  if (!taskId) return;
+  try {
+    const review = lastReviewFromJudgement(kind, judged, now);
+    const task = taskFromResult(await client.getTask(taskId));
+    const revision = Number(task?.revision);
+    if (!Number.isSafeInteger(revision) || revision < 1) return;
+    await client.setTaskStructuredField(taskId, "last_review", {
+      selected: [review.verdict],
+      text: review.text,
+      reasoning: judged.reasons.join("; ") || "no objections",
+      models: review.vendors,
+      details: {
+        source: "judge_gate",
+        kind,
+        vendors: review.vendors,
+        note: judged.note ?? null,
+        criteria: judged.promptCardIds ?? []
+      }
+    }, revision);
+  } catch (err) {
+    console.error(`[fractal] last-review not recorded: ${err instanceof Error ? err.message : String(err)}`);
+  }
+}
 function runTool(client, name, args, sessionRuntime) {
   switch (name) {
     case "fractal_context_hud":
       return Promise.resolve({
         entry_receipt: getEntryReceiptStatus(),
         break_glass: getBreakGlassEvents(20),
+        // TFAC-1: маршрутизация UC-роутера наблюдаема здесь — что загружено,
+        // какой UC выбран, какие broad-load приняты и какие отклонены и почему.
+        router_events: getRouterEvents(20),
+        pending_mandatory_deliveries: pendingMandatoryDeliveries(),
         receipt_dir: describeReceiptLocation(),
         // Why a model-backed gate is silent is otherwise invisible: a missing
         // router key and an off flag look identical from the outside. Booleans
@@ -22313,7 +23153,7 @@ function runTool(client, name, args, sessionRuntime) {
         missingFields: checkSk13Grammar(String(args.report ?? "")).missing
       }));
     case "fractal_load_context":
-      assertBroadLoadJustified(name, args);
+      guardBroadLoad(name, args);
       const rawTaskIds = Array.isArray(args.taskIds) && args.taskIds.length > 0 ? args.taskIds : void 0;
       const requestedIds = rawTaskIds ?? (args.factoryId === CANONICAL_FACTORY_ID ? [CANONICAL_ENTRY_TASK_ID] : []);
       const canonicalOnlyIds = rawTaskIds !== void 0 && rawTaskIds.every((id) => String(id) === CANONICAL_ENTRY_TASK_ID) && (args.factoryId === void 0 || args.factoryId === CANONICAL_FACTORY_ID);
@@ -22354,7 +23194,7 @@ function runTool(client, name, args, sessionRuntime) {
     case "fractal_list_organizations":
       return client.listOrganizations();
     case "fractal_get_subtree":
-      assertBroadLoadJustified(name, args);
+      guardBroadLoad(name, args);
       return client.getSubtree({
         taskId: args.taskId,
         depth: args.depth,
@@ -22493,6 +23333,27 @@ function runTool(client, name, args, sessionRuntime) {
       });
     case "fractal_issue_card":
       return buildIssueCardSnapshot(client, String(args.taskId));
+    case "fractal_task_write_type":
+      return client.preflightTaskType(String(args.taskId), { task_type: String(args.task_type) });
+    case "fractal_task_write_type_approve": {
+      const approvalPayload = args.approval_payload;
+      return planGateTail(
+        { tool: name, taskId: approvalPayload?.task_id, planHash: args.planHash },
+        () => client.approveTaskType(approvalPayload)
+      );
+    }
+    case "fractal_task_write_bug_provenance":
+      return client.preflightTaskBugProvenance(
+        String(args.taskId),
+        args.bug_provenance
+      );
+    case "fractal_task_write_bug_provenance_approve": {
+      const approvalPayload = args.approval_payload;
+      return planGateTail(
+        { tool: name, taskId: approvalPayload?.task_id, planHash: args.planHash },
+        () => client.approveTaskBugProvenance(approvalPayload)
+      );
+    }
     case "fractal_get_review_export":
       return client.getReviewExport(String(args.taskId));
     case "fractal_add_comment":
@@ -22512,7 +23373,7 @@ function runTool(client, name, args, sessionRuntime) {
         cursor: args.cursor
       }).then(projectSearchDiscovery);
     case "fractal_list_tasks":
-      assertBroadLoadJustified(name, args);
+      guardBroadLoad(name, args);
       return client.listTasks({
         cursor: args.cursor,
         pageSize: args.page_size
@@ -22521,8 +23382,16 @@ function runTool(client, name, args, sessionRuntime) {
       const {
         parentId,
         expectedParentRevision,
+        preflight_order_id,
         ...task
       } = args;
+      if (!preflight_order_id) {
+        throw new Error("PREPARE_REQUIRED: fractal_create_task requires preflight_order_id \u2014 call fractal_preflight_create first");
+      }
+      const validation = validateCreateOrder(String(preflight_order_id));
+      if (!validation.valid) {
+        throw new Error(validation.reason);
+      }
       if (isBlockedColumn(task.column_id)) assertBlockedStatusAllowed(name);
       if (
         // Mirror fractal_update_task: the schema declares integer/minimum:1, so
@@ -22539,7 +23408,21 @@ function runTool(client, name, args, sessionRuntime) {
       }));
     }
     case "fractal_update_task": {
+      const preflight_order_id = args.preflight_order_id;
+      if (!preflight_order_id) {
+        throw new Error("PREPARE_REQUIRED: fractal_update_task requires preflight_order_id \u2014 call fractal_preflight_update first");
+      }
       const updates = args.updates ?? {};
+      const updateFields = Object.keys(updates);
+      if (updateFields.length !== 1) {
+        throw new Error(
+          `fractal_update_task: updates must contain exactly one field, got ${updateFields.length}. Each patch operation updates a single field only.`
+        );
+      }
+      const validation = validateUpdateOrder(String(preflight_order_id), updateFields[0]);
+      if (!validation.valid) {
+        throw new Error(validation.reason);
+      }
       if (isBlockedColumn(updates.column_id)) assertBlockedStatusAllowed(name);
       if (typeof args.expectedRevision !== "number" || !Number.isSafeInteger(args.expectedRevision) || args.expectedRevision < 1) {
         throw new Error(
@@ -22590,8 +23473,25 @@ function runTool(client, name, args, sessionRuntime) {
         return result;
       });
     }
-    case "fractal_mark_task_reviewed":
-      return planGateTail({ tool: name, taskId: String(args.taskId) }, () => client.markTaskReviewed(String(args.taskId)));
+    case "fractal_set_task_structured_field": {
+      const preflightOrderId = args.preflight_order_id;
+      if (!preflightOrderId) {
+        throw new Error(
+          "PREPARE_REQUIRED: fractal_set_task_structured_field requires preflight_order_id \u2014 call fractal_preflight_update first"
+        );
+      }
+      const fieldKey = String(args.fieldKey);
+      const validation = validateUpdateOrder(preflightOrderId, fieldKey);
+      if (!validation.valid) {
+        throw new Error(validation.reason);
+      }
+      return planGateTail({ tool: name, taskId: String(args.taskId) }, () => client.setTaskStructuredField(
+        String(args.taskId),
+        fieldKey,
+        args.value,
+        Number(args.expectedRevision)
+      ));
+    }
     case "fractal_add_dependency":
       return planGateTail(
         {
@@ -22605,7 +23505,18 @@ function runTool(client, name, args, sessionRuntime) {
           Boolean(args.remove)
         )
       );
-    case "fractal_move_task":
+    case "fractal_move_task": {
+      const preflight_order_id = args.preflight_order_id;
+      if (!preflight_order_id) {
+        throw new Error("PREPARE_REQUIRED: fractal_move_task requires preflight_order_id \u2014 call fractal_preflight_move first");
+      }
+      const moveValidation = validateMoveOrder(
+        String(preflight_order_id),
+        args.newLane === void 0 ? void 0 : String(args.newLane)
+      );
+      if (!moveValidation.valid) {
+        throw new Error(moveValidation.reason);
+      }
       if (isBlockedColumn(args.newLane)) assertBlockedStatusAllowed(name);
       return planGateTail(
         {
@@ -22620,6 +23531,7 @@ function runTool(client, name, args, sessionRuntime) {
           newLane: args.newLane
         })
       );
+    }
     case "fractal_remove_parent":
       return planGateTail(
         {
@@ -22653,6 +23565,28 @@ function runTool(client, name, args, sessionRuntime) {
         },
         () => client.deleteTask(String(args.taskId))
       );
+    case "fractal_preflight_create": {
+      const parentId = requirePreflightScopeId(name, "parentId", args.parentId);
+      return resolveInstruction(client, parentId, "lock").then(
+        (instruction) => issueCreateOrder(instruction)
+      );
+    }
+    case "fractal_preflight_update": {
+      const fieldName = String(args.fieldName ?? "");
+      return resolveInstruction(
+        client,
+        requirePreflightScopeId(name, "taskId", args.taskId),
+        fieldKeyForField(fieldName)
+      ).then((instruction) => issueUpdateOrder(fieldName, instruction));
+    }
+    case "fractal_preflight_move": {
+      const destinationStatus = String(args.destinationStatus ?? "");
+      return resolveInstruction(
+        client,
+        requirePreflightScopeId(name, "taskId", args.taskId),
+        fieldKeyForStatus(destinationStatus)
+      ).then((instruction) => issueMoveOrder(destinationStatus, instruction));
+    }
     case "fractal_session_event": {
       if (!sessionRuntime) throw new Error("Session telemetry runtime unavailable");
       const gated = applySessionEventGates(
@@ -22669,12 +23603,13 @@ function runTool(client, name, args, sessionRuntime) {
         }
         if (gated.event === "close") await assertReportAccepted(gated.result ?? "");
         if (judgeKind) {
-          await assertDeliveryJudged(judgeKind, {
+          const judged = await assertDeliveryJudged(judgeKind, {
             taskText: await judgeTaskText(client, gated.taskId),
             result: gated.result ?? "",
             headSha: args.headSha ?? sessionRuntime.identity?.headSha ?? void 0,
             prUrl: args.prUrl
           });
+          if (judged) await recordLastReview(client, gated.taskId, judgeKind, judged);
         }
         return sessionRuntime.emit(client, gated);
       })();
@@ -22833,7 +23768,7 @@ function login(appUrl = process.env.FRACTAL_APP_URL || DEFAULT_APP_URL) {
 }
 
 // src/bundle.ts
-import { createHash as createHash10 } from "node:crypto";
+import { createHash as createHash11 } from "node:crypto";
 import { mkdirSync as mkdirSync6, writeFileSync as writeFileSync6 } from "node:fs";
 import { join as join6 } from "node:path";
 var POINTER_ENV = "FRACTAL_BUNDLE_MANIFEST_ID";
@@ -22897,7 +23832,7 @@ function parseManifest(json) {
   }
   return m;
 }
-var sha256Hex2 = (s) => createHash10("sha256").update(Buffer.from(s, "utf8")).digest("hex");
+var sha256Hex2 = (s) => createHash11("sha256").update(Buffer.from(s, "utf8")).digest("hex");
 function canonicalize2(algorithm, value) {
   if (algorithm === "initialize-v1") {
     if (typeof value !== "string")
@@ -23207,7 +24142,14 @@ var TOOL_VERB_MAP = [
   { tool: "fractal_search", selector: null, verb: "read" },
   { tool: "fractal_list_tasks", selector: null, verb: "read" },
   { tool: "fractal_issue_card", selector: null, verb: "read" },
+  { tool: "fractal_task_write_type", selector: null, verb: "preflight" },
+  { tool: "fractal_task_write_type_approve", selector: null, verb: "approve" },
+  { tool: "fractal_task_write_bug_provenance", selector: null, verb: "preflight" },
+  { tool: "fractal_task_write_bug_provenance_approve", selector: null, verb: "approve" },
   { tool: "fractal_add_comment", selector: null, verb: "comment" },
+  { tool: "fractal_preflight_create", selector: null, verb: "read" },
+  { tool: "fractal_preflight_update", selector: null, verb: "read" },
+  { tool: "fractal_preflight_move", selector: null, verb: "read" },
   { tool: "fractal_create_task", selector: null, verb: "create_child" },
   {
     tool: "fractal_update_task",
@@ -23253,7 +24195,7 @@ var TOOL_VERB_MAP = [
     selector: { property: "action", value: "release" },
     verb: "lease_release"
   },
-  { tool: "fractal_mark_task_reviewed", selector: null, verb: "mark_reviewed" }
+  { tool: "fractal_set_task_structured_field", selector: null, verb: "set_structured_field" }
 ];
 var MANAGED_META_TOOL_NAMES = /* @__PURE__ */ new Set([
   "fractal_plan_check",
