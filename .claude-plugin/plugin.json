@@ -1,6 +1,6 @@
 ﻿{
   "name": "fractal",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Fractal tasks for your agent вЂ” create, read, update and complete tasks on tasks.bos.pro via MCP",
   "author": { "name": "BOS" },
   "mcpServers": {

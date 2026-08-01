@@ -15711,6 +15711,16 @@ var FractalClient = class _FractalClient {
   desktopClaimPromise;
   requestBudgetMs;
   functionsBaseUrl;
+  // A managed runtime's corridor identity is host-injected (index.ts, from
+  // FRACTAL_WORKFLOW_REF/FRACTAL_CLAIM_GENERATION/FRACTAL_EXPECTED_FENCE) and
+  // is either fully set or, on malformed/absent config, deliberately left
+  // empty (fail closed — see index.ts Sol r4/r5 notes). taskLease()'s direct
+  // self-priming below must never treat that empty state as "no host, please
+  // self-claim": that would fabricate a corridor claim under a synthesized
+  // `desktop:${sessionId}` workflowRef precisely when the real managed claim
+  // config was broken, defeating the "no context" guarantee those fixes exist
+  // to provide. Self-priming is a desktop-CLI-only behaviour.
+  managed;
   constructor(opts) {
     if (!opts.token) throw new Error("FRACTAL_WIDGET_TOKEN is required");
     this.token = opts.token;
@@ -15718,6 +15728,7 @@ var FractalClient = class _FractalClient {
     this.functionsBaseUrl = this.baseUrl;
     this.fetchImpl = opts.fetchImpl || fetch;
     this.requestBudgetMs = typeof opts.requestBudgetMs === "number" && Number.isFinite(opts.requestBudgetMs) && opts.requestBudgetMs > 0 ? opts.requestBudgetMs : DEFAULT_REQUEST_BUDGET_MS;
+    this.managed = opts.managed === true;
   }
   /**
    * Координационная сессия, выданная сервером этому рантайму. Ставится
@@ -16145,7 +16156,7 @@ var FractalClient = class _FractalClient {
     );
   }
   async taskLease(taskId, action, ttlMinutes) {
-    if ((action === "acquire" || action === "renew") && !this.corridorContext && !this.preClaimCorridorContext) {
+    if (!this.managed && (action === "acquire" || action === "renew") && !this.corridorContext && !this.preClaimCorridorContext) {
       await this.ensureDesktopCorridorClaim(true);
     }
     const boardAction = action === "status" ? "lock_status" : action === "release" ? "lock_release" : "lock_acquire";
@@ -24249,7 +24260,8 @@ async function serve() {
   const clientFor = (token) => {
     const client = new FractalClient({
       token,
-      baseUrl: process.env.FRACTAL_FUNCTIONS_URL
+      baseUrl: process.env.FRACTAL_FUNCTIONS_URL,
+      managed: managedAuth
     });
     if (managedAuth) {
       const sessionId = process.env.FRACTAL_SESSION_ID?.trim() ?? "";
